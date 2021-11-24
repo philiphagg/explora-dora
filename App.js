@@ -12,19 +12,7 @@ import Tutorial from "./Views/Tutorial";
 export default function App() {
     return (
         <View style={styles.container}>
-            <Text>Start your exploring adventure or here</Text>
-            <Button
-                title="Sign in"
-                onPress={() => Alert.alert('Här ska du minsann få logga in')}
-            />
-
-            <Collection />
-            <Discover />
-            <Feed />
-            <Highscores />
-            <Login />
             <Menu />
-            <Tutorial />
 
             <StatusBar style="auto"/>
         </View>
@@ -39,3 +27,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+
+
+/*
+            <Text>Start your exploring adventure or here</Text>
+            <Button
+                title="Sign in"
+                onPress={() => Alert.alert('Här ska du minsann få logga in')}
+            />
+
+            <Collection />
+            <Discover />
+            <Feed />
+            <Highscores />
+            <Login />
+            <Menu />
+            <Tutorial />
+*/

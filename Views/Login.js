@@ -1,20 +1,22 @@
 import React from 'react';
-import {Alert, StyleSheet, Text, View, Button} from 'react-native';
+import {Alert, StyleSheet, Text, View, Button, } from 'react-native';
 
 function Login(){
+const text ='Login with apple';
     return(
         <View>
-            <Text> Login </Text>
+            <Text> Welcome please sign in to Explore </Text>
             {
                 <View>
-                    <Button
-                        title="Sign in here"
-                        onPress={() => Alert.alert('Här ska du minsann få logga in')}
-                    />
+                    <Text>Här ska det vara en knapp för google</Text>
+                    <Text>Här ska det vara en knapp för apple</Text>
                 </View>
             }
 
         </View>
     )
 }
+
+
+
 export default Login;
