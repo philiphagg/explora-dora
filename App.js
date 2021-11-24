@@ -1,11 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View, Button } from 'react-native';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Project group 9</Text>
+      <Text>Start your exploring adventure here</Text>
+      <Button
+        title="Sign in"
+        onPress={() => Alert.alert('Här ska du minsann få logga in')}
+
+      />
       <StatusBar style="auto" />
     </View>
   );
