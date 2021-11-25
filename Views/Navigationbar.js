@@ -53,8 +53,8 @@ function Navigationbar(){
                                 // You can return any component that you like here!
                                 return <Ionicons name={iconName} size={size} color={color} />;
                                 },
-                                tabBarActiveTintColor: 'tomato',
-                                tabBarInactiveTintColor: 'black',
+                                tabBarActiveTintColor: '#4E9F3D',
+                                tabBarInactiveTintColor: '#D8E9A8',
                             })}
                     >
                         <Tab.Screen name="Map" component={MapPresenterFile} options={{tabBarBadge: 3 }}/>
