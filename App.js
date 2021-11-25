@@ -30,18 +30,3 @@ const styles = StyleSheet.create({
 });
 
 
-/*
-            <Text>Start your exploring adventure or here</Text>
-            <Button
-                title="Sign in"
-                onPress={() => Alert.alert('Här ska du minsann få logga in')}
-            />
-
-            <Collection />
-            <Discover />
-            <Feed />
-            <Highscores />
-            <Login />
-            <Menu />
-            <Tutorial />
-*/

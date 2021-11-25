@@ -4,7 +4,7 @@ import {Alert, StyleSheet, Text, View, Button, } from 'react-native';
 function Login(){
 const text ='Login with apple';
     return(
-        <View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text> Welcome please sign in to Explore </Text>
             {
                 <View>

@@ -3,7 +3,7 @@ import {Alert, StyleSheet, Text, View, Button} from 'react-native';
 
 function Collection(){
     return(
-        <View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text> Collection </Text>
             {
                 <View>
