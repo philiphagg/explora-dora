@@ -2,7 +2,7 @@ import {StatusBar} from 'expo-status-bar';
 import React, {useState} from 'react';
 import {Provider, useDispatch, useSelector} from 'react-redux';
 import store from './Redux/Store';
-import {StyleSheet, Text, View, Button, Alert, Image, SafeAreaView, Platform, StatusBar,} from 'react-native';
+import {StyleSheet, Text, View, Button, Alert, Image, SafeAreaView, Platform} from 'react-native';
 
 import Collection from "./Views/Collection";
 import Discover from "./Views/Discover";
@@ -14,7 +14,7 @@ import Tutorial from "./Views/Tutorial";
 import Profile from "./Views/Profile";
 import AddPost from "./Views/AddPost"
 import Navigationbar from "./Views/Navigationbar";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+//import Ionicons from 'react-native-vector-icons/Ionicons';
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
