@@ -8,14 +8,15 @@ import Highscores from "./Views/Highscores";
 import Menu from "./Views/Menu";
 import Login from "./Views/Login";
 import Tutorial from "./Views/Tutorial";
+import Navigationbar from "./Views/Navigationbar";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
     return (
-        <View style={styles.container}>
-            <Menu />
-
-            <StatusBar style="auto"/>
-        </View>
+        <NavigationContainer>
+            <Navigationbar />
+        </NavigationContainer>
     );
 }
 
