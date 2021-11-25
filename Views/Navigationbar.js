@@ -8,6 +8,14 @@ import Feed from "./Feed";
 import Progress from "./Progress";
 import Profile from "./Profile";
 import Collection from "./Collection";
+import store from "../Redux/Store";
+import {useSelector} from "react-redux";
+
+//import {useSelector} from "react-redux";
+//const theme = useSelector((state) => state.theme.value.settings);
+
+//const theme = useSelector((state) => state.theme.settings);
+//theme={store.getState().theme.settings}
 
 function HomeScreen() {
   return (
@@ -26,7 +34,6 @@ function SettingsScreen() {
 }
 
 const Tab = createBottomTabNavigator();
-
 function Navigationbar(){
       return (
 

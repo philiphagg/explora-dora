@@ -5,7 +5,7 @@ import {toggleTheme} from "../Redux/redusers/theme";
 
 
 function Profile() {
-    const styles = useSelector((state) => state.theme.value);
+    const styles = useSelector((state) => state.theme.value.style);
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.value);
 

@@ -1,9 +1,9 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {Button, Text, View,Image,Alert, StyleSheet} from "react-native";
+import {Button, Text, View,Image,Alert} from "react-native";
 
 function Feed() {
-    const styles = useSelector((state) => state.theme.value);
+    const styles = useSelector((state) => state.theme.value.style);
     const posts = useSelector((state) => state.posts.value);
 
     return (
