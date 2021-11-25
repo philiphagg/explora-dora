@@ -4,6 +4,10 @@ export default StyleSheet.create({
     theme: {
         flex: 1337, //Light mode secret code for comparason
     },
+    h3:{
+        color: '#fff',
+        fontSize: 16,
+    },
     container: {
         flex: 1,
         backgroundColor: '#fff',

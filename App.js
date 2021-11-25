@@ -15,13 +15,15 @@ import Profile from "./Views/Profile";
 import AddPost from "./Views/AddPost"
 import Navigationbar from "./Views/Navigationbar";
 //import Ionicons from 'react-native-vector-icons/Ionicons';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 
 export default function App() {
     return (
-        <NavigationContainer theme={MyTheme}>
-            <Navigationbar />
-        </NavigationContainer>
+        <Provider store={store}>
+            <NavigationContainer theme={MyTheme}>
+                <Navigationbar/>
+            </NavigationContainer>
+        </Provider>
     );
 }
 

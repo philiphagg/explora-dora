@@ -13,10 +13,9 @@ function Profile() {
 
     return (
         <View style={styles.view}>
-            <Text> Profile Page</Text>
-            <Text> Name: {user.name} </Text>
-            <Text> Age: {user.age}</Text>
-            <Text> Email: {user.email}</Text>
+            <Text style={styles.h3}> Name: {user.name} </Text>
+            <Text style={styles.h3}> Age: {user.age}</Text>
+            <Text style={styles.h3}> Email: {user.email}</Text>
             <Button
                 title="Theme"
                 onPress={() => dispatch(toggleTheme())}
