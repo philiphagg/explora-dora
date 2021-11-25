@@ -7,10 +7,7 @@ function Highscores(){
             <Text> Highscores </Text>
             {
                 <View>
-                    <Button
-                        title="Sign in here"
-                        onPress={() => Alert.alert('Här ska du minsann få logga in')}
-                    />
+                    <Text>Here is a list of high scores</Text>
                 </View>
             }
 

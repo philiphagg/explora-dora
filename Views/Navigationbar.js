@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Highscores from "./Highscores";
+import MapPresenterFile from "./MapPresenterFile";
 
 function HomeScreen() {
   return (
@@ -24,7 +25,7 @@ const Tab = createBottomTabNavigator();
 
 function Navigationbar(){
       return (
-                
+
                     <Tab.Navigator
                             screenOptions={({ route }) => ({
                                 tabBarIcon: ({ focused, color, size }) => {
@@ -52,15 +53,15 @@ function Navigationbar(){
                                 tabBarInactiveTintColor: 'gray',
                             })}
                     >
-                        <Tab.Screen name="Map" component={HomeScreen} options={{tabBarBadge: 3 }}/>
+                        <Tab.Screen name="Map" component={MapPresenterFile} options={{tabBarBadge: 3 }}/>
                         <Tab.Screen name="Progress" component={SettingsScreen} />
                         <Tab.Screen name="Feed" component={HomeScreen} options={{tabBarBadge: 5 }}/>
-                        <Tab.Screen name="High Score" component={HomeScreen} />
+                        <Tab.Screen name="High Score" component={Highscores} />
                         <Tab.Screen name="Power Ups" component={SettingsScreen} />
                         <Tab.Screen name="Collectibles" component={HomeScreen} />
-                        
+
                     </Tab.Navigator>
-                
+
   );
 }
 
