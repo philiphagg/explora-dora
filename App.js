@@ -14,7 +14,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={MyTheme}>
             <Navigationbar />
         </NavigationContainer>
     );
@@ -30,18 +30,14 @@ const styles = StyleSheet.create({
 });
 
 
-/*
-            <Text>Start your exploring adventure or here</Text>
-            <Button
-                title="Sign in"
-                onPress={() => Alert.alert('Här ska du minsann få logga in')}
-            />
-
-            <Collection />
-            <Discover />
-            <Feed />
-            <Highscores />
-            <Login />
-            <Menu />
-            <Tutorial />
-*/
+const MyTheme = {
+    dark: false,
+    colors: {
+        primary: 'rgb(255, 45, 85)',
+        background: 'rgb(25, 26, 25)',
+        card: 'rgb(25, 26, 25)',
+        text: 'rgb(78, 159, 61)',
+        border: 'rgb(25, 26, 25)',
+        notification: 'rgb(255, 69, 58)',
+    },
+};

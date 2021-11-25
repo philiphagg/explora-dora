@@ -9,7 +9,7 @@ function MapPresenterFile() {
 
     React.useEffect(() => {
         (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
+            let {status} = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setErrorMsg('Permission to access location was denied');
                 return;
@@ -19,16 +19,15 @@ function MapPresenterFile() {
             setLocation(location);
         })();
     }, []);
-    let text = 'Waiting..';
-    if (errorMsg) {
-        text = errorMsg;
-    } else if (location) {
-        text = JSON.stringify(location);
-    }
-    console.log(text)
+
+    React.useEffect(() => {
+        console.log(location)
+    }, [location]);
+
     return (
         <SafeAreaView style={styles.container}>
-            <MapView provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}/>
+            <MapView followsUserLocation={true} showsMyLocationButton={true} showsUserLocation={true}
+                     provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}/>
         </SafeAreaView>
     );
 }

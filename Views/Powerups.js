@@ -1,11 +1,12 @@
 import React from 'react';
 import {Alert, StyleSheet, Text, View, Button} from 'react-native';
 
-function Collection(){
+function Powerups(){
     return(
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Collection </Text>
+            <Text> Här är en feed över alla upplåsta vänners moduler </Text>
+
         </View>
     )
 }
-export default Collection;
+export default Powerups;

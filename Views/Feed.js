@@ -3,16 +3,8 @@ import {Alert, StyleSheet, Text, View, Button} from 'react-native';
 
 function Feed(){
     return(
-        <View>
-            <Text> Feed </Text>
-            {
-                <View>
-                    <Button
-                        title="Sign in here"
-                        onPress={() => Alert.alert('Här ska du minsann få logga in')}
-                    />
-                </View>
-            }
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text> Här är en feed över alla upplåsta vänners moduler </Text>
 
         </View>
     )

@@ -3,8 +3,7 @@ import {Alert, StyleSheet, Text, View, Button} from 'react-native';
 
 function Highscores(){
     return(
-        <View>
-            <Text> Highscores </Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             {
                 <View>
                     <Text>Here is a list of high scores</Text>

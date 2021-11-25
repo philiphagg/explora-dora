@@ -4,6 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Highscores from "./Highscores";
 import MapPresenterFile from "./MapPresenterFile";
+import Feed from "./Feed";
+import Progress from "./Progress";
+import Powerups from "./Powerups";
+import Collection from "./Collection";
 
 function HomeScreen() {
   return (
@@ -49,16 +53,16 @@ function Navigationbar(){
                                 // You can return any component that you like here!
                                 return <Ionicons name={iconName} size={size} color={color} />;
                                 },
-                                tabBarActiveTintColor: 'tomato',
-                                tabBarInactiveTintColor: 'gray',
+                                tabBarActiveTintColor: '#4E9F3D',
+                                tabBarInactiveTintColor: '#D8E9A8',
                             })}
                     >
                         <Tab.Screen name="Map" component={MapPresenterFile} options={{tabBarBadge: 3 }}/>
-                        <Tab.Screen name="Progress" component={SettingsScreen} />
-                        <Tab.Screen name="Feed" component={HomeScreen} options={{tabBarBadge: 5 }}/>
+                        <Tab.Screen name="Progress" component={Progress} />
+                        <Tab.Screen name="Feed" component={Feed} options={{tabBarBadge: 5 }}/>
                         <Tab.Screen name="High Score" component={Highscores} />
-                        <Tab.Screen name="Power Ups" component={SettingsScreen} />
-                        <Tab.Screen name="Collectibles" component={HomeScreen} />
+                        <Tab.Screen name="Power Ups" component={Powerups} />
+                        <Tab.Screen name="Collectibles" component={Collection} />
 
                     </Tab.Navigator>
 
