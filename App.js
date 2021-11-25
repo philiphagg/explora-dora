@@ -1,6 +1,9 @@
 import {StatusBar} from 'expo-status-bar';
-import React from 'react';
-import {Alert, StyleSheet, Text, View, Button} from 'react-native';
+import React, {useState} from 'react';
+import {Provider, useDispatch, useSelector} from 'react-redux';
+import store from './Redux/Store';
+import {StyleSheet, Text, View, Button, Alert, Image, SafeAreaView, Platform, StatusBar,} from 'react-native';
+
 import Collection from "./Views/Collection";
 import Discover from "./Views/Discover";
 import Feed from "./Views/Feed";
@@ -8,6 +11,8 @@ import Highscores from "./Views/Highscores";
 import Menu from "./Views/Menu";
 import Login from "./Views/Login";
 import Tutorial from "./Views/Tutorial";
+import Profile from "./Views/Profile";
+import AddPost from "./Views/AddPost"
 import Navigationbar from "./Views/Navigationbar";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { NavigationContainer } from '@react-navigation/native';
@@ -27,6 +32,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    AndroidSafeArea: {
+        flex: 1,
+        backgroundColor: "white",
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+    }
 });
 
 
