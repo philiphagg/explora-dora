@@ -16,7 +16,7 @@ export default function App() {
 
 //Needed to have theme saved with use selector
 function AppWrapper(){
-    const theme = useSelector((state) => state.theme.value.settings);
+    const theme = useSelector((state) => state.theme.value.theme);
     return (
         <NavigationContainer theme={theme}>
             <Navigationbar/>

@@ -1,73 +1,49 @@
 import React from "react";
-import {useSelector} from "react-redux";
-import {Button, Text, View,Image,Alert} from "react-native";
+import {useDispatch, useSelector} from "react-redux";
+import {Button, Text, View, Image, Alert, ScrollView} from "react-native";
+import {likePost, unlikePost} from "../Redux/redusers/posts";
+
 
 function Feed() {
     const styles = useSelector((state) => state.theme.value.style);
     const posts = useSelector((state) => state.posts.value);
+    const user = useSelector((state) => state.user.value);
+    const dispatch = useDispatch();
 
     return (
-        <View style={styles.view}>
-            {
-                posts.map(post =>
-                    <View style={styles.post} key={post.id}>
-                        <View style={styles.padding10}>
-                            <Text>{post.title}</Text>
-                        </View>
-                        <Image source={{uri: post.image}}
-                               style={styles.postImage}/>
-                        <View style={styles.padding10}>
-                            <View style={{display: "flex"}}>
-                                <Text style={styles.like}>{post.likes.length} Likes</Text>
+        <ScrollView>
+            <View>
+                {
+                    posts.map(post =>
+                        <View style={[styles.divider]} key={post.id}>
+                            <View style={styles.row}>
+                                <Text style={styles.h2}>{post.title}</Text>
+                            </View>
+                            <Image source={{uri: post.image}}
+                                   style={styles.postImage}/>
+                            <View style={styles.row}>
+                                <Text style={styles.h2}>{post.likes.length} ❤ </Text>
                                 <Button
                                     title="Like"
-                                    onPress={() => Alert.alert('Liked')}
+                                    onPress={() => dispatch(likePost({postId: post.id, userId: user.id})) }
                                 />
+
+                            </View>
+                            <View style={styles.padding10}>
+                                <Text style={styles.h4}>{post.caption} </Text>
                             </View>
                         </View>
-                        <View style={styles.padding10}>
-                            <Text style={styles.likes}>{post.caption} </Text>
-                        </View>
-                    </View>
-                )
-            }
-        </View>
+                    )
+                }
+            </View>
+        </ScrollView>
     );
-} export default Feed;
+}
+
+export default Feed;
 /*
-const styles = StyleSheet.create({
-        post: {
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderStyle: "solid",
-            borderColor: '#fff',
-            marginTop: 10,
-            marginBottom: 10,
-
-
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-
-            elevation: 5,
-        },
-        like: {
-            fontWeight: "bold",
-            fontSize: 20,
-
-        },
-        postImage: {
-            width: "95%",
-            height: 300,
-        },
-        container: {
-            padding: 10,
-        },
-    })
-;
-*/
+                                <Button
+                                    title="Unlike"
+                                    onPress={() => dispatch(unlikePost({postId: post.id, userId: user.id})) }
+                                />
+ */

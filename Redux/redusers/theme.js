@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit"
+import {createSlice} from "@reduxjs/toolkit"
 
 import lightTheme from '../../StylesLight';
 import darkTheme from '../../StylesDark';
 
 export const themeSlice = createSlice({
     name: "theme",
-    initialState: { value: lightTheme },
+    initialState: {value: lightTheme},
     reducers: {
         toggleTheme: (state) => {
-            state.value.settings.dark === lightTheme.settings.dark ? state.value = darkTheme :  state.value = lightTheme;
+            state.value.theme.dark === lightTheme.theme.dark ? state.value = darkTheme : state.value = lightTheme;
             console.log("Theme set", state.value)
         },
         setDarkTheme: (state) => {
@@ -19,9 +19,13 @@ export const themeSlice = createSlice({
             state.value = lightTheme;
             console.log("Theme set to light")
         },
+        setTheme: (state, action) => {
+            state.value.theme.dark === action.payload.dark ? state.value = darkTheme : state.value = lightTheme;
+            console.log("Theme set with slider", state.value)
+        },
     },
 });
 
-export const { toggleTheme } = themeSlice.actions;
+export const {toggleTheme, setTheme, setDarkTheme, setLightTheme} = themeSlice.actions;
 
 export default themeSlice.reducer;
