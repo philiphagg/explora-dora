@@ -6,8 +6,16 @@ import Highscores from "./Highscores";
 import MapPresenterFile from "./MapPresenterFile";
 import Feed from "./Feed";
 import Progress from "./Progress";
-import Powerups from "./Powerups";
+import Profile from "./Profile";
 import Collection from "./Collection";
+import store from "../Redux/Store";
+import {useSelector} from "react-redux";
+
+//import {useSelector} from "react-redux";
+//const theme = useSelector((state) => state.theme.value.settings);
+
+//const theme = useSelector((state) => state.theme.settings);
+//theme={store.getState().theme.settings}
 
 function HomeScreen() {
   return (
@@ -26,7 +34,6 @@ function SettingsScreen() {
 }
 
 const Tab = createBottomTabNavigator();
-
 function Navigationbar(){
       return (
 
@@ -40,8 +47,8 @@ function Navigationbar(){
                                     : 'compass-outline';
                                 } else if (route.name === 'Progress') {
                                     iconName = focused ? 'earth' : 'earth-outline';
-                                } else if (route.name === 'Power Ups'){
-                                    iconName = focused ? 'rocket' : 'rocket-outline'
+                                } else if (route.name === 'Profile'){
+                                    iconName = focused ? 'person' : 'person-outline'
                                 }
                                 else if (route.name === 'Collectibles'){
                                     iconName = focused ? 'trophy' : 'trophy-outline'
@@ -61,8 +68,8 @@ function Navigationbar(){
                         <Tab.Screen name="Progress" component={Progress} />
                         <Tab.Screen name="Feed" component={Feed} options={{tabBarBadge: 5 }}/>
                         <Tab.Screen name="High Score" component={Highscores} />
-                        <Tab.Screen name="Power Ups" component={Powerups} />
                         <Tab.Screen name="Collectibles" component={Collection} />
+                        <Tab.Screen name="Profile" component={Profile} />
 
                     </Tab.Navigator>
 
