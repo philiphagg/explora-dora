@@ -17,7 +17,7 @@ function MapPresenterFile() {
 
             let location = await Location.getCurrentPositionAsync({});
             setLocation(location);
-            console.log(location)
+            console.log("Initial location" + JSON.stringify(location.coords));
         })();
     }, []);
 
@@ -30,7 +30,7 @@ function MapPresenterFile() {
             },
             (pos) => {
                 setLocation(pos.coords);
-                console.log("This is async test" + JSON.stringify(pos.coords))
+                console.log("Continuous location: " + JSON.stringify(pos.coords))
             }
         )
             .then(() => {
