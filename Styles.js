@@ -70,6 +70,16 @@ function styles(theme) {
             borderRadius: 10,
             marginTop: 5
         },
+        inputLarge: {
+            width: "100%",
+            backgroundColor: 'white',
+            borderColor: theme.colors.smallDetails,
+            borderWidth: 2,
+            paddingHorizontal: 15,
+            paddingVertical: 10,
+            borderRadius: 10,
+            marginTop: 5
+        },
         buttonContainer: {
             width: '60%',
             justifyContent: 'center',

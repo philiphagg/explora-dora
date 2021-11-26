@@ -1,46 +1,54 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/core'
-import {KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Platform} from 'react-native';
+import {KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {auth} from '../Firebase/firebaseconfig';
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {login} from "../Redux/redusers/user";
 
 
 function Login() {
-    const styles = useSelector((state) => state.theme.value.style);
+    const user = useSelector((state) => state.user.value);
 
-    const text = 'Login with apple';
+    const styles = useSelector((state) => state.theme.value.style);
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const navigation = useNavigation();
+    //const navigation = useNavigation();
+
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            if (user)
-                navigation.navigate("Navigationbar")
+        return auth.onAuthStateChanged(user => {
+            if (user) {
+                console.log("User saved", user)
+                dispatch(login({id: user.uid,email: user.email, distance: 234322} ))
+                //navigation.navigate("Navigationbar")
+            }
         })
-        return unsubscribe
     }, [])
 
     const handleSignUp = () => {
-
         createUserWithEmailAndPassword(auth, email, password)
             .then(userCredentials => {
                 const user = userCredentials.user;
+                //dispatch(login(user))
                 console.log('Registered with : ', user.email);
             })
             .catch(error => alert(error.message))
     }
 
     const handleLogin = () => {
-
         signInWithEmailAndPassword(auth, email, password)
             .then(userCredentials => {
                 const user = userCredentials.user;
+                //dispatch(login(user))
+                //dispatch(login({id: user.apiKey,email: user.email} ))
                 console.log('logged in with: ', user.email);
             })
             .catch(error => alert(error.message))
     }
+
+
 
     return (
         <KeyboardAvoidingView style={styles.centerContent}
@@ -75,6 +83,7 @@ function Login() {
                     <Text style={styles.buttonOutlineText}>Register</Text>
                 </TouchableOpacity>
             </View>
+            <Text>{user.apiKey}</Text>
         </KeyboardAvoidingView>
     )
 }

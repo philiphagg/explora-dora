@@ -17,6 +17,7 @@ function Profile() {
 
     return (
         <View style={styles.view}>
+            
             <View style={[styles.col, styles.divider]} >
                 <Text style={styles.h1}> {user.name} </Text>
                 <Text style={styles.h2}> {posts.length} Posts</Text>
