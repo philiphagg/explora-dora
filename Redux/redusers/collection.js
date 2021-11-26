@@ -35,14 +35,6 @@ export const postSlice = createSlice({
             console.log(action.payload);
             state.value = [...state.value, action.payload];
         },
-        setPosts: (state, action) => {
-            console.log(action.payload);
-            state.value = action.payload;
-        },
-        addPosts: (state, action) => {
-            console.log(action.payload);
-            state.value = [...state.value, ...action.payload];
-        },
         deletePost: (state,action) => {
             const user = action.payload.userId;
             const post = action.payload.postId;
@@ -66,6 +58,6 @@ export const postSlice = createSlice({
     },
 });
 //likePost({postID: post.id, userId: user.id}
-export const {addPosts,addPost, likePost, deletePost, unlikePost} = postSlice.actions;
+export const {addPost, likePost, deletePost, unlikePost} = postSlice.actions;
 
 export default postSlice.reducer;

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {View, Text, Button, Switch} from "react-native";
 import {toggleTheme, setTheme} from "../Redux/redusers/theme";
+import Login from "./Login";
 
 //import WideButton from "./Components/Button";
 
@@ -16,6 +17,7 @@ function Profile() {
 
     return (
         <View style={styles.view}>
+            
             <View style={[styles.col, styles.divider]} >
                 <Text style={styles.h1}> {user.name} </Text>
                 <Text style={styles.h2}> {posts.length} Posts</Text>

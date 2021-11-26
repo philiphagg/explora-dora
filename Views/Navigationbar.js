@@ -10,6 +10,9 @@ import Profile from "./Profile";
 import Collection from "./Collection";
 import store from "../Redux/Store";
 import {useSelector} from "react-redux";
+import Login from "./Login";
+import AddPost from "./AddPost";
+import CameraView from "./Components/camera";
 
 //import {useSelector} from "react-redux";
 //const theme = useSelector((state) => state.theme.value.settings);
@@ -65,9 +68,9 @@ function Navigationbar(){
                             })}
                     >
                         <Tab.Screen name="Map" component={MapPresenterFile} options={{tabBarBadge: 3 }}/>
-                        <Tab.Screen name="Progress" component={Progress} />
+                        <Tab.Screen name="Progress" component={AddPost} />
                         <Tab.Screen name="Feed" component={Feed} options={{tabBarBadge: 5 }}/>
-                        <Tab.Screen name="High Score" component={Highscores} />
+                        <Tab.Screen name="High Score" component={CameraView} />
                         <Tab.Screen name="Collectibles" component={Collection} />
                         <Tab.Screen name="Profile" component={Profile} />
 

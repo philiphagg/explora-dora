@@ -1,48 +1,80 @@
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {StyleSheet, Button,Text,View, TextInput} from "react-native";
-import {addPost} from "../Redux/redusers/posts";
+import {useSelector} from "react-redux";
+import {Button, Text, View, TextInput} from "react-native";
+import {db} from "../Firebase/firebaseconfig"
 
-import camera from "expo-camera"
 
-function AddPost({place}) {
-    const styles = useSelector((state) => state.theme.value);
-    const dispatch = useDispatch();
+import {collection, addDoc} from "firebase/firestore";
+import CameraView from "./Components/camera";
+
+function AddPost({place = "Stockholm"}) {
+    const styles = useSelector((state) => state.theme.value.style);
+    const user = useSelector((state) => state.user.value);
 
     const [text, onChangeText] = React.useState("Enter Text");
-    const [number, onChangeNumber] = React.useState(null);
+    const [picture, setPicture] = React.useState(false);
 
-    return (
-        <View style={styles.view}>
-            <Text>
-                Add A new post
-            </Text>
+    if (picture) {
+        return (
+            <>
+                <CameraView/>
+                <Button
+                    title="Return"
+                    onPress={x => setPicture(!picture)}
+                />
+            </>
+        );
+    } else {
 
-            <Text>Enter a Description</Text>
-            <TextInput
-                style={styles.input}
-                onChangeText={onChangeText}
-                value={text}
-            />
-            <Button
-                title="Submit"
-                onPress={() => dispatch(addPost({
-                    title: "Stockholm Stadshus",
-                    image: "https://www.visitstockholm.se/media/original_images/f2affbc704fd4836be9b07087a955248.jpg",
-                    likes: [1293, 1231, 2132, 2133, 12333, 5532, 23423],
-                    caption: text,
-                    user: "Thoren Nillesson",
-                }))}
-            />
-        </View>
-    );
-} export default AddPost;
+        return (
+            <View style={styles.centerContent}>
+                <View style={styles.row}>
+                    <Text style={[styles.h1, styles.divider]}>
+                        Add A new post
+                    </Text>
+                </View>
+                <View style={styles.row}>
+                    <Button
+                        title="TakePicture"
+                        onPress={x => setPicture(!picture)}
+                    />
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.h3}>Enter a Description</Text>
+                </View>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.inputLarge}
+                        placeholder="Skriv en kort beskrivning"
+                        onChangeText={onChangeText}
+                        value={text}
+                    />
+                </View>
 
-const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
-    },
-});
+
+                <Button
+                    title="Submit"
+                    onPress={async () => {
+                        try {
+                            const docRef = await addDoc(collection(db, "Posts"), {
+                                title: place,
+                                image: "https://www.visitstockholm.se/media/original_images/f2affbc704fd4836be9b07087a955248.jpg",
+                                likes: [],
+                                caption: text,
+                                user: user.id,
+                            });
+
+                            console.log("Document written with ID: ", docRef.id);
+                        } catch (e) {
+                            console.error("Error adding document: ", e);
+                        }
+                    }
+                    }
+                />
+            </View>
+        );
+    }
+}
+
+export default AddPost;
+

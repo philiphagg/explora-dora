@@ -9,7 +9,7 @@ export const themeSlice = createSlice({
     reducers: {
         toggleTheme: (state) => {
             state.value.theme.dark === lightTheme.theme.dark ? state.value = darkTheme : state.value = lightTheme;
-            console.log("Theme set", state.value)
+            console.log("Theme toggled")
         },
         setDarkTheme: (state) => {
             state.value = darkTheme;
@@ -21,7 +21,7 @@ export const themeSlice = createSlice({
         },
         setTheme: (state, action) => {
             state.value.theme.dark === action.payload.dark ? state.value = darkTheme : state.value = lightTheme;
-            console.log("Theme set with slider", state.value)
+            console.log("Theme set with slider")
         },
     },
 });

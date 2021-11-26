@@ -38,6 +38,11 @@ function styles(theme) {
             padding: 10,
             flexWrap: "wrap",
         },
+        centerContent: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
         /*Add a divider under a element*/
         divider: {
             borderBottomColor: theme.colors.smallDetails,
@@ -51,61 +56,62 @@ function styles(theme) {
 
 
 
-
-
-
-
-        button: {
-            alignItems: 'center',
+        /* BUTTONS */
+        inputContainer: {
+            width: '100%'
+        },
+        input: {
+            width: 200,
+            backgroundColor: 'white',
+            borderColor: theme.colors.smallDetails,
+            borderWidth: 2,
+            paddingHorizontal: 15,
+            paddingVertical: 10,
+            borderRadius: 10,
+            marginTop: 5
+        },
+        inputLarge: {
+            width: "100%",
+            backgroundColor: 'white',
+            borderColor: theme.colors.smallDetails,
+            borderWidth: 2,
+            paddingHorizontal: 15,
+            paddingVertical: 10,
+            borderRadius: 10,
+            marginTop: 5
+        },
+        buttonContainer: {
+            width: '60%',
             justifyContent: 'center',
-            paddingVertical: 12,
-            paddingHorizontal: 32,
-            borderRadius: 4,
-            elevation: 3,
-            backgroundColor: 'black',
+            alignItems: 'center',
+            marginTop: 40
+        },
+        button: {
+            backgroundColor: theme.colors.text,
+            width: '100%',
+            padding: 15,
+            borderRadius: 10,
+            alignItems: 'center'
+        },
+        buttonOutline: {
+            backgroundColor: 'white',
+            marginTop: 5,
+            borderColor: theme.colors.smallDetails,
+            borderWidth: 2
+        },
+        buttonOutlineText: {
+            color: theme.colors.text,
+            // fontWeight: 700,
+            fontSize: 16
         },
         buttonText: {
-            fontSize: 16,
-            lineHeight: 21,
-            fontWeight: 'bold',
-            letterSpacing: 0.25,
             color: 'white',
+            //fontWeight: 700,
+            fontSize: 16
         },
-        container: {
-            flex: 1,
-            backgroundColor: theme.colors.background,
-            //alignItems: 'center',
-            //justifyContent: 'center',
-        },
-        view: {
-            backgroundColor: theme.colors.background,
-        },
-        post: {
-            backgroundColor: theme.colors.background,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 10,
-            marginBottom: 10,
+        /* BUTTONS */
 
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
 
-            elevation: 5,
-        },
-        /* Feed And posts*/
-        like: {
-            fontWeight: "bold",
-            fontSize: 20,
-
-        },
-        padding10: {
-            padding: 10,
-        },
     }
 };
 export default styles;

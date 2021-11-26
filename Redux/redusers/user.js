@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialStateValue = { id: 1337, name: "Thor Nilsson", birthYear: 2001, email: "thor755nilsson@gmail.com", distance: 35 };
-//const initialStateValue = { id: 234234, name: "Not logged IN", birthYear: 2001, email: "thor755nilsson@gmail.com", distance: 35 };
+const initialStateValue = { id: undefined, name: "Thor Nilsson", birthYear: 2001, email: "thor755nilsson@gmail.com", distance: 35 };
+
+//const initialStateValue = { id: null, name: "Not logged IN nul", birthYear: 2001, email: "", distance: 35 };
+//const initialStateValue = { };                 
 
 export const userSlice = createSlice({
     name: "user",
