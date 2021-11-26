@@ -17,20 +17,37 @@ function MapPresenterFile() {
 
             let location = await Location.getCurrentPositionAsync({});
             setLocation(location);
+            console.log(location)
         })();
     }, []);
 
     React.useEffect(() => {
-        console.log(location)
-    }, [location]);
+        Location.watchPositionAsync(
+            {
+                accuracy: Location.Accuracy.Highest,
+                distanceInterval: 1,
+                timeInterval: 10000,
+            },
+            (pos) => {
+                setLocation(pos.coords);
+                console.log("This is async test" + JSON.stringify(pos.coords))
+            }
+        )
+            .then(() => {
+            })
+            .catch((err) => {
+                console.log("position error: ", err.message);
+                setErrorMsg(err.message);
+            });
+    }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <MapView followsUserLocation={true} showsMyLocationButton={true} showsUserLocation={true}
-                     provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}/>
-        </SafeAreaView>
+        <View style={styles.container}>
+            <Text style={styles.button}>{JSON.stringify(location)}</Text>
+        </View>
     );
 }
+
 const customMap = [
     {
         "elementType": "geometry",
