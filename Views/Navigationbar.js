@@ -10,6 +10,7 @@ import Profile from "./Profile";
 import Collection from "./Collection";
 import store from "../Redux/Store";
 import {useSelector} from "react-redux";
+import Login from "./Login";
 
 //import {useSelector} from "react-redux";
 //const theme = useSelector((state) => state.theme.value.settings);
@@ -68,7 +69,7 @@ function Navigationbar(){
                         <Tab.Screen name="Progress" component={Progress} />
                         <Tab.Screen name="Feed" component={Feed} options={{tabBarBadge: 5 }}/>
                         <Tab.Screen name="High Score" component={Highscores} />
-                        <Tab.Screen name="Collectibles" component={Collection} />
+                        <Tab.Screen name="Collectibles" component={Login} />
                         <Tab.Screen name="Profile" component={Profile} />
 
                     </Tab.Navigator>
