@@ -2,6 +2,7 @@ import React from 'react';
 import {Alert, FlatList,Text, StyleSheet, View, TouchableOpacity} from 'react-native';
 import {useSelector} from "react-redux";
 
+
 function ordinal_suffix (i) {
     var j = i % 10,
         k = i % 100;
@@ -19,25 +20,13 @@ function ordinal_suffix (i) {
 const Highscores = () => {
     const styles = useSelector((state) => state.theme.value.style);
     const theme = useSelector((state) => state.theme.value.theme);
+    const highscores = useSelector((state) => state.highscores.value);
+
     return (
 
         <View>
             <FlatList
-
-                data={[
-                    {name: 'Devin', score: '154'},
-                    {name: 'Gurra', score: '98'},
-                    {name: 'Johanna', score: '65'},
-                    {name: 'sara', score: '34'},
-                    {name: 'bertil', score: '31'},
-                    {name: 'ngt namn', score: '28'},
-                    {name: 'the NOob1', score: '15'},
-                    {name: 'the NOob2', score: '11'},
-                    {name: 'the NOob3', score: '9'},
-                    {name: 'the NOob4', score: '9'},
-                    {name: 'the NOob5', score: '9'},
-
-                ]}
+                data={highscores}
                 renderItem={({item, index}) =>(
                     <TouchableOpacity onPress={() => {
                         Alert.alert("Rank",item.name + " is currently ranked " + ordinal_suffix(index) + " with " + item.score + "points" );
@@ -55,7 +44,7 @@ const Highscores = () => {
                 )}
                 keyExtractor={(item, index) => index}
 
-            />
+             />
         </View>
     )}
 

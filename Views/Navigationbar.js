@@ -13,7 +13,7 @@ import {useSelector} from "react-redux";
 import Login from "./Login";
 import AddPost from "./AddPost";
 import CameraView from "./Components/camera";
-import HighscoreTest from "./HighscoreTest";
+
 
 //import {useSelector} from "react-redux";
 //const theme = useSelector((state) => state.theme.value.settings);
