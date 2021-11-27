@@ -12,6 +12,7 @@ const lightTheme = {
         notification: 'rgb(255, 69, 58)',
         content: 'rgb(0,0,0)',
         smallDetails: 'rgb(236,236,236)',
+        statusbar: 'rgb(0,0,0)',
     },
 };
 

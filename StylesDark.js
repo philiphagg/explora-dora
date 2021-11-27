@@ -12,6 +12,8 @@ const darkTheme = {
         notification: 'rgb(255, 69, 58)',
         content: 'rgb(255,255,255)',
         smallDetails: 'rgb(66,66,66)',
+        statusbar: 'rgb(255,255,255)',
+
     },
 };
 
