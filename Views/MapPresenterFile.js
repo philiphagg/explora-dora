@@ -4,7 +4,12 @@ import {StyleSheet, Text, View, SafeAreaView, Dimensions} from 'react-native';
 import * as Location from 'expo-location';
 
 function MapPresenterFile() {
-    const [location, setLocation] = React.useState(null);
+    const [location, setLocation] = React.useState({
+        latitude: 59.3322,
+        longitude: 18.0642,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+    });
     const [errorMsg, setErrorMsg] = React.useState(null);
 
     React.useEffect(() => {
@@ -12,12 +17,7 @@ function MapPresenterFile() {
             let {status} = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setErrorMsg('Permission to access location was denied');
-                return;
             }
-
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
-            console.log("Initial location" + JSON.stringify(location.coords));
         })();
     }, []);
 
@@ -25,10 +25,12 @@ function MapPresenterFile() {
         Location.watchPositionAsync(
             {
                 accuracy: Location.Accuracy.Highest,
-                distanceInterval: 1,
+                distanceInterval: 10,
                 timeInterval: 10000,
             },
             (pos) => {
+                pos.coords.latitudeDelta = 0.01;
+                pos.coords.longitudeDelta = 0.01;
                 setLocation(pos.coords);
                 console.log("Continuous location: " + JSON.stringify(pos.coords))
             }
@@ -42,9 +44,10 @@ function MapPresenterFile() {
     }, []);
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.button}>{JSON.stringify(location)}</Text>
-        </View>
+        <SafeAreaView style={styles.container}>
+            <MapView region={location} showsUserLocation={true}
+                     provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}/>
+        </SafeAreaView>
     );
 }
 
