@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Highscores from "./Highscores";
 import MapPresenterFile from "./MapPresenterFile";
+import MapView from "./MapView";
 import Feed from "./Feed";
 import Progress from "./Progress";
 import Profile from "./Profile";
@@ -14,10 +15,8 @@ import Login from "./Login";
 import AddPost from "./AddPost";
 import CameraView from "./Components/camera";
 
-
 //import {useSelector} from "react-redux";
 //const theme = useSelector((state) => state.theme.value.settings);
-
 //const theme = useSelector((state) => state.theme.settings);
 //theme={store.getState().theme.settings}
 
