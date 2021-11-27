@@ -38,7 +38,6 @@ export const postSlice = createSlice({
         deletePost: (state,action) => {
             const user = action.payload.userId;
             const post = action.payload.postId;
-
             state.value = [...state.value].filter( x => x.id !== post);
         },
         likePost: (state,action) => {

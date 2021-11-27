@@ -39,6 +39,7 @@ function SettingsScreen() {
 
 const Tab = createBottomTabNavigator();
 function Navigationbar(){
+        const theme = useSelector((state) => state.theme.value.theme);
       return (
 
                     <Tab.Navigator
@@ -64,8 +65,8 @@ function Navigationbar(){
                                 // You can return any component that you like here!
                                 return <Ionicons name={iconName} size={size} color={color} />;
                                 },
-                                tabBarActiveTintColor: '#4E9F3D',
-                                tabBarInactiveTintColor: '#D8E9A8',
+                                tabBarActiveTintColor: theme.colors.text,
+                                tabBarInactiveTintColor: theme.colors.text,
                             })}
                     >
                         <Tab.Screen name="Map" component={MapPresenterFile} options={{tabBarBadge: 3 }}/>
