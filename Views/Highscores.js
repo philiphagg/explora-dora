@@ -120,7 +120,7 @@ const Highscores = () => {
                                         styles.rank,
                                          item.key < 9 ? styles.singleDidget : styles.doubleDidget]}
                                  >
-                                    {index += 1}
+                                     {ordinal_suffix(index += 1)}
                                  </Text>
                                     <Text style={styles.label} numberOfLines={1}>{item.name}
                                     </Text>
