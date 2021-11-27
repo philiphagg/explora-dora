@@ -1,5 +1,7 @@
 import React from 'react';
+
 import {Alert, FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+
 
 
 const styles = StyleSheet.create({

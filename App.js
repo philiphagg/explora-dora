@@ -1,43 +1,40 @@
-import {StatusBar} from 'expo-status-bar';
-import React from 'react';
-import {Alert, StyleSheet, Text, View, Button} from 'react-native';
-import Collection from "./Views/Collection";
-import Discover from "./Views/Discover";
-import Feed from "./Views/Feed";
-import Highscores from "./Views/Highscores";
-import Menu from "./Views/Menu";
-import Login from "./Views/Login";
-import Tutorial from "./Views/Tutorial";
+import React, {useState} from 'react';
+import {Provider, useSelector} from 'react-redux';
+import {View} from 'react-native';
+import store from './Redux/Store';
+
 import Navigationbar from "./Views/Navigationbar";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
+import Login from "./Views/Login";
+import {auth} from "./Firebase/firebaseconfig";
 
 export default function App() {
+    //console.log(store.getState())
     return (
-        <NavigationContainer theme={MyTheme}>
-            <Navigationbar />
-        </NavigationContainer>
+        <Provider store={store}>
+            <AppWrapper/>
+        </Provider>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+//Needed to have theme saved with use selector
+function AppWrapper() {
+    const theme = useSelector((state) => state.theme.value.theme);
+    const user = useSelector((state) => state.user.value);
 
+    return (
+        <NavigationContainer theme={theme}>
+            {
+                console.log("User ??? ", user.type)
+            }
+            {
+                //Object.keys(user.apiKey).length === 0 ?
+                user.id === undefined ?
+                    <Login/>
+                    :
+                    <Navigationbar/>
+            }
+        </NavigationContainer>
+    )
+}
 
-const MyTheme = {
-    dark: false,
-    colors: {
-        primary: 'rgb(255, 45, 85)',
-        background: 'rgb(25, 26, 25)',
-        card: 'rgb(25, 26, 25)',
-        text: 'rgb(78, 159, 61)',
-        border: 'rgb(25, 26, 25)',
-        notification: 'rgb(255, 69, 58)',
-    },
-};
