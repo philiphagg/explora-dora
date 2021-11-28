@@ -1,18 +1,23 @@
 import { createStackNavigator } from '@react-navigation/stack';
+
 import MapPresenterFile from "./MapPresenterFile";
 import AddPost from "./AddPost";
 import Camera from "./Components/camera";
 
+import * as React from 'react';
+import {Button} from "react-native";
+import View from "react-native";
 
 
 const Stack = createStackNavigator();
 
-function MapView() {
+const MapView = () =>  {
     return (
-        <Stack.Navigator>
+
+        <Stack.Navigator screenOptions={{headerShown: false}}>
             <Stack.Screen name="Map" component={MapPresenterFile} />
-            <Stack.Screen name="posts" component={AddPost} />
-            <Stack.Screen name="photo" component={Camera} />
+            <Stack.Screen name="Claim Landmark" component={AddPost} />
+            <Stack.Screen name="Take Picture" component={Camera} />
         </Stack.Navigator>
 
     );

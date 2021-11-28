@@ -1,9 +1,10 @@
 import * as React from 'react';
-import MapView, {Circle, PROVIDER_GOOGLE} from 'react-native-maps'
-import {StyleSheet, Text, View, SafeAreaView, Dimensions} from 'react-native';
+import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps'
+import {StyleSheet, Text, View, SafeAreaView, Dimensions, Button, TouchableOpacity} from 'react-native';
 import * as Location from 'expo-location';
 
-function MapPresenterFile() {
+
+function MapPresenterFile({navigation}) {
     const [location, setLocation] = React.useState({
         latitude: 59.3322,
         longitude: 18.0642,
@@ -46,7 +47,15 @@ function MapPresenterFile() {
     return (
         <SafeAreaView style={styles.container}>
             <MapView region={location} showsUserLocation={true}
-                     provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}/>
+                     provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}>
+
+                <Marker coordinate={location}
+                        onPress={x => navigation.navigate("Take Picture")}/>
+            </MapView>
+            <Button
+                title="Claim Landmark"
+                onPress={x => navigation.navigate("Take Picture")}
+            />
         </SafeAreaView>
     );
 }

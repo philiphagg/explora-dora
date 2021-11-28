@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Button, Image} from 'react-native';
 import {Camera} from 'expo-camera';
 
-export default function CameraView() {
+export default function CameraView({navigation}) {
     const [camera, setCamera] = useState(null);
     const [image, setImage] = useState(null);
     const [hasPermission, setHasPermission] = useState(null);
@@ -53,7 +53,8 @@ export default function CameraView() {
                 </View>
             </Camera>
             <Button title="Snap"
-                    onPress={() => takePicture()}
+                    onPress={() => {takePicture()
+                        navigation.navigate("Claim Landmark")}}
             />
             {
                 image && <Image source={{uri: image}} style={{flex: 1}}/>

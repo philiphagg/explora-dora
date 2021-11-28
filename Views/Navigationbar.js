@@ -68,7 +68,7 @@ function Navigationbar(){
                                 tabBarInactiveTintColor: theme.colors.text,
                             })}
                     >
-                        <Tab.Screen name="Map" component={MapPresenterFile} options={{tabBarBadge: 3 }}/>
+                        <Tab.Screen name="Map" component={MapView} options={{tabBarBadge: 3 }}/>
                         <Tab.Screen name="Progress" component={AddPost} />
                         <Tab.Screen name="Feed" component={Feed} options={{tabBarBadge: 5 }}/>
                         <Tab.Screen name="High Score" component={Highscores} />

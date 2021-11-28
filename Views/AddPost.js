@@ -7,7 +7,7 @@ import {db} from "../Firebase/firebaseconfig"
 import {collection, addDoc} from "firebase/firestore";
 import CameraView from "./Components/camera";
 
-function AddPost({place = "Stockholm"}) {
+function AddPost({  navigation , place= "Stockholm"}) {
     const styles = useSelector((state) => state.theme.value.style);
     const user = useSelector((state) => state.user.value);
 
@@ -32,6 +32,12 @@ function AddPost({place = "Stockholm"}) {
                     <Text style={[styles.h1, styles.divider]}>
                         Add A new post
                     </Text>
+                </View>
+                <View style={styles.row}>
+                    <Button
+                        title="Enter View"
+                        onPress={x => navigation.navigate("Take Picture")}
+                    />
                 </View>
                 <View style={styles.row}>
                     <Button
