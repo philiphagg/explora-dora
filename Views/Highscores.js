@@ -23,6 +23,8 @@ const Highscores = ({navigation}) => {
     const theme = useSelector((state) => state.theme.value.theme);
     const highscores = useSelector((state) => state.highscores.value);
 
+
+
     return (
 
         <View>

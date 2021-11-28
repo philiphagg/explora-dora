@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Highscores from "./Highscores";
 import MapPresenterFile from "./MapPresenterFile";
-import MapView from "./MapView";
+import MapViewComp from "./MapViewComp";
 import Feed from "./Feed";
 import Progress from "./Progress";
 import Profile from "./Profile";
@@ -68,7 +68,7 @@ function Navigationbar(){
                                 tabBarInactiveTintColor: theme.colors.text,
                             })}
                     >
-                        <Tab.Screen name="Map" component={MapView} options={{tabBarBadge: 3 }}/>
+                        <Tab.Screen name="Map" component={MapViewComp} options={{tabBarBadge: 3 }}/>
                         <Tab.Screen name="Progress" component={AddPost} />
                         <Tab.Screen name="Feed" component={Feed} options={{tabBarBadge: 5 }}/>
                         <Tab.Screen name="High Score" component={Highscores} />

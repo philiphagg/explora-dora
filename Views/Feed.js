@@ -4,7 +4,8 @@ import {Button, Text, View, Image, Alert, ScrollView, TouchableOpacity} from "re
 import {setPosts, likePost, unlikePost} from "../Redux/redusers/posts";
 import {db} from "../Firebase/firebaseconfig";
 import {addDoc, collection} from "firebase/firestore";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot , getDoc} from "firebase/firestore";
+import {getAllFrom} from '../Firebase/FirebaseFunctions'
 
 
 
@@ -13,6 +14,8 @@ function Feed() {
     const posts = useSelector((state) => state.posts.value);
     const user = useSelector((state) => state.user.value);
     const dispatch = useDispatch();
+
+
 
 //addDoc(collection(db, "Posts")
     /*
@@ -40,7 +43,7 @@ function Feed() {
     return (
         <ScrollView>
             <View>
-                {
+                {/*
                     posts.map(post =>
                         <View style={[styles.divider]} key={post.id}>
                             <View style={styles.row}>
@@ -61,10 +64,14 @@ function Feed() {
                             </View>
                         </View>
                     )
+                    */
                 }
                 <TouchableOpacity
 
-
+                    //onPress={ async () => dispatch( setPosts(getAllFrom("Posts")) )
+                    onPress={ async () => getAllFrom("Posts")
+                    //onPress={ (x)=> getPost(dispatch(setPosts(x)))
+                    }
                     style={styles.button}
                 >
                     <Text style={styles.buttonText}>Update</Text>

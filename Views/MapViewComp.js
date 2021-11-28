@@ -11,7 +11,7 @@ import View from "react-native";
 
 const Stack = createStackNavigator();
 
-const MapView = () =>  {
+const MapViewComp = () =>  {
     return (
 
         <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -22,4 +22,4 @@ const MapView = () =>  {
 
     );
 }
-export default MapView;
+export default MapViewComp;

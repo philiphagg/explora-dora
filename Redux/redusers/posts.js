@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {getAllFrom} from "../../Firebase/FirebaseFunctions";
 
 
 const initialStateValue = [
@@ -30,6 +31,7 @@ const initialStateValue = [
 export const postSlice = createSlice({
     name: "posts",
     initialState: {value: initialStateValue},
+
     reducers: {
         addPost: (state, action) => {
             console.log(action.payload);
@@ -37,6 +39,10 @@ export const postSlice = createSlice({
         },
         setPosts: (state, action) => {
             console.log(action.payload);
+            state.value = action.payload;
+        },
+        fetchPosts: (state, action) => {
+            console.log("Setting posts to",action.payload);
             state.value = action.payload;
         },
         addPosts: (state, action) => {
@@ -66,6 +72,6 @@ export const postSlice = createSlice({
     },
 });
 //likePost({postID: post.id, userId: user.id}
-export const {addPosts,addPost, likePost, deletePost, unlikePost} = postSlice.actions;
+export const {addPosts,addPost, likePost, deletePost, unlikePost, setPosts} = postSlice.actions;
 
 export default postSlice.reducer;
