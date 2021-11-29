@@ -56,15 +56,8 @@ function MapPresenterFile() {
                         alignItems: 'center',
                     }}
                 >
-                    <View
-                        style={{
-                            fontSize: 200,
-                            color: 'black',
-                            fontWeight: 'bold',
-                        }}
-                    >
-
-                    </View>
+                    { /*here is the place to put the clipping object for mask*/}
+                    <View style={styles.circle}/>
                 </View>
             }
             >
@@ -308,6 +301,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#DDDDDD",
         padding: 10
     },
+    circle: {
+        width: 300,
+        height: 300,
+        borderRadius: 300 / 2,
+        backgroundColor: 'red'
+    }
 });
 
 export default MapPresenterFile;
