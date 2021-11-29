@@ -305,7 +305,15 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').width,
         borderRadius: Dimensions.get('window').width/ 2,
-        backgroundColor: 'red'
+        backgroundColor: 'red',
+        padding: 10,
+        shadowColor: '#000000',
+        shadowOffset: {
+            width: 0,
+            height: 3
+        },
+        shadowRadius: 50,
+        shadowOpacity: 1.0
     }
 });
 
