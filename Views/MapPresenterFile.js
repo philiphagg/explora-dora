@@ -45,7 +45,7 @@ function MapPresenterFile() {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={{alignItems: 'center' }}>
             <MaskedView maskElement={
                 <View
                     style={{
@@ -302,9 +302,9 @@ const styles = StyleSheet.create({
         padding: 10
     },
     circle: {
-        width: 300,
-        height: 300,
-        borderRadius: 300 / 2,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').width,
+        borderRadius: Dimensions.get('window').width/ 2,
         backgroundColor: 'red'
     }
 });
