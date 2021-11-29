@@ -1,6 +1,6 @@
 import * as React from 'react';
-import MapView, {Circle, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
-import {StyleSheet, Text, View, SafeAreaView, Dimensions} from 'react-native';
+import MapView, {AnimatedRegion, Circle, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
+import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated} from 'react-native';
 import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
 
@@ -26,7 +26,7 @@ function MapPresenterFile() {
         Location.watchPositionAsync(
             {
                 accuracy: Location.Accuracy.Highest,
-                distanceInterval: 10,
+                distanceInterval: 5,
                 timeInterval: 10000,
             },
             (pos) => {
@@ -45,7 +45,7 @@ function MapPresenterFile() {
     }, []);
 
     return (
-        <SafeAreaView style={{alignItems: 'center' }}>
+        <SafeAreaView style={{alignItems: 'center'}}>
             <MaskedView maskElement={
                 <View
                     style={{
@@ -63,7 +63,8 @@ function MapPresenterFile() {
             >
                 {/* Shows behind the mask, you can put anything here, such as an image */}
                 <MapView region={location} showsUserLocation={true}
-                         provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap} scrollEnabled={false}>
+                         provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap} scrollEnabled={false}
+                         zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
                 </MapView>
             </MaskedView>
         </SafeAreaView>
@@ -304,7 +305,7 @@ const styles = StyleSheet.create({
     circle: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').width,
-        borderRadius: Dimensions.get('window').width/ 2,
+        borderRadius: Dimensions.get('window').width / 2,
         backgroundColor: 'red',
         padding: 10,
         shadowColor: '#000000',
