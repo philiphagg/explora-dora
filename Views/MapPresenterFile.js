@@ -1,7 +1,8 @@
 import * as React from 'react';
-import MapView, {Circle, PROVIDER_GOOGLE} from 'react-native-maps'
-import {StyleSheet, Text, View, SafeAreaView, Dimensions} from 'react-native';
+import MapView, {AnimatedRegion, Circle, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
+import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated} from 'react-native';
 import * as Location from 'expo-location';
+import MaskedView from "@react-native-masked-view/masked-view";
 
 function MapPresenterFile() {
     const [location, setLocation] = React.useState({
@@ -25,7 +26,7 @@ function MapPresenterFile() {
         Location.watchPositionAsync(
             {
                 accuracy: Location.Accuracy.Highest,
-                distanceInterval: 10,
+                distanceInterval: 5,
                 timeInterval: 10000,
             },
             (pos) => {
@@ -44,9 +45,28 @@ function MapPresenterFile() {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <MapView region={location} showsUserLocation={true}
-                     provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}/>
+        <SafeAreaView style={{alignItems: 'center'}}>
+            <MaskedView maskElement={
+                <View
+                    style={{
+                        // Transparent background because mask is based off alpha channel.
+                        backgroundColor: 'transparent',
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    { /*here is the place to put the clipping object for mask*/}
+                    <View style={styles.circle}/>
+                </View>
+            }
+            >
+                {/* Shows behind the mask, you can put anything here, such as an image */}
+                <MapView region={location} showsUserLocation={true}
+                         provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap} scrollEnabled={false}
+                         zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
+                </MapView>
+            </MaskedView>
         </SafeAreaView>
     );
 }
@@ -282,6 +302,20 @@ const styles = StyleSheet.create({
         backgroundColor: "#DDDDDD",
         padding: 10
     },
+    circle: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').width,
+        borderRadius: Dimensions.get('window').width / 2,
+        backgroundColor: 'red',
+        padding: 10,
+        shadowColor: '#000000',
+        shadowOffset: {
+            width: 0,
+            height: 3
+        },
+        shadowRadius: 50,
+        shadowOpacity: 1.0
+    }
 });
 
 export default MapPresenterFile;
