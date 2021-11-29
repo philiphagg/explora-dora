@@ -1,7 +1,8 @@
 import * as React from 'react';
-import MapView, {Circle, PROVIDER_GOOGLE} from 'react-native-maps'
+import MapView, {Circle, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, View, SafeAreaView, Dimensions} from 'react-native';
 import * as Location from 'expo-location';
+import MaskedView from "@react-native-masked-view/masked-view";
 
 function MapPresenterFile() {
     const [location, setLocation] = React.useState({
@@ -45,8 +46,33 @@ function MapPresenterFile() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <MapView region={location} showsUserLocation={true}
-                     provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}/>
+            <MaskedView maskElement={
+                <View
+                    style={{
+                        // Transparent background because mask is based off alpha channel.
+                        backgroundColor: 'transparent',
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <View
+                        style={{
+                            fontSize: 200,
+                            color: 'black',
+                            fontWeight: 'bold',
+                        }}
+                    >
+
+                    </View>
+                </View>
+            }
+            >
+                {/* Shows behind the mask, you can put anything here, such as an image */}
+                <MapView region={location} showsUserLocation={true}
+                         provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap} scrollEnabled={false}>
+                </MapView>
+            </MaskedView>
         </SafeAreaView>
     );
 }
