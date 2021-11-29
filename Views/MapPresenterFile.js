@@ -1,5 +1,5 @@
 import * as React from 'react';
-import MapView, {AnimatedRegion, Circle, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
+import MapView, {AnimatedRegion, Circle, Marker, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated} from 'react-native';
 import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
@@ -12,6 +12,21 @@ function MapPresenterFile() {
         longitudeDelta: 0.01,
     });
     const [errorMsg, setErrorMsg] = React.useState(null);
+
+    const coordinateArray = [
+        {
+            latitude: 59.32953119445494,
+            longitude: 18.00289168513791},
+        {
+            latitude: 59.33015246382279,
+            longitude: 18.003315711589828},
+        {
+            latitude: 59.329374724823495,
+            longitude: 18.00520127602495},
+        {
+            latitude: 59.3284128809676,
+            longitude: 18.004100611617844}
+    ]
 
     React.useEffect(() => {
         (async () => {
@@ -65,6 +80,8 @@ function MapPresenterFile() {
                 <MapView region={location} showsUserLocation={true}
                          provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap} scrollEnabled={false}
                          zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
+
+                    {coordinateArray.map(coords => { return(<Marker coordinate={coords}/>)})}
                 </MapView>
             </MaskedView>
         </SafeAreaView>
