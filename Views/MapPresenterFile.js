@@ -4,6 +4,7 @@ import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated} from 'react-
 import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
 import {getDistance} from "geolib";
+import {TouchableOpacity} from "react-native-web";
 
 function MapPresenterFile() {
     const [location, setLocation] = React.useState({
@@ -88,7 +89,14 @@ function MapPresenterFile() {
 
                     {coordinateArray.map(coords => {
                         return (<Marker coordinate={coords}
-                                        onPress={() => console.log("Distance to marker is " + getDistance(coords, location) + " meters")}/>)
+                                        onPress={() => {
+                                            if (getDistance(coords, location) > 30) {
+                                                console.log("Marker is too far away")
+                                            } else {
+                                                console.log("Marker near you clicked")
+                                            }
+                                        }
+                                        }/>)
                     })}
                 < /MapView>
             </MaskedView>
