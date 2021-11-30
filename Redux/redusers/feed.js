@@ -1,10 +1,10 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import 'firebase/database';
-import {collection, getDocs, getFirestore, onSnapshot, query, where,orderBy} from "firebase/firestore";
-import {db, auth} from "../../Firebase/firebaseconfig"
+import {collection, getDocs, getFirestore, query, where, onSnapshot} from "firebase/firestore";
+import {db} from "../../Firebase/firebaseconfig"
 
-export const getCollection = createAsyncThunk('collection/getCollection', async () => {
-        return getDocs(query(collection(db, "Posts"),orderBy("createdAt", 'desc'),where('user', '==', auth.currentUser.uid) )).then((res) => {
+export const getFeed = createAsyncThunk('firebase/getPosts', async () => {
+        return getDocs(query(collection(db, "Posts"))).then((res) => {
                 let list = [];
                 res.forEach((doc) => list.push(doc.data()));
                 return list;
@@ -13,8 +13,8 @@ export const getCollection = createAsyncThunk('collection/getCollection', async 
     }
 )
 
-export const collectionSlice = createSlice({
-    name: "collection",
+export const feedSlice = createSlice({
+    name: "feed",
     initialState: {
         list: [],
         status: null,
@@ -45,20 +45,19 @@ export const collectionSlice = createSlice({
         },
     },
     extraReducers: {
-        [getCollection.pending]: (state, action) => {
+        [getFeed.pending]: (state, action) => {
             state.status = "loading";
         },
-        [getCollection.fulfilled]: (state, {payload}) => {
+        [getFeed.fulfilled]: (state, {payload}) => {
             state.list = payload;
             state.status = "success";
         },
-        [getCollection.rejected]: (state, action) => {
+        [getFeed.rejected]: (state, action) => {
             state.status = "failed";
         }
     }
 });
 
-export const {addPost, deletePost, likePost, unlikePost} = collectionSlice.actions;
+export const {addPost} = feedSlice.actions;
 
-export default collectionSlice.reducer;
-
+export default feedSlice.reducer;

@@ -2,10 +2,11 @@ import React from "react";
 import {useSelector} from "react-redux";
 import {Button, Text, View, TextInput} from "react-native";
 import {db} from "../Firebase/firebaseconfig"
-
+import 'firebase/database';
 
 import {collection, addDoc} from "firebase/firestore";
 import CameraView from "./Components/camera";
+import firebase from "firebase/compat";
 
 function AddPost({  navigation , place= "Stockholm"}) {
     const styles = useSelector((state) => state.theme.value.style);

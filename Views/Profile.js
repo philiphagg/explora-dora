@@ -1,30 +1,30 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {View, Text, Button, Switch, TouchableOpacity, TextInput} from "react-native";
 import {toggleTheme, setTheme} from "../Redux/redusers/theme";
-import Login from "./Login";
 import {editProfile} from "../Redux/redusers/user";
-
-
-//import WideButton from "./Components/Button";
+import {getFeed} from "../Redux/redusers/feed";
 
 function Profile() {
     const styles = useSelector((state) => state.theme.value.style);
     const theme = useSelector((state) => state.theme.value.theme);
     const user = useSelector((state) => state.user.value);
-    const posts = useSelector((state) => state.posts.value);
+    const collection = useSelector((state) => state.collection.list);
     const [nick, setNick] = React.useState(user.name);
     const [changeN, setChangingNick] = React.useState(false);
-
     const dispatch = useDispatch();
-    //const themeColor = useSelector((state) => state.theme.value);
+
+    useEffect(() => {
+        if(collection.status !== 'success')
+            dispatch(getFeed())
+    }, []);
 
     return (
         <View style={styles.view}>
 
             <View style={[styles.col, styles.divider]}>
                 <Text style={styles.h1}> {user.name} </Text>
-                <Text style={styles.h2}> {posts.length} Posts</Text>
+                <Text style={styles.h2}> {collection.length} Posts</Text>
                 <Text style={styles.h2}> {user.distance} km</Text>
                 <Text style={styles.h2}> Email: {user.email}</Text>
             </View>
@@ -38,8 +38,10 @@ function Profile() {
                             style={styles.input}
                         />
                         <TouchableOpacity
-                            onPress={e => {setChangingNick(false);
-                            dispatch(editProfile({name:nick}))} }
+                            onPress={e => {
+                                setChangingNick(false);
+                                dispatch(editProfile({name: nick}))
+                            }}
                             style={[styles.button, styles.buttonOutline]}
                         >
                             <Text style={styles.buttonOutlineText}>Save nickname</Text>
