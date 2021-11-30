@@ -17,22 +17,32 @@ function MapPresenterFile() {
 
     const coordinateArray = [
         {
+            name: 'marker1',
             latitude: 59.32953119445494,
             longitude: 18.00289168513791
         },
         {
+            name: 'marker2',
             latitude: 59.33015246382279,
             longitude: 18.003315711589828
         },
         {
+            name: 'marker3',
             latitude: 59.329374724823495,
             longitude: 18.00520127602495
         },
         {
+            name: 'marker4',
             latitude: 59.3284128809676,
             longitude: 18.004100611617844
         }
     ]
+
+    const [list, updateList] = React.useState(coordinateArray);
+
+    const handleRemoveItem = name => {
+        updateList(list.filter(item => item.name !== name));
+    };
 
     React.useEffect(() => {
         (async () => {
@@ -87,12 +97,13 @@ function MapPresenterFile() {
                          provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap} scrollEnabled={false}
                          zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
 
-                    {coordinateArray.map(coords => {
-                        return (<Marker coordinate={coords}
+                    {list.map(marker => {
+                        return (<Marker coordinate={marker}
                                         onPress={() => {
-                                            if (getDistance(coords, location) > 30) {
+                                            if (getDistance(marker, location) > 200) {
                                                 console.log("Marker is too far away")
                                             } else {
+                                                handleRemoveItem(marker.name)
                                                 console.log("Marker near you clicked")
                                             }
                                         }
