@@ -20,7 +20,11 @@ export const markersSlice = createSlice({
         status: null,
     },
     reducers: {
-        remove
+        handleRemoveItem: (state, action) => {
+            console.log(action.payload);
+            //state.value = [...state.value, action.payload..name];
+            state.list = [...state.list].filter(item => item.name !== action.payload.name)
+        },
     },
     extraReducers: {
         [getMarkers.pending]: (state, action) => {
@@ -36,5 +40,5 @@ export const markersSlice = createSlice({
     }
 });
 
-export const {} = markersSlice .actions;
+export const {handleRemoveItem} = markersSlice.actions;
 export default markersSlice .reducer;

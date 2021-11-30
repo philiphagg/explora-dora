@@ -6,6 +6,7 @@ import MaskedView from "@react-native-masked-view/masked-view";
 import {getDistance} from "geolib";
 import {getMarkers} from "../Redux/redusers/markers";
 import {useDispatch, useSelector} from "react-redux";
+import {handleRemoveItem} from "../Redux/redusers/markers";
 
 function MapPresenterFile() {
     const dispatch = useDispatch();
@@ -17,10 +18,6 @@ function MapPresenterFile() {
     });
     const [errorMsg, setErrorMsg] = React.useState(null);
     const markers = useSelector((state) => state.markers);
-
-    const handleRemoveItem = name => {
-        updateList(list.filter(item => item.name !== name));
-    };
 
     React.useEffect(() => {
         dispatch(getMarkers())
@@ -34,7 +31,6 @@ function MapPresenterFile() {
             }
         })();
     }, []);
-
 
     React.useEffect(() => {
         Location.watchPositionAsync(
@@ -71,24 +67,26 @@ function MapPresenterFile() {
                             alignItems: 'center',
                         }}
                     >
-                        { /*here is the place to put the clipping object for mask*/}
+                       // { /*here is the place to put the clipping object for mask*/}
                         <View style={styles.circle}/>
                     </View>
                 }
                 >
-                    {/* Shows behind the mask, you can put anything here, such as an image */}
+
+                   // {/* Shows behind the mask, you can put anything here, such as an image */}
+
                     <MapView region={location} showsUserLocation={true}
                              provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}
                              scrollEnabled={false}
                              zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
 
                         {markers.list.map(marker => {
-                            return (<Marker coordinate={{latitude: marker.lat, longitude: marker.lon}}
+                            return (<Marker coordinate={}
                                             onPress={() => {
                                                 if (getDistance(marker, location) > 200) {
                                                     console.log("Marker is too far away")
                                                 } else {
-                                                    handleRemoveItem(marker.name)
+                                                    handleRemoveItem({name: marker.name})
                                                     console.log("Marker near you clicked")
                                                 }
                                             }
