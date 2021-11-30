@@ -9,7 +9,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {handleRemoveItem} from "../Redux/redusers/markers";
 
 function MapPresenterFile() {
-    const dispatch = useDispatch();
     const [location, setLocation] = React.useState({
         latitude: 59.3322,
         longitude: 18.0642,
@@ -22,6 +21,7 @@ function MapPresenterFile() {
     React.useEffect(() => {
         dispatch(getMarkers())
     }, []);
+    const dispatch = useDispatch();
 
     React.useEffect(() => {
         (async () => {
@@ -67,21 +67,19 @@ function MapPresenterFile() {
                             alignItems: 'center',
                         }}
                     >
-                       // { /*here is the place to put the clipping object for mask*/}
+                        { /*here is the place to put the clipping object for mask*/}
                         <View style={styles.circle}/>
                     </View>
                 }
                 >
-
-                   // {/* Shows behind the mask, you can put anything here, such as an image */}
-
+                    {/* Shows behind the mask, you can put anything here, such as an image */}
                     <MapView region={location} showsUserLocation={true}
                              provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}
                              scrollEnabled={false}
                              zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
 
                         {markers.list.map(marker => {
-                            return (<Marker coordinate={}
+                            return (<Marker key={marker.lat} coordinate={{latitude: marker.lat + 0, longitude: marker.lon + 0}}
                                             onPress={() => {
                                                 if (getDistance(marker, location) > 200) {
                                                     console.log("Marker is too far away")
