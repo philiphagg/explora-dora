@@ -16,7 +16,7 @@ const initialStateValue=[
 
             ];
 
-export const postSlice = createSlice({
+export const highscoreSlice = createSlice({
     name: "highscores",
     initialState: {value: initialStateValue},
     reducers: {
@@ -55,6 +55,6 @@ export const postSlice = createSlice({
     },
 });
 //likePost({postID: post.id, userId: user.id}
-export const {addPosts,addPost, likePost, deletePost, unlikePost} = postSlice.actions;
+export const {addPosts,addPost, likePost, deletePost, unlikePost} = highscoreSlice.actions;
 
-export default postSlice.reducer;
+export default highscoreSlice.reducer;
