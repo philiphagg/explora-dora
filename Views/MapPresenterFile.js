@@ -4,9 +4,11 @@ import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated} from 'react-
 import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
 import {getDistance} from "geolib";
-import {TouchableOpacity} from "react-native-web";
+import {getMarkers} from "../Redux/redusers/markers";
+import {useDispatch, useSelector} from "react-redux";
 
 function MapPresenterFile() {
+    const dispatch = useDispatch();
     const [location, setLocation] = React.useState({
         latitude: 59.3322,
         longitude: 18.0642,
@@ -14,35 +16,15 @@ function MapPresenterFile() {
         longitudeDelta: 0.01,
     });
     const [errorMsg, setErrorMsg] = React.useState(null);
-
-    const coordinateArray = [
-        {
-            name: 'marker1',
-            latitude: 59.32953119445494,
-            longitude: 18.00289168513791
-        },
-        {
-            name: 'marker2',
-            latitude: 59.33015246382279,
-            longitude: 18.003315711589828
-        },
-        {
-            name: 'marker3',
-            latitude: 59.329374724823495,
-            longitude: 18.00520127602495
-        },
-        {
-            name: 'marker4',
-            latitude: 59.3284128809676,
-            longitude: 18.004100611617844
-        }
-    ]
-
-    const [list, updateList] = React.useState(coordinateArray);
+    const markers = useSelector((state) => state.markers);
 
     const handleRemoveItem = name => {
         updateList(list.filter(item => item.name !== name));
     };
+
+    React.useEffect(() => {
+        dispatch(getMarkers())
+    }, []);
 
     React.useEffect(() => {
         (async () => {
@@ -52,6 +34,7 @@ function MapPresenterFile() {
             }
         })();
     }, []);
+
 
     React.useEffect(() => {
         Location.watchPositionAsync(
@@ -76,42 +59,44 @@ function MapPresenterFile() {
     }, []);
 
     return (
-        <SafeAreaView style={{alignItems: 'center'}}>
-            <MaskedView maskElement={
-                <View
-                    style={{
-                        // Transparent background because mask is based off alpha channel.
-                        backgroundColor: 'transparent',
-                        flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
+        markers.status !== "success" ? <Text>Loading {JSON.stringify(markers)}</Text> :
+            <SafeAreaView style={{alignItems: 'center'}}>
+                <MaskedView maskElement={
+                    <View
+                        style={{
+                            // Transparent background because mask is based off alpha channel.
+                            backgroundColor: 'transparent',
+                            flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        { /*here is the place to put the clipping object for mask*/}
+                        <View style={styles.circle}/>
+                    </View>
+                }
                 >
-                    { /*here is the place to put the clipping object for mask*/}
-                    <View style={styles.circle}/>
-                </View>
-            }
-            >
-                {/* Shows behind the mask, you can put anything here, such as an image */}
-                <MapView region={location} showsUserLocation={true}
-                         provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap} scrollEnabled={false}
-                         zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
+                    {/* Shows behind the mask, you can put anything here, such as an image */}
+                    <MapView region={location} showsUserLocation={true}
+                             provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}
+                             scrollEnabled={false}
+                             zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
 
-                    {list.map(marker => {
-                        return (<Marker coordinate={marker}
-                                        onPress={() => {
-                                            if (getDistance(marker, location) > 200) {
-                                                console.log("Marker is too far away")
-                                            } else {
-                                                handleRemoveItem(marker.name)
-                                                console.log("Marker near you clicked")
+                        {markers.list.map(marker => {
+                            return (<Marker coordinate={{latitude: marker.lat, longitude: marker.lon}}
+                                            onPress={() => {
+                                                if (getDistance(marker, location) > 200) {
+                                                    console.log("Marker is too far away")
+                                                } else {
+                                                    handleRemoveItem(marker.name)
+                                                    console.log("Marker near you clicked")
+                                                }
                                             }
-                                        }
-                                        }/>)
-                    })}
-                < /MapView>
-            </MaskedView>
-        </SafeAreaView>
+                                            }/>)
+                        })}
+                    < /MapView>
+                </MaskedView>
+            </SafeAreaView>
     );
 }
 

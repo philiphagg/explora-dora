@@ -3,6 +3,7 @@ import userReducer from "./redusers/user";
 import themeReducer from "./redusers/theme";
 import postsReducer from './redusers/posts';
 import highscoresReducer from './redusers/highscores';
+import markersReducer from './redusers/markers';
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         theme: themeReducer,
         posts: postsReducer,
         highscores: highscoresReducer,
+        markers: markersReducer,
     },
 });
 
