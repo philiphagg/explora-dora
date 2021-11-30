@@ -1,49 +1,21 @@
 //import {firebase, doc, getDoc} from "@react-native-firebase/firestore";
-import {db} from './firebaseconfig'
-import {doc, collection, getDocs, query, where} from "firebase/firestore";
-import {addPost, setPosts, addPosts} from "../Redux/redusers/feed";
-import {useDispatch} from "react-redux";
-
-/*
-
-export async function getAllFrom(source) {
-    const q = query(collection(db, source));
-    const list = [];
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-            list.push(
-                {
-                    caption: doc.data().caption,
-                    image: doc.data().image,
-                    likes: doc.data().likes,
-                    title: doc.data().title,
-                    user: doc.data().user,
-                })
-        }
-    )
-    console.log(list)
-    return list;
-}
- */
+import {auth, db} from './firebaseconfig'
+import {doc, collection, getDocs, query, where, addDoc} from "firebase/firestore";
 
 
-export async function getAllFrom(source) {
-    let list = [];
+export async function addPostFirebase() {
     try {
-        const q = query(collection(db, source));
-        getDocs(q).then(response => {
-                response.forEach((doc) => list.push(doc.data()));
-                console.log("Fetch _-------------------------------------\n", list);
-                //const dispatch = useDispatch();
-                //dispatch(addPosts(list));
-            }
-        )
-    } catch (err) {
-        return {Result: "failed catch"};
+        await addDoc(collection(db, "Posts"), {
+            title: "Test With Add Doc ",
+            image: "https://media.timeout.com/images/105171709/image.jpg",
+            likes: [],
+            caption: "Detta är ett test text",
+            user: auth.currentUser.uid,
+            nick: "Magnus Uggla",
+        });
+    }catch (error){
+        console.log(error)
     }
-    //return {Result: "failed "};
-        if(list !== [])
-            return list;
 }
 
 

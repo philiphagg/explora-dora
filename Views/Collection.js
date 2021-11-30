@@ -5,6 +5,8 @@ import {getCollection} from "../Redux/redusers/collection";
 import {getFeed} from "../Redux/redusers/feed";
 
 function Collection() {
+    //map state to props
+    //map
     const posts = useSelector((state) => state.collection);
     const styles = useSelector((state) => state.theme.value.styles);
     const dispatch = useDispatch();

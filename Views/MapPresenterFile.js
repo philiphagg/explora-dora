@@ -50,12 +50,10 @@ function MapPresenterFile({navigation}) {
                      provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={customMap}>
 
                 <Marker coordinate={location}
-                        onPress={x => navigation.navigate("Take Picture")}/>
+                        onPress={x => {
+                            navigation.navigate("Take Picture", {title: "Name of The Place"});
+                        }}/>
             </MapView>
-            <Button
-                title="Claim Landmark"
-                onPress={x => navigation.navigate("Take Picture")}
-            />
         </SafeAreaView>
     );
 }

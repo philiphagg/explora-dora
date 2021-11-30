@@ -28,8 +28,7 @@ function Feed() {
                                 <View style={[styles.divider]} key={post.id}>
                                     <View style={styles.row}>
                                         <Text style={styles.h2}>{post.title}</Text>
-                                        <Text style={styles.h2}>{post.user}</Text>
-                                        <Text style={styles.h2}>{post.userId}</Text>
+                                        <Text style={styles.h2}>{post.nick}</Text>
                                     </View>
                                     <Image source={{uri: post.image}}
                                            style={styles.postImage}/>

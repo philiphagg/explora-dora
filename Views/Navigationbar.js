@@ -69,7 +69,7 @@ function Navigationbar(){
                             })}
                     >
                         <Tab.Screen name="Map" component={MapViewComp} options={{tabBarBadge: 3 }}/>
-                        <Tab.Screen name="Progress" component={AddPost} />
+                        <Tab.Screen name="Progress" component={Progress} />
                         <Tab.Screen name="Feed" component={Feed} options={{tabBarBadge: 5 }}/>
                         <Tab.Screen name="High Score" component={Highscores} />
                         <Tab.Screen name="Collectibles" component={Collection} />

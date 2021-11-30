@@ -4,7 +4,7 @@ import themeReducer from "./redusers/theme";
 import feedReducer from './redusers/feed';
 import collectionReducer from './redusers/collection';
 import highscoresReducer from './redusers/highscores';
-import {collectionSlice} from "./redusers/collection";
+import cameraReducer from './redusers/camera';
 
 const store = configureStore({
     reducer: {
@@ -13,6 +13,7 @@ const store = configureStore({
         collection: collectionReducer,
         feed: feedReducer,
         highscores: highscoresReducer,
+        camera: cameraReducer,
     },
 });
 
