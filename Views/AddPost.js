@@ -1,12 +1,12 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Button, Text, View, TextInput, Image} from "react-native";
+import {Button, Text, View, TextInput, Image, ScrollView} from "react-native";
 import {auth, db} from "../Firebase/firebaseconfig"
 import 'firebase/database';
 import {addPost} from "../Redux/redusers/feed";
 
 function AddPost({route, navigation}) {
-    const {title, image} = route.params;
+    const camera = useSelector((state) => state.camera);
     const styles = useSelector((state) => state.theme.value.style);
     const user = useSelector((state) => state.user.value);
     const dispatch = useDispatch();
@@ -16,15 +16,15 @@ function AddPost({route, navigation}) {
     const [picture, setPicture] = React.useState(false);
 
     return (
-        <View style={styles.centerContent}>
+        <ScrollView>
             <View>
 
-                <Image source={{uri: image}} style={[{flex: 1}, styles.postImage]}/>
+                <Image source={{uri: camera.image}} style={{flex: 1}}/>
             </View>
             <View style={styles.row}>
                 <Text style={[styles.h1, styles.divider]}>
-                    {title}
-                    {image}
+                    {camera.title}
+                    {camera.image}
                 </Text>
                 <Text style={[styles.h1, styles.divider]}>
                     Add A new post
@@ -50,16 +50,23 @@ function AddPost({route, navigation}) {
 
             <Button
                 title="Submit"
-                onPress={() => dispatch(addPost({
-                    title: "Test With Add Doc ",
-                    image: "https://media.timeout.com/images/105171709/image.jpg",
-                    likes: [],
-                    caption: text,
-                    user: auth.currentUser.uid,
-                    nick: auth.currentUser.displayName,
-                }))}
+                onPress={() => {
+                    dispatch(addPost({
+                                title: "Stockholm",
+                                image: "https://media.timeout.com/images/105171709/image.jpg",
+                                likes: [],
+                                caption: text,
+                                user: auth.currentUser.uid,
+                                nick: auth.currentUser.displayName,
+                            }
+                        )
+                    )
+                    navigation.navigate("Map")
+                }
+                }
             />
-        </View>
+
+        </ScrollView>
     );
 }
 

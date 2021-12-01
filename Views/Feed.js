@@ -1,8 +1,10 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Button, Text, View, Image, Alert, ScrollView, TouchableOpacity} from "react-native";
-import {getFeed} from "../Redux/redusers/feed";
+import {getFeed, likePost, unlikePost} from "../Redux/redusers/feed";
 import LoadingSpinner from "./Components/LoadingAnimation";
+import {auth} from "../Firebase/firebaseconfig";
+
 
 function Feed() {
     const posts = useSelector((state) => state.feed);
@@ -33,10 +35,14 @@ function Feed() {
                                     <Image source={{uri: post.image}}
                                            style={styles.postImage}/>
                                     <View style={styles.row}>
-                                        <Text style={styles.h2}>{post.likes.length} ❤ </Text>
+                                        <Text style={styles.h2}>{post.likes.length} ♥ </Text>
                                         <Button
-                                            title="Like"
-                                            onPress={() => dispatch(likePost({postId: post.id, userId: user.id}))}
+                                            title={post.likes.includes(auth.currentUser.uid) ?"Unlike":  "Like  "}
+                                            onPress={() => {
+                                                post.likes.includes(auth.currentUser.uid) ?
+                                                    dispatch(unlikePost({post: post})):
+                                                    dispatch(likePost({post: post}))
+                                            }}
                                         />
                                     </View>
                                     <View style={styles.row}>

@@ -1,13 +1,19 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import 'firebase/database';
-import {collection, getDocs, getFirestore, query, where, onSnapshot, addDoc} from "firebase/firestore";
-import {db, auth} from "../../Firebase/firebaseconfig"
+import {addDoc, collection, getDocs, query, updateDoc, setDoc, getDoc, doc,} from "firebase/firestore";
+import {auth, db} from "../../Firebase/firebaseconfig"
 
 export const getFeed = createAsyncThunk('firebase/getPosts', async () => {
-        return getDocs(query(collection(db, "Posts"))).then((res) => {
+        return getDocs(query(collection(db, "Posts"))).then((snapshot) => {
                 let list = [];
-                res.forEach((doc) => list.push(doc.data()));
+                snapshot.forEach(doc => {
+                        list.push({id: doc.id, ...doc.data()});
+                    }
+                );
                 return list;
+                /*
+                snapshot.forEach((doc) => list.push(doc.data()));
+                 */
             }
         )
     }
@@ -17,28 +23,10 @@ async function addPostFirebase(post) {
     await addDoc(collection(db, "Posts"), post)
 }
 
-async function editPostFirebase(post) {
-    await addDoc(collection(db, "Posts"), post)
+async function editPostFirebase(postId, data) {
+    const postRef = doc(db, "Posts", postId);
+    await updateDoc(postRef, data);
 }
-
-/*
-
-export const addPost = createAsyncThunk('firebase/getPosts', async ({post}) => {
-        console.log("mange -----")
-        return addDoc(collection(db, "Posts"), {
-            title: "Test With Add Doc ",
-            image: "https://media.timeout.com/images/105171709/image.jpg",
-            likes: [],
-            caption: "Detta är ett test text",
-            user: auth.currentUser.uid,
-            nick: "Magnus Uggla",
-        });
-    }
-)
-
-
- */
-
 
 export const feedSlice = createSlice({
     name: "feed",
@@ -55,26 +43,45 @@ export const feedSlice = createSlice({
                 }
             ).catch()
         },
-        editPost: (state, action) => {
-            console.log("Edit post: " + action.payload.title);
-            editPostFirebase(action.payload).then(r => {
-                    console.log("Add performed successfully");
-                    state.list = [...state.list, action.payload];
-                    //state.value = [...state.value].filter(x => x.id !== post);
-                }
-            ).catch()
-        },
         likePost: (state, action) => {
-            const user = action.payload.userId;
-            const post = action.payload.postId;
-            if (!state.value.find(x => x.id === post).likes.includes(user))
-                state.value.find(x => x.id === post).likes.push(user);
+            const user = auth.currentUser.uid;
+            const post = action.payload.post;
+            const likes = [...state.list.find(x => x.id === post.id).likes];
+
+            if (!likes.includes(user)) {
+                likes.push(user);
+                state.list.find(x => x.id === post.id).likes.push(user);
+
+                editPostFirebase(post.id, {likes: likes}).then(r => {
+                    console.log("Like added ---------------------------------", state)
+                })
+            }
         },
         unlikePost: (state, action) => {
-            const user = action.payload.userId;
-            const post = action.payload.postId;
-            state.value = state.value.find(x => x.id === post).likes.filter(x => x === user);
-            console.log(state)
+            const user = auth.currentUser.uid;
+            const post = action.payload.post;
+            let likes = [...state.list.find(x => x.id === post.id).likes];
+
+            if (likes.includes(user)) {
+                likes = likes.filter(x => x !== user);
+                state.list.find(x => x.id === post.id).likes = likes;
+                //console.log("Del  ---------------------------------", likes, user)
+                editPostFirebase(post.id, {likes: likes}).then(r => {
+                    console.log("Like deleted  ---------------------------------", state)
+                })
+            }
+        },
+        editPost: (state, action) => {
+            const user = auth.currentUser.uid;
+            const post = action.payload.post;
+
+            if(post.user === user){
+                //state.list.find(x => x.id === post.id) = post;
+
+                editPostFirebase(post.id, {post}).then(r => {
+                    console.log("Edited post  ---------------------------------", state)
+                })
+            }
         },
     },
     extraReducers: {
@@ -91,6 +98,6 @@ export const feedSlice = createSlice({
     }
 });
 
-export const {addPost} = feedSlice.actions;
+export const {addPost, likePost, unlikePost} = feedSlice.actions;
 
 export default feedSlice.reducer;
