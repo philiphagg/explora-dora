@@ -105,7 +105,7 @@ function Collection() {
                     )}
                 />
 
-        </View>
+            </View>
     );
 }/*<View style={[styles.col, styles.divider]}>
                 {changeN ?
