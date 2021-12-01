@@ -1,12 +1,15 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import 'firebase/database';
-import {collection, getDocs, getFirestore, onSnapshot, query, where,orderBy} from "firebase/firestore";
+import {collection, getDocs, getFirestore, onSnapshot, query, where, orderBy} from "firebase/firestore";
 import {db, auth} from "../../Firebase/firebaseconfig"
 
 export const getCollection = createAsyncThunk('collection/getCollection', async () => {
-        return getDocs(query(collection(db, "Posts"),where('user', '==', auth.currentUser.uid) )).then((res) => {
+        return getDocs(query(collection(db, "Posts"), where('user', '==', auth.currentUser.uid))).then((snapshot) => {
                 let list = [];
-                res.forEach((doc) => list.push(doc.data()));
+                snapshot.forEach(doc => {
+                        list.push({id: doc.id, ...doc.data()});
+                    }
+                );
                 return list;
             }
         )

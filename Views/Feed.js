@@ -4,16 +4,20 @@ import {Button, Text, View, Image, Alert, ScrollView, TouchableOpacity} from "re
 import {getFeed, likePost, unlikePost} from "../Redux/redusers/feed";
 import LoadingSpinner from "./Components/LoadingAnimation";
 import {auth} from "../Firebase/firebaseconfig";
+import {getCollection} from "../Redux/redusers/collection";
+import {getUsers} from "../Redux/redusers/user";
 
 
 function Feed() {
     const posts = useSelector((state) => state.feed);
     const styles = useSelector((state) => state.theme.value.style);
-    const user = useSelector((state) => state.user.value);
+    const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getFeed())
+        if (user.users.status !== "success")
+            dispatch(getUsers())
     }, []);
 
     return (
@@ -31,16 +35,19 @@ function Feed() {
                                     <View style={styles.row}>
                                         <Text style={styles.h2}>{post.title}</Text>
                                         <Text style={styles.h2}>{post.nick}</Text>
+                                        {
+                                            //user.users.list.find(user => user.uid === post.user).name
+                                        }
                                     </View>
                                     <Image source={{uri: post.image}}
                                            style={styles.postImage}/>
                                     <View style={styles.row}>
                                         <Text style={styles.h2}>{post.likes.length} ♥ </Text>
                                         <Button
-                                            title={post.likes.includes(auth.currentUser.uid) ?"Unlike":  "Like  "}
+                                            title={post.likes.includes(auth.currentUser.uid) ? "Unlike" : "Like  "}
                                             onPress={() => {
                                                 post.likes.includes(auth.currentUser.uid) ?
-                                                    dispatch(unlikePost({post: post})):
+                                                    dispatch(unlikePost({post: post})) :
                                                     dispatch(likePost({post: post}))
                                             }}
                                         />
