@@ -1,3 +1,5 @@
+import {Dimensions} from "react-native";
+
 function styles(theme) {
     return {
         /*h1- h4 are normal styles for texts*/
@@ -54,6 +56,19 @@ function styles(theme) {
         },
         /* The Styles Above Are Standardized for both dark and light mode*/
 
+        /*Collection Styling*/
+        item: {
+            justifyContent: 'center',
+            alignItems: 'center',
+            flex: 1,
+            margin: 1,
+            height: Dimensions.get('window').width /3,
+
+        },
+        postImageTest: {
+            width: 123,
+            height: 125,
+        },
 
 
         /* BUTTONS */

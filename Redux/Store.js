@@ -4,15 +4,17 @@ import themeReducer from "./redusers/theme";
 import feedReducer from './redusers/feed';
 import collectionReducer from './redusers/collection';
 import highscoresReducer from './redusers/highscores';
+import markersReducer from './redusers/markers';
 import cameraReducer from './redusers/camera';
 
 const store = configureStore({
     reducer: {
         user: userReducer,
         theme: themeReducer,
-        collection: collectionReducer,
         feed: feedReducer,
+        collection: collectionReducer,
         highscores: highscoresReducer,
+        markers: markersReducer,
         camera: cameraReducer,
     },
 });

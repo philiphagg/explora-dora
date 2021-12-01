@@ -4,7 +4,7 @@ import {collection, getDocs, getFirestore, onSnapshot, query, where,orderBy} fro
 import {db, auth} from "../../Firebase/firebaseconfig"
 
 export const getCollection = createAsyncThunk('collection/getCollection', async () => {
-        return getDocs(query(collection(db, "Posts"),orderBy("createdAt", 'desc'),where('user', '==', auth.currentUser.uid) )).then((res) => {
+        return getDocs(query(collection(db, "Posts"),where('user', '==', auth.currentUser.uid) )).then((res) => {
                 let list = [];
                 res.forEach((doc) => list.push(doc.data()));
                 return list;
