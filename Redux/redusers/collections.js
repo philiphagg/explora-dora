@@ -82,6 +82,9 @@ export const collectionSlice = createSlice({
             const post = action.payload.postId;
             state.value = [...state.value].filter( x => x.id !== post);
         },
+        editCaption: (state,action) =>{
+            state.value = {...state.value, caption:action.payload.caption}
+        },
         likePost: (state,action) => {
             const user = action.payload.userId;
             const post = action.payload.postId;
@@ -99,6 +102,6 @@ export const collectionSlice = createSlice({
     },
 });
 //likePost({postID: post.id, userId: user.id}
-export const {addPost, likePost, deletePost, unlikePost} = collectionSlice.actions;
+export const {addPost, likePost, deletePost, unlikePost, editCaption} = collectionSlice.actions;
 
 export default collectionSlice.reducer;
