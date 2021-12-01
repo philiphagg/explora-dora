@@ -21,7 +21,7 @@ export default function App() {
 //Needed to have theme saved with use selector
 function AppWrapper() {
     const theme = useSelector((state) => state.theme.value.theme);
-    const user = useSelector((state) => state.user.value);
+    const user = useSelector((state) => state.user);
 //statusbar
     return (
         <NavigationContainer theme={theme}>
@@ -36,11 +36,11 @@ function AppWrapper() {
                 showHideTransition={true}
                 hidden={false} />
             {
-                console.log("User ??? ", user.type)
+              console.log("User ??? ", user.user)
             }
             {
                 //Object.keys(user.apiKey).length === 0 ?
-                user.id === undefined ?
+                user.status !== 'loggedIn' ?
                     <Login/>
                     :
                     <Navigationbar/>
