@@ -4,12 +4,14 @@ import themeReducer from "./redusers/theme";
 import postsReducer from './redusers/posts';
 import highscoresReducer from './redusers/highscores';
 import markersReducer from './redusers/markers';
+import collectionReducer from './redusers/collections';
 
 const store = configureStore({
     reducer: {
         user: userReducer,
         theme: themeReducer,
         posts: postsReducer,
+        collections: collectionReducer,
         highscores: highscoresReducer,
         markers: markersReducer,
     },
