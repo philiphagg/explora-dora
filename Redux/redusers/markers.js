@@ -22,7 +22,7 @@ export const markersSlice = createSlice({
     reducers: {
         handleRemoveItem: (state, action) => {
             console.log(state)
-            state.filter(item => item.name !== action.payload.name)
+            state.list = [...state.list].filter(item => item.name !== action.payload.name)
         },
     },
     extraReducers: {

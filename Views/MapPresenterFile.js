@@ -79,12 +79,12 @@ function MapPresenterFile() {
                              zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
 
                         {markers.list.map(marker => {
-                            return (<Marker key={marker.lat} coordinate={{latitude: marker.lat + 0, longitude: marker.lon + 0}}
+                            return (<Marker key={marker.lat} coordinate={{latitude: marker.lat, longitude: marker.lon}}
                                             onPress={() => {
                                                 if (getDistance(marker, location) > 200) {
                                                     console.log("Marker is too far away")
                                                 } else {
-                                                    handleRemoveItem({markers}, {name: marker.name})
+                                                    dispatch(handleRemoveItem({name: marker.name}))
                                                     console.log("Marker near you clicked")
                                                 }
                                             }
