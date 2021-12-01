@@ -1,19 +1,21 @@
 import {configureStore} from "@reduxjs/toolkit";
 import userReducer from "./redusers/user";
 import themeReducer from "./redusers/theme";
-import postsReducer from './redusers/posts';
+import feedReducer from './redusers/feed';
+import collectionReducer from './redusers/collection';
 import highscoresReducer from './redusers/highscores';
 import markersReducer from './redusers/markers';
-import collectionReducer from './redusers/collections';
+import cameraReducer from './redusers/camera';
 
 const store = configureStore({
     reducer: {
         user: userReducer,
         theme: themeReducer,
-        posts: postsReducer,
-        collections: collectionReducer,
+        feed: feedReducer,
+        collection: collectionReducer,
         highscores: highscoresReducer,
         markers: markersReducer,
+        camera: cameraReducer,
     },
 });
 
