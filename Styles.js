@@ -58,6 +58,7 @@ function styles(theme) {
 
         /*Collection Styling*/
         item: {
+            backgroundColor: theme.colors.backgroundColor,
             justifyContent: 'center',
             alignItems: 'center',
             flex: 1,
@@ -68,6 +69,10 @@ function styles(theme) {
         postImageTest: {
             width: 123,
             height: 125,
+        },
+        centered: {
+            justifyContent: 'center',
+            alignItems: 'center',
         },
 
 
