@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { Button, Text, View, Image, Alert, ScrollView, TouchableOpacity, FlatList, TextInput,
-    KeyboardAvoidingView,
-    Platform } from 'react-native';
-import {editCaption, likePost} from "../Redux/redusers/collections";
-import {editProfile} from "../Redux/redusers/user";
+
+import {Button, Text, View, Image, Alert, ScrollView, TouchableOpacity, FlatList, TextInput, KeyboardAvoidingView,
+    Platform} from 'react-native';
+import LoadingSpinner from "./Components/LoadingAnimation";
+import {getCollection, editCaption} from "../Redux/redusers/collection";
 
 
 /*const formatData = (data, numColumns) =>{
@@ -19,6 +19,7 @@ import {editProfile} from "../Redux/redusers/user";
 
     return data;
 }*/
+
 function DetailsView({post, setToNull}){
 
     const theme = useSelector((state) => state.theme.value.theme);
@@ -72,9 +73,10 @@ function DetailsView({post, setToNull}){
     )
 }
 
+
 function Collection() {
     const styles = useSelector((state) => state.theme.value.style);
-    const collections = useSelector((state) => state.collections.value);
+    const collection = useSelector((state) => state.collection);
     const theme = useSelector((state) => state.theme.value.theme);
     const user = useSelector((state) => state.user.value);
 
@@ -83,7 +85,12 @@ function Collection() {
 
     const numColumns = 3;
 
+    useEffect(() => {
+        dispatch(getCollection())
+    }, []);
+
     return (
+
         post ?
             <DetailsView post={post} setToNull={() => setPost(null)}/>
             :
@@ -107,29 +114,6 @@ function Collection() {
 
             </View>
     );
-}/*<View style={[styles.col, styles.divider]}>
-                {changeN ?
-                    <>
-                        <TextInput
-                            placeholder="New nick"
-                            value={nick}
-                            onChangeText={text => setNick(text)}
-                            style={styles.input}
-                        />
-                        <TouchableOpacity
-                            onPress={e => {setChangingNick(false);
-                            dispatch(editProfile({name:nick}))} }
-                            style={[styles.button, styles.buttonOutline]}
-                        >
-                            <Text style={styles.buttonOutlineText}>Save nickname</Text>
-                        </TouchableOpacity>
-                    </> :
-                    <TouchableOpacity
-                        onPress={e => setChangingNick(true)}
-                        style={[styles.button, styles.buttonOutline]}
-                    >
-                        <Text style={styles.buttonOutlineText}>Change your nick</Text>
-                    </TouchableOpacity>
-                }
-            </View>*/
+}
+
 export default Collection;

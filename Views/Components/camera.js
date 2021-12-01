@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Button, Image} from 'react-native';
 import {Camera} from 'expo-camera';
+import {useSelector} from "react-redux";
+import {setImageState} from '../../Redux/redusers/camera'
 
-export default function CameraView() {
+export default function CameraView({route, navigation}) {
+    const {title} = route.params;
     const [camera, setCamera] = useState(null);
     const [image, setImage] = useState(null);
     const [hasPermission, setHasPermission] = useState(null);
@@ -16,9 +19,11 @@ export default function CameraView() {
     }, []);
 
     const takePicture = async () => {
-        if(camera){
+        if (camera) {
             const data = await camera.takePictureAsync(null)
-            setImage(data.uri)
+            //setImage(data.uri);
+            setImageState(data.uri);
+            navigation.navigate("Claim Landmark", {title, image})
         }
     }
 
