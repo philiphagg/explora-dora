@@ -7,6 +7,7 @@ import {getDistance} from "geolib";
 import {getMarkers} from "../Redux/redusers/markers";
 import {useDispatch, useSelector} from "react-redux";
 import {handleRemoveItem} from "../Redux/redusers/markers";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function MapPresenterFile() {
     const [location, setLocation] = React.useState({
@@ -79,16 +80,18 @@ function MapPresenterFile() {
                              zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
 
                         {markers.list.map(marker => {
-                            return (<Marker key={marker.lat} coordinate={{latitude: parseFloat(marker.lat), longitude: parseFloat(marker.lon)}}
-                                            onPress={() => {
-                                                if (getDistance(marker, location) > 15) {
-                                                    console.log("Marker is too far away")
-                                                } else {
-                                                    dispatch(handleRemoveItem({name: marker.name}))
-                                                    console.log("Marker near you clicked")
-                                                }
-                                            }
-                                            }/>)
+                            return (<Marker key={marker.lat} coordinate={{
+                                latitude: parseFloat(marker.lat),
+                                longitude: parseFloat(marker.lon)
+                            }} onPress={() => {
+                                if (getDistance(marker, location) > 15) {
+                                    console.log("Marker is too far away")
+                                } else {
+                                    dispatch(handleRemoveItem({name: marker.name}))
+                                    console.log("Marker near you clicked")
+                                }
+                            }
+                            }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
                         })}
                     < /MapView>
                 </MaskedView>
