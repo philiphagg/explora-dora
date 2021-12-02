@@ -11,8 +11,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function MapPresenterFile() {
     const [location, setLocation] = React.useState({
-        latitude: 59.3322,
-        longitude: 18.0642,
+        latitude: 59.33100,
+        longitude: 18.0002,
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
     });
@@ -26,7 +26,12 @@ function MapPresenterFile() {
             weight: 1,
         },
         {
-            latitude: location.latitude,
+            latitude: location.latitude - 0.004,
+            longitude: location.longitude,
+            weight: 1,
+        },
+        {
+            latitude: location.latitude - 0.008,
             longitude: location.longitude,
             weight: 1,
         },
@@ -36,8 +41,13 @@ function MapPresenterFile() {
             weight: 1,
         },
         {
-            latitude: location.latitude,
-            longitude: location.longitude,
+            latitude: location.latitude - 0.004,
+            longitude: location.longitude + 0.004,
+            weight: 1,
+        },
+        {
+            latitude: location.latitude - 0.008,
+            longitude: location.longitude + 0.004,
             weight: 1,
         },
         {
@@ -46,23 +56,13 @@ function MapPresenterFile() {
             weight: 1,
         },
         {
-            latitude: location.latitude,
-            longitude: location.longitude,
+            latitude: location.latitude - 0.004,
+            longitude: location.longitude + 0.008,
             weight: 1,
         },
         {
-            latitude: location.latitude,
-            longitude: location.longitude,
-            weight: 1,
-        },
-        {
-            latitude: location.latitude,
-            longitude: location.longitude,
-            weight: 1,
-        },
-        {
-            latitude: location.latitude,
-            longitude: location.longitude,
+            latitude: location.latitude - 0.008,
+            longitude: location.longitude + 0.008,
             weight: 1,
         },
     ]);
