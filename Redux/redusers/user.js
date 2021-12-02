@@ -1,7 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {addDoc, collection, doc, getDocs, orderBy, query, updateDoc} from "firebase/firestore";
 import {auth, db} from "../../Firebase/firebaseconfig";
-import {getFeed} from "./feed";
 
 
 export const getUsers = createAsyncThunk('users/getUsers', async () => {
@@ -26,7 +25,6 @@ async function updateUserFirebase(dbUserId, data) {
     const userRef = doc(db, "Users", dbUserId);
     await updateDoc(userRef, data);
 }
-
 
 export const userSlice = createSlice({
     name: "user",

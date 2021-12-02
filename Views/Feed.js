@@ -1,23 +1,15 @@
+/*
+    Main Contributor Thor
+*/
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Button, Text, View, Image, Alert, ScrollView, TouchableOpacity} from "react-native";
-import {getFeed, likePost, unlikePost} from "../Redux/redusers/feed";
+import {Button, Text, View, Image, ScrollView, TouchableOpacity} from "react-native";
 import LoadingSpinner from "./Components/LoadingAnimation";
 import {auth} from "../Firebase/firebaseconfig";
-import {getCollection} from "../Redux/redusers/collection";
-import {getUsers} from "../Redux/redusers/user";
 
-
-function Feed() {
-    const posts = useSelector((state) => state.feed);
-    const styles = useSelector((state) => state.theme.value.style);
-    const user = useSelector((state) => state.user);
-    const dispatch = useDispatch();
+function Feed({posts, styles, getFeed, likePost, unlikePost}) {
 
     useEffect(() => {
-        dispatch(getFeed())
-        if (user.users.status !== "success")
-            dispatch(getUsers())
+        getFeed()
     }, []);
 
     return (
@@ -35,9 +27,6 @@ function Feed() {
                                     <View style={styles.row}>
                                         <Text style={styles.h2}>{post.title}</Text>
                                         <Text style={styles.h2}>{post.nick}</Text>
-                                        {
-                                            //user.users.list.find(user => user.uid === post.user).name
-                                        }
                                     </View>
                                     <Image source={{uri: post.image}}
                                            style={styles.postImage}/>
@@ -47,8 +36,8 @@ function Feed() {
                                             title={post.likes.includes(auth.currentUser.uid) ? "Unlike" : "Like  "}
                                             onPress={() => {
                                                 post.likes.includes(auth.currentUser.uid) ?
-                                                    dispatch(unlikePost({post: post})) :
-                                                    dispatch(likePost({post: post}))
+                                                    unlikePost({post: post}) :
+                                                    likePost({post: post})
                                             }}
                                         />
                                     </View>
@@ -62,7 +51,7 @@ function Feed() {
             }
             <TouchableOpacity
                 onPress={() => {
-                    dispatch(getFeed())
+                    getFeed()
                 }}
                 style={styles.button}
             >

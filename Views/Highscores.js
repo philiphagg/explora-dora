@@ -1,11 +1,6 @@
 import React, {useEffect} from 'react';
-import {Alert, FlatList, Text, StyleSheet, View, TouchableOpacity, Button} from 'react-native';
-import {useDispatch, useSelector} from "react-redux";
+import {Alert, FlatList, Text, View, TouchableOpacity} from 'react-native';
 import LoadingSpinner from "./Components/LoadingAnimation";
-import {getFeed} from "../Redux/redusers/feed";
-import {getScores} from "../Redux/redusers/highscores";
-import {getUsers} from "../Redux/redusers/user";
-
 
 function ordinal_suffix(i) {
     var j = i % 10,
@@ -22,29 +17,19 @@ function ordinal_suffix(i) {
     return i + "th";
 }
 
-const Highscores = ({navigation}) => {
-    const styles = useSelector((state) => state.theme.value.style);
-    const theme = useSelector((state) => state.theme.value.theme);
-    const highscores = useSelector((state) => state.user.users);
-
-    const dispatch = useDispatch();
+const Highscores = ({getUsers, styles, theme, highscores}) => {
 
     useEffect(() => {
-        dispatch(getUsers())
+        getUsers()
     }, []);
 
     return (
-
         highscores.status !== "success" ?
             <View>
                 <LoadingSpinner/>
             </View>
             :
-
             <View>
-                {
-                    console.log(highscores)
-                }
                 <FlatList
                     data={highscores.list}
                     renderItem={({item, index}) => (
@@ -64,9 +49,7 @@ const Highscores = ({navigation}) => {
                         </TouchableOpacity>
                     )}
                     keyExtractor={(item, index) => index}
-
                 />
-
             </View>
     )
 }
