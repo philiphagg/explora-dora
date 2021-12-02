@@ -7,7 +7,7 @@ import {getDistance} from "geolib";
 import {handleRemoveItem} from "../Redux/redusers/markers";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function MapPresenterFile({markers, theme, getMarkers}) {
+function MapPresenterFile({markers, theme, getMarkers,addPathNode}) {
     const [location, setLocation] = React.useState({
         latitude: 59.3322,
         longitude: 18.0642,
@@ -40,6 +40,7 @@ function MapPresenterFile({markers, theme, getMarkers}) {
                 pos.coords.latitudeDelta = 0.01;
                 pos.coords.longitudeDelta = 0.01;
                 setLocation(pos.coords);
+                addPathNode(pos.coords);
                 console.log("Continuous location: " + JSON.stringify(pos.coords))
             }
         )

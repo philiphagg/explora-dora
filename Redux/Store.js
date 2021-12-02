@@ -5,6 +5,7 @@ import feedReducer from './redusers/feed';
 import collectionReducer from './redusers/collection';
 import markersReducer from './redusers/markers';
 import cameraReducer from './redusers/camera';
+import pathsReducer from './redusers/paths';
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         theme: themeReducer,
         feed: feedReducer,
         collection: collectionReducer,
+        paths: pathsReducer,
         markers: markersReducer,
         camera: cameraReducer,
     },

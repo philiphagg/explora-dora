@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import 'firebase/database';
-import {collection, getDocs, getFirestore, onSnapshot, query, where,orderBy} from "firebase/firestore";
+import {collection, getDocs, getFirestore, onSnapshot, query, where, orderBy, addDoc} from "firebase/firestore";
 import {db, auth} from "../../Firebase/firebaseconfig"
 
 export const getMarkers = createAsyncThunk('markers/getMarkers ', async () => {
