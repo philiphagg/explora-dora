@@ -14,6 +14,7 @@ import {useSelector} from "react-redux";
 import Login from "./Login";
 import AddPost from "./AddPost";
 import CameraView from "./Components/camera";
+import FeedPresenter from "../Presenters/feedPresenter";
 
 //import {useSelector} from "react-redux";
 //const theme = useSelector((state) => state.theme.value.settings);
@@ -70,7 +71,7 @@ function Navigationbar(){
                     >
                         <Tab.Screen name="Map" component={MapViewComp} options={{tabBarBadge: 3 }}/>
                         <Tab.Screen name="Progress" component={Progress} />
-                        <Tab.Screen name="Feed" component={Feed} options={{tabBarBadge: 5 }}/>
+                        <Tab.Screen name="Feed" component={FeedPresenter} options={{tabBarBadge: 5 }}/>
                         <Tab.Screen name="High Score" component={Highscores} />
                         <Tab.Screen name="Collectibles" component={Collection} />
                         <Tab.Screen name="Profile" component={Profile} />
