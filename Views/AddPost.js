@@ -49,7 +49,7 @@ function AddPost({route, navigation}) {
             <Button
                 title="Submit"
                 onPress={() => {
-                    addImage(data).then(
+                    addImage(data.uri).then(
                     dispatch(addPost({
                                 title: title,
                                 image: "https://media.timeout.com/images/105171709/image.jpg",

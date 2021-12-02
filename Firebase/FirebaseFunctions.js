@@ -1,8 +1,8 @@
-import {firebase} from "@react-native-firebase/firestore";
-import {auth, db, storage, ref} from './firebaseconfig'
+//import {firebase} from "@react-native-firebase/firestore";
+import {auth, db, storage, ref, uploadBytes } from './firebaseconfig'
 import {doc, collection, getDocs, query, where, addDoc} from "firebase/firestore";
-import {useSelector} from "react-redux";
-import {expectRendersMatchingSnapshot} from "react-native/Libraries/Utilities/ReactNativeTestTools";
+//import {useSelector} from "react-redux";
+//import {expectRendersMatchingSnapshot} from "react-native/Libraries/Utilities/ReactNativeTestTools";
 
 
 export async function addPost() {
@@ -21,12 +21,15 @@ export async function addPost() {
 }
 
 export async function addImage(data) {
-    const response = await fetch(data.uri);
+    const response = await fetch(data);
     const blob = await response.blob();
-    const childPath = `post/${auth.currentUser.uid}/${Math.random().toString(36)}`
 
-    storage.ref().child(childPath).put(blob);
-
+    //const childPath = `post/${auth.currentUser.uid}/${Math.random().toString(36)}`;
+    //storage.ref().child(childPath).put(blob);
+    const storageRef = ref(storage, 'post');
+    uploadBytes(storageRef, blob).then((snapshot) =>{
+        console.log('*********************Uploaded');
+    })
 
 }
 

@@ -8,7 +8,7 @@ import {getMarkers} from "../Redux/redusers/markers";
 import {useDispatch, useSelector} from "react-redux";
 import {handleRemoveItem} from "../Redux/redusers/markers";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MapViewComp from "./MapViewComp";
+
 
 
 function MapPresenterFile({route, navigation}) {
