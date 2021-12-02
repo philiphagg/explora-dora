@@ -1,25 +1,23 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {View, Text, Button, Switch, TouchableOpacity, TextInput} from "react-native";
-import {toggleTheme, setTheme} from "../Redux/redusers/theme";
-import {editUser, getUsers, updateScores} from "../Redux/redusers/user";
-import {getFeed} from "../Redux/redusers/feed";
-import {getCollection} from "../Redux/redusers/collection";
+/*
+    Main Contributor Fredrik
+*/
 
-function Profile() {
-    const styles = useSelector((state) => state.theme.value.style);
-    const theme = useSelector((state) => state.theme.value.theme);
-    const user = useSelector((state) => state.user);
-    const collection = useSelector((state) => state.collection.list);
-    const [nick, setNick] = React.useState(user.name);
-    const [changeN, setChangingNick] = React.useState(false);
-    const dispatch = useDispatch();
+import React, {useEffect} from "react";
+import {View, Text, Switch, TouchableOpacity, TextInput} from "react-native";
+
+
+function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, user, collection}) {
+
 
     useEffect(() => {
-        if(collection.status !== 'success')
-            dispatch(getCollection())
-        dispatch(getUsers())
+        //if (user.status !== 'success')
+            getUsers()
+        //if (collection.status !== 'success')
+            getCollection()
     }, []);
+
+    const [nick, setNick] = React.useState(user.name);
+    const [changeN, setChangingNick] = React.useState(false);
 
     return (
         <View style={styles.view}>
@@ -41,7 +39,7 @@ function Profile() {
                         <TouchableOpacity
                             onPress={e => {
                                 setChangingNick(false);
-                                dispatch(editUser({name: nick}))
+                                editUser({name: nick})
                             }}
                             style={[styles.button, styles.buttonOutline]}
                         >
@@ -62,7 +60,10 @@ function Profile() {
                     trackColor={{false: "#767577", true: "#81b0ff"}}
                     thumbColor={theme.dark ? "#248cff" : "#f4f3f4"}
                     ios_backgroundColor="#3e3e3e"
-                    onValueChange={() => {dispatch(toggleTheme()); dispatch(editUser({darkTheme: !theme.dark})) } }
+                    onValueChange={() => {
+                        toggleTheme();
+                        editUser({darkTheme: !theme.dark})
+                    }}
                     value={theme.dark}
                 />
             </View>

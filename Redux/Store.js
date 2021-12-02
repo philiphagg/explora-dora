@@ -3,7 +3,6 @@ import userReducer from "./redusers/user";
 import themeReducer from "./redusers/theme";
 import feedReducer from './redusers/feed';
 import collectionReducer from './redusers/collection';
-import highscoresReducer from './redusers/highscores';
 import markersReducer from './redusers/markers';
 import cameraReducer from './redusers/camera';
 
@@ -13,7 +12,6 @@ const store = configureStore({
         theme: themeReducer,
         feed: feedReducer,
         collection: collectionReducer,
-        highscores: highscoresReducer,
         markers: markersReducer,
         camera: cameraReducer,
     },

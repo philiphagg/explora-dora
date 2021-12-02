@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {getFeed, likePost, unlikePost} from "../Redux/redusers/feed";
 import Feed from "../Views/Feed";
