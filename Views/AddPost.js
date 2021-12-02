@@ -4,45 +4,43 @@ import {Button, Text, View, TextInput, Image, ScrollView} from "react-native";
 import {auth, db} from "../Firebase/firebaseconfig"
 import 'firebase/database';
 import {addPost} from "../Redux/redusers/feed";
+import {addImage} from "../Firebase/FirebaseFunctions";
+
 
 function AddPost({route, navigation}) {
-    const camera = useSelector((state) => state.camera);
+    const {title, data} = route.params;
+
+    //const camera = useSelector((state) => state.camera);
     const styles = useSelector((state) => state.theme.value.style);
     const user = useSelector((state) => state.user.value);
     const dispatch = useDispatch();
 
 
-    const [text, onChangeText] = React.useState("Enter Text");
+    const [text, onChangeText] = React.useState("");
     const [picture, setPicture] = React.useState(false);
 
     return (
         <ScrollView>
-            <View>
 
-                <Image source={{uri: camera.image}} style={{flex: 1}}/>
+            <View style={styles.centerContent}>
+                <Text style={[styles.h1, styles.divider]}> {title}</Text>
             </View>
-            <View style={styles.row}>
-                <Text style={[styles.h1, styles.divider]}>
-                    {camera.title}
-                    {camera.image}
-                </Text>
-                <Text style={[styles.h1, styles.divider]}>
-                    Add A new post
-                </Text>
+
+            <View style={styles.centerContent}>
+                <Text style={[styles.h1, styles.divider]}>Add A new post</Text>
             </View>
-            <View style={styles.row}>
-                <Button
-                    title="TakePicture"
-                    onPress={x => setPicture(!picture)}
-                />
+
+            <View  style={styles.centerContent}>
+                <Image source={{uri: data.uri}} style={styles.postImageTest}/>
             </View>
+
             <View style={styles.row}>
-                <Text style={styles.h3}>Enter a Description</Text>
+                <Text style={styles.h3}>How is this place?</Text>
             </View>
             <View style={styles.row}>
                 <TextInput
                     style={styles.inputLarge}
-                    placeholder="Skriv en kort beskrivning"
+                    placeholder="Write your caption here"
                     onChangeText={onChangeText}
                     value={text}
                 />
@@ -51,8 +49,9 @@ function AddPost({route, navigation}) {
             <Button
                 title="Submit"
                 onPress={() => {
+                    addImage(data).then(
                     dispatch(addPost({
-                                title: "Stockholm",
+                                title: title,
                                 image: "https://media.timeout.com/images/105171709/image.jpg",
                                 likes: [],
                                 caption: text,
@@ -60,7 +59,7 @@ function AddPost({route, navigation}) {
                                 nick: auth.currentUser.displayName,
                             }
                         )
-                    )
+                    ));
                     navigation.navigate("Map")
                 }
                 }

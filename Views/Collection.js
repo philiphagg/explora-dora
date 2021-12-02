@@ -52,7 +52,7 @@ function Collection() {
                                         Alert.alert(item.title);
                                     }}>
                                         <Image source={{uri: item.image}}
-                                               style={styles.postImageTest}/>
+                                               style={styles.postImage}/>
                                     </TouchableOpacity>
                                 </View>
                             </View>

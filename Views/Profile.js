@@ -4,6 +4,8 @@ import {View, Text, Button, Switch, TouchableOpacity, TextInput} from "react-nat
 import {toggleTheme, setTheme} from "../Redux/redusers/theme";
 import {editProfile} from "../Redux/redusers/user";
 import {getFeed} from "../Redux/redusers/feed";
+import MapView from "react-native-maps";
+import MapViewComp from "./MapViewComp";
 
 function Profile() {
     const styles = useSelector((state) => state.theme.value.style);
@@ -64,6 +66,7 @@ function Profile() {
                     onValueChange={() => dispatch(toggleTheme())}
                     value={theme.dark}
                 />
+
             </View>
         </View>
     );

@@ -15,6 +15,7 @@ import Login from "./Login";
 import AddPost from "./AddPost";
 import CameraView from "./Components/camera";
 
+
 //import {useSelector} from "react-redux";
 //const theme = useSelector((state) => state.theme.value.settings);
 //const theme = useSelector((state) => state.theme.settings);

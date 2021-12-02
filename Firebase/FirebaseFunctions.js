@@ -1,9 +1,11 @@
-//import {firebase, doc, getDoc} from "@react-native-firebase/firestore";
-import {auth, db} from './firebaseconfig'
+import {firebase} from "@react-native-firebase/firestore";
+import {auth, db, storage, ref} from './firebaseconfig'
 import {doc, collection, getDocs, query, where, addDoc} from "firebase/firestore";
+import {useSelector} from "react-redux";
+import {expectRendersMatchingSnapshot} from "react-native/Libraries/Utilities/ReactNativeTestTools";
 
 
-export async function addPostFirebase() {
+export async function addPost() {
     try {
         await addDoc(collection(db, "Posts"), {
             title: "Test With Add Doc ",
@@ -16,6 +18,16 @@ export async function addPostFirebase() {
     }catch (error){
         console.log(error)
     }
+}
+
+export async function addImage(data) {
+    const response = await fetch(data.uri);
+    const blob = await response.blob();
+    const childPath = `post/${auth.currentUser.uid}/${Math.random().toString(36)}`
+
+    storage.ref().child(childPath).put(blob);
+
+
 }
 
 

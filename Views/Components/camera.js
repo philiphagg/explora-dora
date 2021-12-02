@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, TouchableOpacity, Button, Image} from 'react-nat
 import {Camera} from 'expo-camera';
 import {useSelector} from "react-redux";
 import {setImageState} from '../../Redux/redusers/camera'
+import {addImage} from "../../Firebase/FirebaseFunctions";
 
 export default function CameraView({route, navigation}) {
     const {title} = route.params;
@@ -21,9 +22,10 @@ export default function CameraView({route, navigation}) {
     const takePicture = async () => {
         if (camera) {
             const data = await camera.takePictureAsync(null)
-            //setImage(data.uri);
-            setImageState(data.uri);
-            navigation.navigate("Claim Landmark", {title, image})
+            setImage(data.uri);
+            console.log("Image -------------------------------",data.uri);
+            //setImageState(data.uri);
+            navigation.navigate("Claim Landmark", {title, data})
         }
     }
 

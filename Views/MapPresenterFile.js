@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MapView, {AnimatedRegion, Circle, Marker, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
-import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated, Button} from 'react-native';
 import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
 import {getDistance} from "geolib";
@@ -8,8 +8,10 @@ import {getMarkers} from "../Redux/redusers/markers";
 import {useDispatch, useSelector} from "react-redux";
 import {handleRemoveItem} from "../Redux/redusers/markers";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MapViewComp from "./MapViewComp";
 
-function MapPresenterFile() {
+
+function MapPresenterFile({route, navigation}) {
     const [location, setLocation] = React.useState({
         latitude: 59.3322,
         longitude: 18.0642,
@@ -59,6 +61,7 @@ function MapPresenterFile() {
     return (
         markers.status !== "success" ? <Text>Loading {JSON.stringify(markers)}</Text> :
             <SafeAreaView style={{alignItems: 'center'}}>
+
                 <MaskedView maskElement={
                     <View
                         style={{
@@ -91,10 +94,16 @@ function MapPresenterFile() {
                                     dispatch(handleRemoveItem({name: marker.name}))
                                     console.log("Marker near you clicked")
                                 }
+
+                                navigation.navigate("Take Picture", {title: marker.name});
+
                             }
                             }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
                         })}
                     < /MapView>
+
+
+
                 </MaskedView>
             </SafeAreaView>
     );
