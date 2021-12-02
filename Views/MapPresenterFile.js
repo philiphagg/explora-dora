@@ -91,7 +91,7 @@ function MapPresenterFile({route, navigation}) {
                                 if (getDistance(marker, location) > 15) {
                                     console.log("Marker is too far away")
                                 } else {
-                                    dispatch(handleRemoveItem({name: marker.name}))
+                                    //dispatch(handleRemoveItem({name: marker.name}))
                                     console.log("Marker near you clicked")
                                 }
 

@@ -1,10 +1,10 @@
 //import {firebase} from "@react-native-firebase/firestore";
-import {auth, db, storage, ref, uploadBytes } from './firebaseconfig'
-import {doc, collection, getDocs, query, where, addDoc} from "firebase/firestore";
+import {auth, db, storage, ref, uploadBytes} from './firebaseconfig'
+//import {doc, collection, getDocs, query, where, addDoc} from "firebase/firestore";
 //import {useSelector} from "react-redux";
 //import {expectRendersMatchingSnapshot} from "react-native/Libraries/Utilities/ReactNativeTestTools";
 
-
+/*
 export async function addPost() {
     try {
         await addDoc(collection(db, "Posts"), {
@@ -19,20 +19,23 @@ export async function addPost() {
         console.log(error)
     }
 }
+ */
 
 export async function addImage(data) {
     const response = await fetch(data.uri);
     const blob = await response.blob();
 
-    //const childPath = `post/${auth.currentUser.uid}/${Math.random().toString(36)}`;
-    //storage.ref().child(childPath).put(blob);
-    const storageRef = ref(storage, 'post');
-    uploadBytes(storageRef, blob).then((snapshot) =>{
-        console.log('*********************Uploaded');
-    })
+    const Path = `posts/${auth.currentUser.uid}/${Math.random().toString(36)}`;
 
+    const storageRef = ref(storage, Path);
+
+    uploadBytes(storageRef, blob).then((snapshot) => {
+        console.log('Image Uploaded Successfully ---------------------------');
+    }).catch(err => {
+            console.log('Image Upload Failed ---------------------------', err);
+        }
+    )
 }
-
 
 /*
 export async function getAllFrom(source) {
@@ -130,7 +133,6 @@ querySnapshot.forEach((doc) => {
 })
 
  */
-
 /*
 export async function getPost(post) {
     var list = [];
