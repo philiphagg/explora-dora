@@ -1,5 +1,5 @@
 import * as React from 'react';
-import MapView, {AnimatedRegion, Circle, Marker, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
+import MapView, {AnimatedRegion, Circle, Heatmap, Marker, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated} from 'react-native';
 import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
@@ -18,6 +18,57 @@ function MapPresenterFile() {
     });
     const [errorMsg, setErrorMsg] = React.useState(null);
     const markers = useSelector((state) => state.markers);
+
+    const [heatpoints, setHeatpoints] = React.useState([
+        {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            weight: 1,
+        },
+        {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            weight: 1,
+        },
+        {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            weight: 1,
+        },
+        {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            weight: 1,
+        },
+        {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            weight: 1,
+        },
+        {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            weight: 1,
+        },
+        {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            weight: 1,
+        },
+        {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            weight: 1,
+        },
+        {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            weight: 1,
+        },
+    ]);
+    React.useEffect(() => {
+
+    }, [location]);
 
     React.useEffect(() => {
         dispatch(getMarkers())
@@ -58,27 +109,22 @@ function MapPresenterFile() {
 
     return (
         markers.status !== "success" ? <Text>Loading {JSON.stringify(markers)}</Text> :
-            <SafeAreaView style={{alignItems: 'center'}}>
-                <MaskedView maskElement={
-                    <View
-                        style={{
-                            // Transparent background because mask is based off alpha channel.
-                            backgroundColor: 'transparent',
-                            flex: 1,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        { /*here is the place to put the clipping object for mask*/}
-                        <View style={styles.circle}/>
-                    </View>
-                }
-                >
-                    {/* Shows behind the mask, you can put anything here, such as an image */}
-                    <MapView region={location} showsUserLocation={true}
-                             provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}
-                             scrollEnabled={false}
-                             zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
+            <SafeAreaView style={styles.container}>
+                <MapView region={location} showsUserLocation={true}
+                         provider={PROVIDER_GOOGLE} style={styles.map}
+                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}
+                         scrollEnabled={false}
+                         zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
+                    <Heatmap points={heatpoints}
+                             opacity={1}
+                             radius={50}
+                             maxIntensity={100}
+                             gradientSmoothing={1}
+                             heatmapMode={"POINTS_WEIGHT"}
+                             gradient={{
+                                 colors: ["#8d8d8d", "#8d8d8d", "#8d8d8d", "#8d8d8d", "rgba(0,0,0,0.37)", "rgba(0,0,0,0)"],
+                                 startPoints: [0, 0.000001, 0.000002, 0.000003, 0.5, 1],
+                             }}
 
                         {markers.list.map(marker => {
                             return (<Marker key={marker.lat} coordinate={{
@@ -94,8 +140,7 @@ function MapPresenterFile() {
                             }
                             }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
                         })}
-                    < /MapView>
-                </MaskedView>
+                < /MapView>
             </SafeAreaView>
     );
 }
