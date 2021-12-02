@@ -19,56 +19,57 @@ function MapPresenterFile() {
     const [errorMsg, setErrorMsg] = React.useState(null);
     const markers = useSelector((state) => state.markers);
 
-    const [heatpoints, setHeatpoints] = React.useState([
-        {
-            latitude: location.latitude,
-            longitude: location.longitude,
-            weight: 1,
-        },
-        {
-            latitude: location.latitude - 0.004,
-            longitude: location.longitude,
-            weight: 1,
-        },
-        {
-            latitude: location.latitude - 0.008,
-            longitude: location.longitude,
-            weight: 1,
-        },
-        {
-            latitude: location.latitude,
-            longitude: location.longitude,
-            weight: 1,
-        },
-        {
-            latitude: location.latitude - 0.004,
-            longitude: location.longitude + 0.004,
-            weight: 1,
-        },
-        {
-            latitude: location.latitude - 0.008,
-            longitude: location.longitude + 0.004,
-            weight: 1,
-        },
-        {
-            latitude: location.latitude,
-            longitude: location.longitude,
-            weight: 1,
-        },
-        {
-            latitude: location.latitude - 0.004,
-            longitude: location.longitude + 0.008,
-            weight: 1,
-        },
-        {
-            latitude: location.latitude - 0.008,
-            longitude: location.longitude + 0.008,
-            weight: 1,
-        },
-    ]);
-    React.useEffect(() => {
+    const [heatpoints, setHeatpoints] = React.useState(null);
 
-    }, [location]);
+    React.useEffect(() => {
+        setHeatpoints(
+        [
+            {
+                latitude: location.latitude,
+                longitude: location.longitude,
+                weight: 1,
+            },
+            {
+                latitude: location.latitude - 0.004,
+                longitude: location.longitude,
+                weight: 1,
+            },
+            {
+                latitude: location.latitude - 0.008,
+                longitude: location.longitude,
+                weight: 1,
+            },
+            {
+                latitude: location.latitude,
+                longitude: location.longitude,
+                weight: 1,
+            },
+            {
+                latitude: location.latitude - 0.004,
+                longitude: location.longitude + 0.004,
+                weight: 1,
+            },
+            {
+                latitude: location.latitude - 0.008,
+                longitude: location.longitude + 0.004,
+                weight: 1,
+            },
+            {
+                latitude: location.latitude,
+                longitude: location.longitude,
+                weight: 1,
+            },
+            {
+                latitude: location.latitude - 0.004,
+                longitude: location.longitude + 0.008,
+                weight: 1,
+            },
+            {
+                latitude: location.latitude - 0.008,
+                longitude: location.longitude + 0.008,
+                weight: 1,
+            },
+        ])}, [location]);
 
     React.useEffect(() => {
         dispatch(getMarkers())
