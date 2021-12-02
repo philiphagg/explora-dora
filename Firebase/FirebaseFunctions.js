@@ -21,7 +21,7 @@ export async function addPost() {
 }
 
 export async function addImage(data) {
-    const response = await fetch(data);
+    const response = await fetch(data.uri);
     const blob = await response.blob();
 
     //const childPath = `post/${auth.currentUser.uid}/${Math.random().toString(36)}`;

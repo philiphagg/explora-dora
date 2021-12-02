@@ -30,7 +30,7 @@ function AddPost({route, navigation}) {
                 <Text style={[styles.h1, styles.divider]}>Add A new post</Text>
             </View>
 
-            <View  style={styles.centerContent}>
+            <View style={styles.centerContent}>
                 <Image source={{uri: data.uri}} style={styles.postImageTest}/>
             </View>
 
@@ -49,22 +49,23 @@ function AddPost({route, navigation}) {
             <Button
                 title="Submit"
                 onPress={() => {
-                    addImage(data.uri).then(
-                    dispatch(addPost({
-                                title: title,
-                                image: "https://media.timeout.com/images/105171709/image.jpg",
-                                likes: [],
-                                caption: text,
-                                user: auth.currentUser.uid,
-                                nick: auth.currentUser.displayName,
-                            }
-                        )
-                    ));
+                    addImage(data).then()
+                dispatch(addPost({
+                            title: title,
+                            image: "https://media.timeout.com/images/105171709/image.jpg",
+                            likes: [],
+                            caption: text,
+                            user: auth.currentUser.uid,
+                            nick: auth.currentUser.displayName,
+                        }
+                    )
+                );
+                    /*
+                     */
                     navigation.navigate("Map")
                 }
                 }
             />
-
         </ScrollView>
     );
 }
