@@ -1,66 +1,101 @@
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Button, Text, View, Image, Alert, ScrollView, TouchableOpacity, FlatList} from 'react-native';
+import {Button, Text, View, Image, ScrollView, TouchableOpacity, FlatList, TextInput} from 'react-native';
 import LoadingSpinner from "./Components/LoadingAnimation";
-import {getCollection} from "../Redux/redusers/collection";
 
-/*const formatData = (data, numColumns) =>{
-    const collections = useSelector((state) => state.collections.value);
-    const numberOfFullRows = Math.floor(collections.length / numColumns);
+function DetailsView({post, setToNull, styles, editCaption}){
+    const [changeC, setChangingC] = React.useState(false);
+    const [description, setDescription] = React.useState(post.caption);
 
-    let numberOfElementsLastRow = collections.length - (numberOfFullRows * numColumns);
-    while (numberOfElementsLastRow !== numColumns && numberOfElementsRow !== 0){
-        data.push({key: `blank -${numberOfElementsLastRow}`, empty: true});
-        numberOfElementsLastRow = numberOfElementsLastRow +1;
-    }
+    return (
+        <ScrollView>
+            <View style={styles.divider}>
+                <View style={[styles.row, styles.centered]}>
+                    <Text style={[styles.h2]}>{post.title}</Text>
+                </View>
+                <Image source={{uri: post.image}}
+                       style={styles.postImage}/>
+                <View>
+                    {changeC ?
+                        <View style={styles.row}>
+                            <TextInput
+                                placeholder="New Caption"
+                                value={description}
+                                onChangeText={text => setDescription(text)}
+                                style={styles.input}
+                            />
+                            <Button
+                                title="Save"
+                                onPress={e => {setChangingC(false);
+                                editCaption({...post, caption:description})} }
+                            />
+                        </View>
+                        :
+                        <View style={styles.row}>
+                        <Text style={styles.h2}>{post.likes.length} ❤ </Text>
+                        <Button
+                        title="Edit post"
+                        onPress={e => setChangingC(true)}
+                        />
+                        </View>
+                    }
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.h4}>{description} </Text>
+                </View>
+            </View>
+            <TouchableOpacity onPress={ () => setToNull()}
+                              style={[styles.button, styles.buttonOutline]}>
+                <Text style={styles.buttonOutlineText}>Back to your Collection</Text>
+            </TouchableOpacity>
+        </ScrollView>
+    )
+}
 
-    return data;
-}*/
 
-function Collection() {
-    const styles = useSelector((state) => state.theme.value.style);
-    const collection = useSelector((state) => state.collection);
-    const theme = useSelector((state) => state.theme.value.theme);
-    const user = useSelector((state) => state.user.value);
-    const dispatch = useDispatch();
+function Collection({posts, styles, getCollection, editCaption}) {
+    const [post, setPost] = React.useState(null);
     const numColumns = 3;
 
     useEffect(() => {
-        dispatch(getCollection())
+        getCollection()
     }, []);
 
     return (
-        <View>
-            {
-                console.log(collection)
-            }
-            {
-                collection.status !== "success" ?
-                    <View>
-                        <LoadingSpinner/>
-                    </View>
-                    :
-
+        posts.status !== "success" ?
+            <View>
+                <LoadingSpinner/>
+            </View>
+            :
+            <View>
+                {
+                post ?
+                <DetailsView post={post}
+                             setToNull={() => setPost(null)}
+                             styles={styles}
+                             editCaption = {editCaption}/>
+                :
+                <View>
                     <FlatList
-                        data={collection.list}
+                        data={posts.list}
                         numColumns={numColumns}
                         renderItem={({item}) => (
-
-                            <View style={[styles.item, {backgroundColor: theme.colors.backgroundColor}]} key={item.id}>
+                            <View style={[styles.item]} key={item.id}>
                                 <View>
-                                    <TouchableOpacity onPress={() => {
-                                        Alert.alert(item.title);
+                                    <TouchableOpacity onPress={e => {
+                                        setPost(item)
                                     }}>
                                         <Image source={{uri: item.image}}
                                                style={styles.postImage}/>
                                     </TouchableOpacity>
+
                                 </View>
                             </View>
                         )}
                     />
-            }
-        </View>
-    )
+                </View>
+                }
+            </View>
+    );
 }
 
 export default Collection;

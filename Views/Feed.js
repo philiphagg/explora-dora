@@ -1,19 +1,15 @@
+/*
+    Main Contributor Thor
+*/
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Button, Text, View, Image, Alert, ScrollView, TouchableOpacity} from "react-native";
-import {getFeed, likePost, unlikePost} from "../Redux/redusers/feed";
+import {Button, Text, View, Image, ScrollView, TouchableOpacity} from "react-native";
 import LoadingSpinner from "./Components/LoadingAnimation";
 import {auth} from "../Firebase/firebaseconfig";
 
-
-function Feed() {
-    const posts = useSelector((state) => state.feed);
-    const styles = useSelector((state) => state.theme.value.style);
-    const user = useSelector((state) => state.user.value);
-    const dispatch = useDispatch();
+function Feed({posts, styles, getFeed, likePost, unlikePost}) {
 
     useEffect(() => {
-        dispatch(getFeed())
+        getFeed()
     }, []);
 
     return (
@@ -37,11 +33,11 @@ function Feed() {
                                     <View style={styles.row}>
                                         <Text style={styles.h2}>{post.likes.length} ♥ </Text>
                                         <Button
-                                            title={post.likes.includes(auth.currentUser.uid) ?"Unlike":  "Like  "}
+                                            title={post.likes.includes(auth.currentUser.uid) ? "Unlike" : "Like  "}
                                             onPress={() => {
                                                 post.likes.includes(auth.currentUser.uid) ?
-                                                    dispatch(unlikePost({post: post})):
-                                                    dispatch(likePost({post: post}))
+                                                    unlikePost({post: post}) :
+                                                    likePost({post: post})
                                             }}
                                         />
                                     </View>
@@ -55,7 +51,7 @@ function Feed() {
             }
             <TouchableOpacity
                 onPress={() => {
-                    dispatch(getFeed())
+                    getFeed()
                 }}
                 style={styles.button}
             >

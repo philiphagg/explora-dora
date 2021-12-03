@@ -1,7 +1,6 @@
-import React from 'react';
-import {Alert, FlatList, Text, StyleSheet, View, TouchableOpacity, Button} from 'react-native';
-import {useSelector} from "react-redux";
-
+import React, {useEffect} from 'react';
+import {Alert, FlatList, Text, View, TouchableOpacity} from 'react-native';
+import LoadingSpinner from "./Components/LoadingAnimation";
 
 function ordinal_suffix(i) {
     var j = i % 10,
@@ -18,39 +17,40 @@ function ordinal_suffix(i) {
     return i + "th";
 }
 
-const Highscores = ({navigation}) => {
-    const styles = useSelector((state) => state.theme.value.style);
-    const theme = useSelector((state) => state.theme.value.theme);
-    const highscores = useSelector((state) => state.highscores.value);
+const Highscores = ({getUsers, styles, theme, highscores}) => {
 
-
+    useEffect(() => {
+        getUsers()
+    }, []);
 
     return (
-
-        <View>
-            <FlatList
-                data={highscores}
-                renderItem={({item, index}) => (
-                    <TouchableOpacity onPress={() => {
-                        Alert.alert("Rank", item.name + " is currently ranked " + ordinal_suffix(index) + " with " + item.score + "points");
-                    }}>
-                        <View
-                            style={[styles.row, {backgroundColor: index % 2 === 0 ? theme.colors.backgroundColor : theme.colors.smallDetails}]}>
-                            <Text style={styles.h2}>
-                                {ordinal_suffix(index += 1)}
-                            </Text>
-                            <Text style={styles.h3} numberOfLines={1}>{item.name}
-                            </Text>
-                            <Text style={styles.h3}>{item.score}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                )}
-                keyExtractor={(item, index) => index}
-
-            />
-
-        </View>
+        highscores.status !== "success" ?
+            <View>
+                <LoadingSpinner/>
+            </View>
+            :
+            <View>
+                <FlatList
+                    data={highscores.list}
+                    renderItem={({item, index}) => (
+                        <TouchableOpacity onPress={() => {
+                            Alert.alert("Rank", item.name + " is currently ranked " + ordinal_suffix(index) + " with " + item.score + "points");
+                        }}>
+                            <View
+                                style={[styles.row, {backgroundColor: index % 2 === 0 ? theme.colors.backgroundColor : theme.colors.smallDetails}]}>
+                                <Text style={styles.h2}>
+                                    {ordinal_suffix(index += 1)}
+                                </Text>
+                                <Text style={styles.h3} numberOfLines={1}>{item.name}
+                                </Text>
+                                <Text style={styles.h3}>{item.score}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={(item, index) => index}
+                />
+            </View>
     )
 }
 

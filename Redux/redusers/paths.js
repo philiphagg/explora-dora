@@ -1,54 +1,50 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {addDoc, collection, getDocs, query, where} from "firebase/firestore";
+import {auth, db} from "../../Firebase/firebaseconfig";
 
-const initialStateValue = {
-    id: 234234,
-    name: "Thor Nilsson",
-    birthYear: 2001,
-    email: "thor755nilsson@gmail.com",
-    distance: 35,
-    paths: [
-        {
-            id: 1,
-            distance: 23432,
-            nodes: [
-                {index: 1, long: 34234.234234, lat: 21341241.23213},
-                {index: 2, long: 34234.234234, lat: 21341241.23213},
-                {index: 3, long: 34234.234234, lat: 21341241.23213},
-                {index: 4, long: 34234.234234, lat: 21341241.23213},
-            ]
-        },
-        {
-            id: 2,
-            distance: 34234,
-            nodes: [
-                {index: 1, long: 34234.234234, lat: 21341241.23213},
-                {index: 2, long: 34234.234234, lat: 21341241.23213},
-                {index: 3, long: 34234.234234, lat: 21341241.23213},
-                {index: 4, long: 34234.234234, lat: 21341241.23213},
-            ]
-        }
-    ]
+export const getPaths = createAsyncThunk('paths/getPaths', async () => {
+        return getDocs(query(collection(db, "Paths", auth.currentUser.uid, "paths"))).then((snapshot) => {
+                let list = [];
+                snapshot.forEach(doc => {
+                        list.push({id: doc.id, ...doc.data()});
+                    }
+                );
+                return list;
+            }
+        )
+    }
+)
 
-
-};
-//const initialStateValue = { id: 234234, name: "Not logged IN", birthYear: 2001, email: "thor755nilsson@gmail.com", distance: 35 };
+async function addCoordinatesFirebase(coords) {
+    await addDoc(collection(db, "Paths", auth.currentUser.uid, "paths"), coords)
+}
 
 export const pathsSlice = createSlice({
     name: "paths",
-    initialState: {value: initialStateValue},
+    initialState: {
+        list: [],
+        status: null,
+    },
     reducers: {
-        addPath: (state, action) => {
-            state.value = action.payload;
-        },
-        addNodeToPath: (state) => {
-            state.value = initialStateValue;
-        },
-        deletePath: (state) => {
-            state.value = initialStateValue;
+        addNodeToPath: (state, action) => {
+            addCoordinatesFirebase(action.payload).then();
+            state.list = [...state.list, action.payload];
         },
     },
+    extraReducers: {
+        [getPaths.pending]: (state, action) => {
+            state.status = "loading";
+        },
+        [getPaths.fulfilled]: (state, {payload}) => {
+            state.list = payload;
+            state.status = "success";
+        },
+        [getPaths.rejected]: (state, action) => {
+            state.status = "failed";
+        }
+    }
 });
 
-export const {addPath, addNodeToPath, deletePath} = pathsSlice.actions;
+export const {addNodeToPath} = pathsSlice.actions;
 
 export default pathsSlice.reducer;

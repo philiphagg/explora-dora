@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import 'firebase/database';
-import {collection, getDocs, getFirestore, onSnapshot, query, where,orderBy} from "firebase/firestore";
+import {collection, getDocs, getFirestore, onSnapshot, query, where, orderBy, addDoc} from "firebase/firestore";
 import {db, auth} from "../../Firebase/firebaseconfig"
 
 export const getMarkers = createAsyncThunk('markers/getMarkers ', async () => {
@@ -21,7 +21,6 @@ export const markersSlice = createSlice({
     },
     reducers: {
         handleRemoveItem: (state, action) => {
-            console.log(state)
             state.list = [...state.list].filter(item => item.name !== action.payload.name)
         },
     },

@@ -1,3 +1,4 @@
+
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {View, Text, Button, Switch, TouchableOpacity, TextInput} from "react-native";
@@ -6,29 +7,35 @@ import {editProfile} from "../Redux/redusers/user";
 import {getFeed} from "../Redux/redusers/feed";
 import MapView from "react-native-maps";
 import MapViewComp from "./MapViewComp";
+/*
+    Main Contributor Fredrik
+*/
 
-function Profile() {
-    const styles = useSelector((state) => state.theme.value.style);
-    const theme = useSelector((state) => state.theme.value.theme);
-    const user = useSelector((state) => state.user.value);
-    const collection = useSelector((state) => state.collection.list);
-    const [nick, setNick] = React.useState(user.name);
-    const [changeN, setChangingNick] = React.useState(false);
-    const dispatch = useDispatch();
+import React, {useEffect} from "react";
+import {View, Text, Switch, TouchableOpacity, TextInput} from "react-native";
+
+
+function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, user, collection}) {
+
+
 
     useEffect(() => {
-        if(collection.status !== 'success')
-            dispatch(getFeed())
+        //if (user.status !== 'success')
+            getUsers()
+        //if (collection.status !== 'success')
+            getCollection()
     }, []);
+
+    const [nick, setNick] = React.useState(user.name);
+    const [changeN, setChangingNick] = React.useState(false);
 
     return (
         <View style={styles.view}>
-
             <View style={[styles.col, styles.divider]}>
-                <Text style={styles.h1}> {user.name} </Text>
+                <Text style={styles.h1}> {user.userData.name} </Text>
                 <Text style={styles.h2}> {collection.length} Posts</Text>
-                <Text style={styles.h2}> {user.distance} km</Text>
-                <Text style={styles.h2}> Email: {user.email}</Text>
+                <Text style={styles.h2}> {user.userData.score} points</Text>
+                <Text style={styles.h2}> Email: {user.user.email}</Text>
             </View>
             <View style={[styles.col, styles.divider]}>
                 {changeN ?
@@ -42,7 +49,7 @@ function Profile() {
                         <TouchableOpacity
                             onPress={e => {
                                 setChangingNick(false);
-                                dispatch(editProfile({name: nick}))
+                                editUser({name: nick})
                             }}
                             style={[styles.button, styles.buttonOutline]}
                         >
@@ -63,7 +70,10 @@ function Profile() {
                     trackColor={{false: "#767577", true: "#81b0ff"}}
                     thumbColor={theme.dark ? "#248cff" : "#f4f3f4"}
                     ios_backgroundColor="#3e3e3e"
-                    onValueChange={() => dispatch(toggleTheme())}
+                    onValueChange={() => {
+                        toggleTheme();
+                        editUser({darkTheme: !theme.dark})
+                    }}
                     value={theme.dark}
                 />
 
