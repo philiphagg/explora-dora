@@ -19,6 +19,7 @@ import HighScorePresenter from "../Presenters/HighScorePresenter";
 import ProfilePresenter from "../Presenters/ProfilePresenter";
 import ProgressPresenter from "../Presenters/ProgressPresenter";
 import MapPresenter from "../Presenters/MapPresenter";
+import CollectionPresenter from "../Presenters/CollectionPresenter";
 
 //import {useSelector} from "react-redux";
 //const theme = useSelector((state) => state.theme.value.settings);
@@ -77,7 +78,7 @@ function Navigationbar(){
                         <Tab.Screen name="Progress" component={ProgressPresenter} />
                         <Tab.Screen name="Feed" component={FeedPresenter} options={{tabBarBadge: 5 }}/>
                         <Tab.Screen name="High Score" component={HighScorePresenter} />
-                        <Tab.Screen name="Collectibles" component={Collection} />
+                        <Tab.Screen name="Collectibles" component={CollectionPresenter} />
                         <Tab.Screen name="Profile" component={ProfilePresenter} />
 
                     </Tab.Navigator>
