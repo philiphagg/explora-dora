@@ -22,9 +22,9 @@ function MapPresenterFile({markers, theme, getMarkers, addPathNode, getPaths, pa
         let lon = location.longitude;
         let pointArray = [];
         var x, y;
-        for (x = 1; x <= 28; x += 1) {
+        for (x = 1; x <= 35; x += 1) {
             for (y = 1; y <= 35; y += 1) {
-                pointArray.push({latitude: lat + (x / 3000) - 0.004, longitude: lon + (y / 3000) - 0.006, weight: 1});
+                pointArray.push({latitude: lat + (x / 3000) - 0.006, longitude: lon + (y / 3000) - 0.006, weight: 1});
             }
         }
         setHeatpoints(pointArray)
@@ -85,7 +85,7 @@ function MapPresenterFile({markers, theme, getMarkers, addPathNode, getPaths, pa
                              gradientSmoothing={1}
                              heatmapMode={"POINTS_WEIGHT"}
                              gradient={{
-                                 colors: theme.colors.mapOverlay, //Light Mode
+                                 colors: theme.dark ? theme.colors.mapOverlayDark : theme.colors.mapOverlayLight, //Light Mode
                                  //colors: ["rgb(255,255,255)", "rgba(164,164,164,0.37)", "rgba(255,255,255,0)"], //Light Mode
                                  //colors: ["rgb(25, 26, 25)", "rgba(204,204,204,0.45)", "rgba(255,255,255,0)"], //Dark Mode
                                  startPoints: [0, 0.5, 1],

@@ -14,7 +14,7 @@ const darkTheme = {
         smallDetails: 'rgb(66,66,66)',
         statusbar: 'rgb(255,255,255)',
 
-        mapOverlay: ["rgb(25, 26, 25)", "rgba(204,204,204,0.45)", "rgba(255,255,255,0)"],
+        mapOverlayDark: ["rgb(25, 26, 25)", "rgba(204,204,204,0.45)", "rgba(255,255,255,0)"],
     },
     darkMap: [
         {

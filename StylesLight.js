@@ -14,7 +14,7 @@ const lightTheme = {
         smallDetails: 'rgb(236,236,236)',
         statusbar: 'rgb(0,0,0)',
 
-        mapOverlay: ["rgb(255,255,255)", "rgba(164,164,164,0.37)", "rgba(255,255,255,0)"],
+        mapOverlayLight: ["rgb(255,255,255)", "rgba(164,164,164,0.37)", "rgba(255,255,255,0)"],
     },
     lightMap: [
         {
