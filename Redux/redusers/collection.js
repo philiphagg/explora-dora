@@ -1,21 +1,21 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import 'firebase/database';
-import {collection, getDocs, getFirestore, onSnapshot, query, where, orderBy, doc, updateDoc} from "firebase/firestore";
+import {collection, getDocs, getFirestore, onSnapshot, query, where, orderBy} from "firebase/firestore";
 import {db, auth} from "../../Firebase/firebaseconfig"
 
 export const getCollection = createAsyncThunk('collection/getCollection', async () => {
-        return getDocs(query(collection(db, "Posts"),where('user', '==', auth.currentUser.uid) )).then((res) => {
+        return getDocs(query(collection(db, "Posts"), where('user', '==', auth.currentUser.uid))).then((snapshot) => {
                 let list = [];
-                res.forEach((doc) => list.push(doc.data()));
+                snapshot.forEach(doc => {
+                        list.push({id: doc.id, ...doc.data()});
+                    }
+                );
                 return list;
             }
         )
     }
 )
-async function editPostFirebase(postId, data) {
-    const postRef = doc(db, "Posts", postId);
-    await updateDoc(postRef, data);
-}
+
 export const collectionSlice = createSlice({
     name: "collection",
     initialState: {
@@ -32,22 +32,6 @@ export const collectionSlice = createSlice({
             const post = action.payload.postId;
             state.value = [...state.value].filter(x => x.id !== post);
         },
-        editCaption: (state,action) =>{
-            state.value = {...state.value, caption:action.payload.caption}
-        },
-        editPost: (state, action) => {
-            const user = auth.currentUser.uid;
-            const post = action.payload.post;
-
-            //if (post.user === user) {
-            //state.list.find(x => x.id === post.id) = post;
-
-            editPostFirebase(post.id, {post}).then(r => {
-                console.log("Edited post  ---------------------------------", state)
-            })
-            // }
-        },
-
         likePost: (state, action) => {
             const user = action.payload.userId;
             const post = action.payload.postId;
@@ -77,7 +61,7 @@ export const collectionSlice = createSlice({
     }
 });
 
-export const {addPost, deletePost, likePost, unlikePost,editCaption} = collectionSlice.actions;
+export const {addPost, deletePost, likePost, unlikePost} = collectionSlice.actions;
 
 export default collectionSlice.reducer;
 

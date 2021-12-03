@@ -14,6 +14,11 @@ import {useSelector} from "react-redux";
 import Login from "./Login";
 import AddPost from "./AddPost";
 import CameraView from "./Components/camera";
+import FeedPresenter from "../Presenters/feedPresenter";
+import HighScorePresenter from "../Presenters/HighScorePresenter";
+import ProfilePresenter from "../Presenters/ProfilePresenter";
+import ProgressPresenter from "../Presenters/ProgressPresenter";
+import MapPresenter from "../Presenters/MapPresenter";
 
 //import {useSelector} from "react-redux";
 //const theme = useSelector((state) => state.theme.value.settings);
@@ -68,12 +73,12 @@ function Navigationbar(){
                                 tabBarInactiveTintColor: theme.colors.text,
                             })}
                     >
-                        <Tab.Screen name="Map" component={MapViewComp} options={{tabBarBadge: 3 }}/>
-                        <Tab.Screen name="Progress" component={Progress} />
-                        <Tab.Screen name="Feed" component={Feed} options={{tabBarBadge: 5 }}/>
-                        <Tab.Screen name="High Score" component={Highscores} />
+                        <Tab.Screen name="Map" component={MapPresenter} options={{tabBarBadge: 3 }}/>
+                        <Tab.Screen name="Progress" component={ProgressPresenter} />
+                        <Tab.Screen name="Feed" component={FeedPresenter} options={{tabBarBadge: 5 }}/>
+                        <Tab.Screen name="High Score" component={HighScorePresenter} />
                         <Tab.Screen name="Collectibles" component={Collection} />
-                        <Tab.Screen name="Profile" component={Profile} />
+                        <Tab.Screen name="Profile" component={ProfilePresenter} />
 
                     </Tab.Navigator>
 

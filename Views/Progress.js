@@ -1,12 +1,10 @@
 import * as React from 'react';
-import MapView, {Circle, PROVIDER_GOOGLE} from 'react-native-maps'
-import {StyleSheet, Text, View, SafeAreaView, Dimensions} from 'react-native';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
+import {StyleSheet, Text, SafeAreaView, Dimensions} from 'react-native';
 import * as Location from 'expo-location';
-import {useSelector} from "react-redux";
 
-function Progress() {
+function Progress({theme,collection,getCollection}) {
     const [errorMsg, setErrorMsg] = React.useState(null);
-    const theme = useSelector((state) => state.theme.value.theme);
 
     React.useEffect(() => {
         (async () => {
