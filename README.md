@@ -1,4 +1,4 @@
-#Project description
+# Project description
 
 This is a project that is done by the contributing members in the course DH2642 Interaction Programming and the Dynamic Web.
 <br>
@@ -9,8 +9,7 @@ The user can see their own collectibles under the collectibles tab. You can swap
 On the map screen the user can view the map "play" the game. Under the progress map, users will be able to see the collectibles.
 
 ---
-
-##What have we done
+## What have we done
 Firstly we created a small UML architechture for the app.
 We understood that by creating and deciding what views we needed was a good entry point to see how the actual app would
 look like. We started off with the main one that were the "Navigationbar" that would should the menu containing
@@ -30,16 +29,14 @@ The reason for this is that by implementing redux, we could replace the model en
 code had to be re-written.
 
 ---
-
-###output from API
+### output from API
 While using the api for the map, we want to track the users movement. So the output looks like below. Which is logged to the expo console, while using the app.
 ```javascript
 Continuous location: {"speed":-1,"heading":-1,"longitude":17.868970969615283,"accuracy":35,"latitude":59.41208123563255,"altitudeAccuracy":14.094679832458496,"altitude":15.767148971557617,"latitudeDelta":0.01,"longitudeDelta":0.01}
 ```
 
 ---
-
-##What should we do next
+## What should we do next
 + We need to save the user's path on firebase in order to display them as a heatmap onto the progress screen
 + image upload is still buggy and needs fixes for IOS.
 + image uploads should be linked to the post
@@ -48,8 +45,7 @@ Continuous location: {"speed":-1,"heading":-1,"longitude":17.868970969615283,"ac
 + add more collectables
 
 ---
-
-#How to install and run the app
+# How to install and run the app
 Because the app is made for mobile devices, Examinator has confirmed that we don't need to host the app, on Heroku/Firebase
 <br><br>
 Make sure you have npm installed on your computer [download npm here](https://nodejs.org/en/download/)
@@ -66,7 +62,6 @@ Now the app should compile and run on your phone.
 Click around and give it a try.
 
 ---
-
 ## Debug and console
 On point 5 in above guide. When the app is launched with expo start, a tab should open in your browser.
 if it doesn't you can press  ```d``` in the terminal that runs expo. In the browser, you can change connection to tunnel. If you want to enter the same instance of the application.
@@ -102,7 +97,7 @@ Views
 ### Redux
 
 ### Views
-  #### Component
+
       Button - containing the button function
       Camera - containing the camera View
       LoadingAnimation - containing a function displaying the loadingscreen
@@ -119,5 +114,5 @@ Views
       Powerups - Not yet implemented
       Profile - Show the profile to the user
       Progress - shows the progress to the user
-      
 
+### Component
