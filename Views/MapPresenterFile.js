@@ -19,57 +19,58 @@ function MapPresenterFile() {
     const [errorMsg, setErrorMsg] = React.useState(null);
     const markers = useSelector((state) => state.markers);
 
-    const [heatpoints, setHeatpoints] = React.useState(null);
+    const [heatpoints, setHeatpoints] = React.useState(null)
 
     React.useEffect(() => {
         setHeatpoints(
-        [
-            {
-                latitude: location.latitude,
-                longitude: location.longitude,
-                weight: 1,
-            },
-            {
-                latitude: location.latitude - 0.004,
-                longitude: location.longitude,
-                weight: 1,
-            },
-            {
-                latitude: location.latitude - 0.008,
-                longitude: location.longitude,
-                weight: 1,
-            },
-            {
-                latitude: location.latitude,
-                longitude: location.longitude,
-                weight: 1,
-            },
-            {
-                latitude: location.latitude - 0.004,
-                longitude: location.longitude + 0.004,
-                weight: 1,
-            },
-            {
-                latitude: location.latitude - 0.008,
-                longitude: location.longitude + 0.004,
-                weight: 1,
-            },
-            {
-                latitude: location.latitude,
-                longitude: location.longitude,
-                weight: 1,
-            },
-            {
-                latitude: location.latitude - 0.004,
-                longitude: location.longitude + 0.008,
-                weight: 1,
-            },
-            {
-                latitude: location.latitude - 0.008,
-                longitude: location.longitude + 0.008,
-                weight: 1,
-            },
-        ])}, [location]);
+            [
+                {
+                    latitude: location.latitude + 0.004,
+                    longitude: location.longitude - 0.004,
+                    weight: 1,
+                },
+                {
+                    latitude: location.latitude,
+                    longitude: location.longitude - 0.004,
+                    weight: 1,
+                },
+                {
+                    latitude: location.latitude - 0.004,
+                    longitude: location.longitude - 0.004,
+                    weight: 1,
+                },
+                {
+                    latitude: location.latitude + 0.004,
+                    longitude: location.longitude,
+                    weight: 1,
+                },
+                {
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                    weight: 1,
+                },
+                {
+                    latitude: location.latitude - 0.004,
+                    longitude: location.longitude,
+                    weight: 1,
+                },
+                {
+                    latitude: location.latitude + 0.004,
+                    longitude: location.longitude + 0.004,
+                    weight: 1,
+                },
+                {
+                    latitude: location.latitude,
+                    longitude: location.longitude + 0.004,
+                    weight: 1,
+                },
+                {
+                    latitude: location.latitude - 0.004,
+                    longitude: location.longitude + 0.004,
+                    weight: 1,
+                },
+            ])
+    }, [location]);
 
     React.useEffect(() => {
         dispatch(getMarkers())
@@ -90,7 +91,7 @@ function MapPresenterFile() {
         Location.watchPositionAsync(
             {
                 accuracy: Location.Accuracy.Highest,
-                distanceInterval: 5,
+                distanceInterval: 20,
                 timeInterval: 10000,
             },
             (pos) => {
@@ -113,34 +114,35 @@ function MapPresenterFile() {
             <SafeAreaView style={styles.container}>
                 <MapView region={location} showsUserLocation={true}
                          provider={PROVIDER_GOOGLE} style={styles.map}
-                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}
-                         scrollEnabled={false}
-                         zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
+                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}>
                     <Heatmap points={heatpoints}
                              opacity={1}
                              radius={50}
                              maxIntensity={100}
                              gradientSmoothing={1}
                              heatmapMode={"POINTS_WEIGHT"}
-                             gradient={{
+                             /*gradient={{
                                  colors: ["#8d8d8d", "#8d8d8d", "#8d8d8d", "#8d8d8d", "rgba(0,0,0,0.37)", "rgba(0,0,0,0)"],
                                  startPoints: [0, 0.000001, 0.000002, 0.000003, 0.5, 1],
-                             }}
+                             }} */
+                    />
 
-                        {markers.list.map(marker => {
-                            return (<Marker key={marker.lat} coordinate={{
-                                latitude: parseFloat(marker.lat),
-                                longitude: parseFloat(marker.lon)
-                            }} onPress={() => {
-                                if (getDistance(marker, location) > 15) {
-                                    console.log("Marker is too far away")
-                                } else {
-                                    dispatch(handleRemoveItem({name: marker.name}))
-                                    console.log("Marker near you clicked")
-                                }
+
+                    {markers.list.map(marker => {
+                        return (<Marker key={marker.lat} coordinate={{
+                            latitude: parseFloat(marker.lat),
+                            longitude: parseFloat(marker.lon)
+                        }} onPress={() => {
+                            if (getDistance(marker, location) > 15) {
+                                console.log("Marker is too far away")
+                                console.log(heatpoints)
+                            } else {
+                                dispatch(handleRemoveItem({name: marker.name}))
+                                console.log("Marker near you clicked")
                             }
-                            }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
-                        })}
+                        }
+                        }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
+                    })}
                 < /MapView>
             </SafeAreaView>
     );
@@ -164,20 +166,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#DDDDDD",
         padding: 10
     },
-    circle: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').width,
-        borderRadius: Dimensions.get('window').width / 2,
-        backgroundColor: 'red',
-        padding: 10,
-        shadowColor: '#000000',
-        shadowOffset: {
-            width: 0,
-            height: 3
-        },
-        shadowRadius: 50,
-        shadowOpacity: 1.0
-    }
 });
 
 export default MapPresenterFile;
