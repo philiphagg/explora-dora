@@ -7,7 +7,7 @@ import {getDistance} from "geolib";
 import {handleRemoveItem} from "../Redux/redusers/markers";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function MapPresenterFile({markers, theme, getMarkers,addPathNode}) {
+function MapPresenterFile({markers, theme, getMarkers,addPathNode, getPaths, paths}) {
     const [location, setLocation] = React.useState({
         latitude: 59.33100,
         longitude: 18.0002,
@@ -32,6 +32,7 @@ function MapPresenterFile({markers, theme, getMarkers,addPathNode}) {
 
     React.useEffect(() => {
         getMarkers()
+        getPaths()
     }, []);
 
     React.useEffect(() => {
@@ -65,21 +66,23 @@ function MapPresenterFile({markers, theme, getMarkers,addPathNode}) {
                 setErrorMsg(err.message);
             });
     }, []);
-
+///,...paths.list.map(c => ({latitude: c.latitude, longitude: c.longitude, weight: 100}))]
     return (
         markers.status !== "success" ? <Text>Loading {JSON.stringify(markers)}</Text> :
             <SafeAreaView style={styles.container}>
                 <MapView region={location} showsUserLocation={true}
                          provider={PROVIDER_GOOGLE} style={styles.map}
                          customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}>
-                    <Heatmap points={heatpoints}
+                    <Heatmap points={[...heatpoints,...paths.list.map(c => ({latitude: c.latitude, longitude: c.longitude, weight: 100})) ]}
                              opacity={1}
                              radius={50}
-                             maxIntensity={100}
+                             maxIntensity={50}
                              gradientSmoothing={1}
                              heatmapMode={"POINTS_WEIGHT"}
                              gradient={{
-                                 colors: ["#8d8d8d", "rgba(0,0,0,0.37)", "rgba(0,0,0,0)"],
+                                 colors: theme.colors.mapOverlay, //Light Mode
+                                 //colors: ["rgb(255,255,255)", "rgba(164,164,164,0.37)", "rgba(255,255,255,0)"], //Light Mode
+                                 //colors: ["rgb(25, 26, 25)", "rgba(204,204,204,0.45)", "rgba(255,255,255,0)"], //Dark Mode
                                  startPoints: [0, 0.5, 1],
                                  colorMapSize: 256,
                              }}

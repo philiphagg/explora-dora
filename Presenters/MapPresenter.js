@@ -11,6 +11,7 @@ export function MapPresenter(props) {
             markers={props.markers}
             theme={props.theme}
             collection={props.collection}
+            paths={props.paths}
 
             getMarkers={props.getMarkers}
             getPaths={props.getPaths}
@@ -27,6 +28,7 @@ const mapStateToProps = state => {
         theme: state.theme.value.theme,
         styles: state.theme.value.style,
         collection: state.collection,
+        paths: state.paths,
     }
 }
 
