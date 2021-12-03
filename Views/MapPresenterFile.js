@@ -4,12 +4,10 @@ import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated} from 'react-
 import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
 import {getDistance} from "geolib";
-import {getMarkers} from "../Redux/redusers/markers";
-import {useDispatch, useSelector} from "react-redux";
 import {handleRemoveItem} from "../Redux/redusers/markers";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function MapPresenterFile() {
+function MapPresenterFile({markers, theme, getMarkers,addPathNode}) {
     const [location, setLocation] = React.useState({
         latitude: 59.33100,
         longitude: 18.0002,
@@ -17,7 +15,6 @@ function MapPresenterFile() {
         longitudeDelta: 0.01,
     });
     const [errorMsg, setErrorMsg] = React.useState(null);
-    const markers = useSelector((state) => state.markers);
     const [heatpoints, setHeatpoints] = React.useState(null)
 
     React.useEffect(() => {
@@ -34,10 +31,8 @@ function MapPresenterFile() {
     }, [location])
 
     React.useEffect(() => {
-        dispatch(getMarkers())
+        getMarkers()
     }, []);
-    const dispatch = useDispatch();
-    const theme = useSelector((state) => state.theme.value.theme);
 
     React.useEffect(() => {
         (async () => {
@@ -59,6 +54,7 @@ function MapPresenterFile() {
                 pos.coords.latitudeDelta = 0.01;
                 pos.coords.longitudeDelta = 0.01;
                 setLocation(pos.coords);
+                addPathNode(pos.coords);
                 console.log("Continuous location: " + JSON.stringify(pos.coords))
             }
         )

@@ -1,13 +1,15 @@
 import * as React from 'react';
-import MapView, {Circle, PROVIDER_GOOGLE} from 'react-native-maps'
-import {StyleSheet, Text, View, SafeAreaView, Dimensions} from 'react-native';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
+import {StyleSheet, Text, SafeAreaView, Dimensions, View} from 'react-native';
 import * as Location from 'expo-location';
-import {useSelector} from "react-redux";
+import {useEffect} from "react";
+import LoadingSpinner from "./Components/LoadingAnimation";
 
-function Progress() {
+function Progress({theme,paths,getPaths, collection, getCollection}) {
     const [errorMsg, setErrorMsg] = React.useState(null);
-    const theme = useSelector((state) => state.theme.value.theme);
-
+    useEffect(() => {
+        getPaths()
+    }, []);
     React.useEffect(() => {
         (async () => {
             let {status} = await Location.requestForegroundPermissionsAsync();
@@ -22,7 +24,19 @@ function Progress() {
             <SafeAreaView style={styles.container}>
                 <MapView followsUserLocation={true} showsMyLocationButton={true} showsUserLocation={true}
                          provider={PROVIDER_GOOGLE} style={styles.map}
-                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}/>
+                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}>
+                    {
+                        paths.status !== "success" ?
+                                 null
+                            :
+                            <MapView.Heatmap points={paths.list.map(c => ({latitude: c.latitude, longitude: c.longitude, weight: 100}))}
+                                             opacity={1}
+                                             radius={20}
+                                             maxIntensity={1000}
+                                             gradientSmoothing={10}
+                                             heatmapMode={"POINTS_WEIGHT"}/>
+                    }
+                </MapView>
             </SafeAreaView>
     );
 }
