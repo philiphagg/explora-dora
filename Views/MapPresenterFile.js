@@ -7,7 +7,7 @@ import {getDistance} from "geolib";
 import {handleRemoveItem} from "../Redux/redusers/markers";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function MapPresenterFile({markers, theme, getMarkers,addPathNode, getPaths, paths}) {
+function MapPresenterFile({markers, theme, getMarkers, addPathNode, getPaths, paths}) {
     const [location, setLocation] = React.useState({
         latitude: 59.33100,
         longitude: 18.0002,
@@ -72,8 +72,13 @@ function MapPresenterFile({markers, theme, getMarkers,addPathNode, getPaths, pat
             <SafeAreaView style={styles.container}>
                 <MapView region={location} showsUserLocation={true}
                          provider={PROVIDER_GOOGLE} style={styles.map}
-                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}>
-                    <Heatmap points={[...heatpoints,...paths.list.map(c => ({latitude: c.latitude, longitude: c.longitude, weight: 100})) ]}
+                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap} scrollEnabled={false}
+                         zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
+                    <Heatmap points={[...heatpoints, ...paths.list.map(c => ({
+                        latitude: c.latitude,
+                        longitude: c.longitude,
+                        weight: 100
+                    }))]}
                              opacity={1}
                              radius={50}
                              maxIntensity={50}
