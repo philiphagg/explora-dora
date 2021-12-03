@@ -5,8 +5,8 @@ import {Button, Text, View, Image, Alert, ScrollView, TouchableOpacity, FlatList
     Platform} from 'react-native';
 import LoadingSpinner from "./Components/LoadingAnimation";
 import {editCaption, getCollection} from "../Redux/redusers/collection";
-import {editPost, likePost, unlikePost} from "../Redux/redusers/feed";
-import {editProfile} from "../Redux/redusers/user";
+//import {editPost, likePost, unlikePost} from "../Redux/redusers/C";
+//import {editProfile} from "../Redux/redusers/user";
 
 /*const formatData = (data, numColumns) =>{
     const collections = useSelector((state) => state.collections.value);
@@ -49,7 +49,7 @@ function DetailsView({post, setToNull}){
                             <Button
                                 title="Save"
                                 onPress={e => {setChangingC(false);
-                                dispatch(editPost({...post, caption:description}))} }
+                                dispatch(editCaption({...post, caption:description}))} }
                             />
                         </View>
                         :
@@ -63,7 +63,7 @@ function DetailsView({post, setToNull}){
                     }
                 </View>
                 <View style={styles.row}>
-                    <Text style={styles.h4}>{post.caption} </Text>
+                    <Text style={styles.h4}>{description} </Text>
                 </View>
             </View>
             <TouchableOpacity onPress={ () => setToNull()}
@@ -107,7 +107,6 @@ function Collection() {
                         data={collection.list}
                         numColumns={numColumns}
                         renderItem={({item}) => (
-
                             <View style={[styles.item]} key={item.id}>
                                 <View>
                                     <TouchableOpacity onPress={e => {

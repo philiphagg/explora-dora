@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import 'firebase/database';
-import {collection, getDocs, getFirestore, onSnapshot, query, where, orderBy} from "firebase/firestore";
+import {collection, getDocs, getFirestore, onSnapshot, query, where, orderBy, doc, updateDoc} from "firebase/firestore";
 import {db, auth} from "../../Firebase/firebaseconfig"
 
 export const getCollection = createAsyncThunk('collection/getCollection', async () => {
@@ -16,6 +16,11 @@ export const getCollection = createAsyncThunk('collection/getCollection', async 
     }
 )
 
+async function editPostFirebase(postId, data) {
+    const postRef = doc(db, "Posts", postId);
+    await updateDoc(postRef, data);
+}
+
 export const collectionSlice = createSlice({
     name: "collection",
     initialState: {
@@ -23,39 +28,15 @@ export const collectionSlice = createSlice({
         status: null,
     },
     reducers: {
-        addPost: (state, action) => {
-            console.log(action.payload);
-            state.value = [...state.value, action.payload];
-        },
-        deletePost: (state, action) => {
-            const user = action.payload.userId;
-            const post = action.payload.postId;
-            state.value = [...state.value].filter(x => x.id !== post);
-        },
-        likePost: (state, action) => {
-            const user = action.payload.userId;
-            const post = action.payload.postId;
-            if (!state.value.find(x => x.id === post).likes.includes(user))
-                state.value.find(x => x.id === post).likes.push(user);
-        },
-        unlikePost: (state, action) => {
-            const user = action.payload.userId;
-            const post = action.payload.postId;
-
-            state.value = state.value.find(x => x.id === post).likes.filter(x => x === user);
-
-            console.log(state)
-        },
-        editPost: (state, action) => {
+        editCaption: (state, action) => {
             const user = auth.currentUser.uid;
-            const post = action.payload.post;
+            const post = action.payload;
 
-            if(post.user === user){
-                //state.list.find(x => x.id === post.id) = post;
-
-                editPostFirebase(post.id, {post}).then(r => {
+            if (post.user === user) {
+                editPostFirebase(post.id, {...post}).then(r => {
                     console.log("Edited post  ---------------------------------", state)
-                })
+                }).catch()
+                state.list.find(x => x.id === post.id).caption = action.payload.caption;
             }
         },
     },
@@ -73,7 +54,7 @@ export const collectionSlice = createSlice({
     }
 });
 
-export const {addPost, deletePost, likePost, unlikePost} = collectionSlice.actions;
+export const {editCaption} = collectionSlice.actions;
 
 export default collectionSlice.reducer;
 
