@@ -25,9 +25,9 @@ function MapPresenterFile() {
         let lon = location.longitude;
         let pointArray = [];
         var x, y;
-        for (x = 1; x <= 10; x += 1) {
-            for (y = 1; y <= 10; y += 1) {
-                pointArray.push({latitude: lat + (x/1000), longitude: lon + (y/1000), weight: 1});
+        for (x = 1; x <= 28; x += 1) {
+            for (y = 1; y <= 35; y += 1) {
+                pointArray.push({latitude: lat + (x / 3000) - 0.004, longitude: lon + (y / 3000) - 0.006, weight: 1});
             }
         }
         setHeatpoints(pointArray)
@@ -85,7 +85,7 @@ function MapPresenterFile() {
                         /*gradient={{
                             colors: ["#8d8d8d", "#8d8d8d", "#8d8d8d", "#8d8d8d", "rgba(0,0,0,0.37)", "rgba(0,0,0,0)"],
                             startPoints: [0, 0.000001, 0.000002, 0.000003, 0.5, 1],
-                        }} */
+                        }}*/
                     />
 
 
