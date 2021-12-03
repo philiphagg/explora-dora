@@ -21,6 +21,7 @@ import ProgressPresenter from "../Presenters/ProgressPresenter";
 import MapPresenter from "../Presenters/MapPresenter";
 import CollectionPresenter from "../Presenters/CollectionPresenter";
 
+
 //import {useSelector} from "react-redux";
 //const theme = useSelector((state) => state.theme.value.settings);
 //const theme = useSelector((state) => state.theme.settings);

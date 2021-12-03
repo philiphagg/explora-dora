@@ -1,3 +1,12 @@
+
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {View, Text, Button, Switch, TouchableOpacity, TextInput} from "react-native";
+import {toggleTheme, setTheme} from "../Redux/redusers/theme";
+import {editProfile} from "../Redux/redusers/user";
+import {getFeed} from "../Redux/redusers/feed";
+import MapView from "react-native-maps";
+import MapViewComp from "./MapViewComp";
 /*
     Main Contributor Fredrik
 */
@@ -7,6 +16,7 @@ import {View, Text, Switch, TouchableOpacity, TextInput} from "react-native";
 
 
 function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, user, collection}) {
+
 
 
     useEffect(() => {
@@ -66,6 +76,7 @@ function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, u
                     }}
                     value={theme.dark}
                 />
+
             </View>
         </View>
     );

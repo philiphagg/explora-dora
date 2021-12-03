@@ -85,7 +85,7 @@ function Collection({posts, styles, getCollection, editCaption}) {
                                         setPost(item)
                                     }}>
                                         <Image source={{uri: item.image}}
-                                               style={styles.postImageTest}/>
+                                               style={styles.postImage}/>
                                     </TouchableOpacity>
 
                                 </View>

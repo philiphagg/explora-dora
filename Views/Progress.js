@@ -7,6 +7,7 @@ import LoadingSpinner from "./Components/LoadingAnimation";
 
 function Progress({theme,paths,getPaths, collection, getCollection}) {
     const [errorMsg, setErrorMsg] = React.useState(null);
+
     useEffect(() => {
         getPaths()
     }, []);
