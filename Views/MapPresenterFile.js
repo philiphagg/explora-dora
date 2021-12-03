@@ -10,7 +10,6 @@ import {handleRemoveItem} from "../Redux/redusers/markers";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-
 function MapPresenterFile({route, navigation}) {
     const [location, setLocation] = React.useState({
         latitude: 59.3322,
@@ -20,12 +19,12 @@ function MapPresenterFile({route, navigation}) {
     });
     const [errorMsg, setErrorMsg] = React.useState(null);
     const markers = useSelector((state) => state.markers);
+    const theme = useSelector((state) => state.theme.value.theme);
+    const dispatch = useDispatch();
 
     React.useEffect(() => {
         dispatch(getMarkers())
     }, []);
-    const dispatch = useDispatch();
-    const theme = useSelector((state) => state.theme.value.theme);
 
     React.useEffect(() => {
         (async () => {
@@ -79,29 +78,37 @@ function MapPresenterFile({route, navigation}) {
                 >
                     {/* Shows behind the mask, you can put anything here, such as an image */}
                     <MapView region={location} showsUserLocation={true}
-                             provider={PROVIDER_GOOGLE} style={styles.map} customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}
+                             provider={PROVIDER_GOOGLE} style={styles.map}
+                             customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}
                              scrollEnabled={false}
                              zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
 
                         {markers.list.map(marker => {
-                            return (<Marker key={marker.lat} coordinate={{
-                                latitude: parseFloat(marker.lat),
-                                longitude: parseFloat(marker.lon)
-                            }} onPress={() => {
-                                if (getDistance(marker, location) > 15) {
-                                    console.log("Marker is too far away")
-                                } else {
-                                    //dispatch(handleRemoveItem({name: marker.name}))
-                                    console.log("Marker near you clicked")
-                                }
+                            return (
+                                <Marker key={marker.lat}
+                                        coordinate={{
+                                            latitude: parseFloat(marker.lat),
+                                            longitude: parseFloat(marker.lon)
+                                        }}
+                                        onPress={() => {
+                                            if (getDistance(marker, location) > 15) {
+                                                console.log("Marker is too far away")
+                                            } else {
+                                                //dispatch(handleRemoveItem({name: marker.name}))
+                                                console.log("Marker near you clicked")
+                                            }
 
-                                navigation.navigate("Take Picture", {title: marker.name});
+                                            navigation.navigate("Take Picture", {
+                                                title: marker.name,
+                                                lat: marker.lat,
+                                                lon: marker.lon
+                                            });
 
-                            }
-                            }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
+                                        }
+                                        }><Ionicons name="trophy" size={40} color={'green'}/>
+                                </Marker>)
                         })}
                     < /MapView>
-
 
 
                 </MaskedView>

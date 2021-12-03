@@ -8,7 +8,7 @@ import {addImage} from "../Firebase/FirebaseFunctions";
 
 
 function AddPost({route, navigation}) {
-    const {title, data} = route.params;
+    const {title, lat, lon, data} = route.params;
 
     //const camera = useSelector((state) => state.camera);
     const styles = useSelector((state) => state.theme.value.style);
@@ -50,16 +50,18 @@ function AddPost({route, navigation}) {
                 title="Submit"
                 onPress={() => {
                     addImage(data).then()
-                dispatch(addPost({
-                            title: title,
-                            image: "https://media.timeout.com/images/105171709/image.jpg",
-                            likes: [],
-                            caption: text,
-                            user: auth.currentUser.uid,
-                            nick: auth.currentUser.displayName,
-                        }
-                    )
-                );
+                    dispatch(addPost({
+                                title: title,
+                                image: "https://media.timeout.com/images/105171709/image.jpg",
+                                likes: [],
+                                caption: text,
+                                user: auth.currentUser.uid,
+                                nick: auth.currentUser.displayName,
+                                lat: lat,
+                                lon: lon,
+                            }
+                        )
+                    );
                     /*
                      */
                     navigation.navigate("Map")
