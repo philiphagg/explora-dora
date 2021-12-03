@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import 'firebase/database';
-import {collection, getDocs, getFirestore, onSnapshot, query, where,orderBy} from "firebase/firestore";
+import {collection, getDocs, getFirestore, onSnapshot, query, where, orderBy, doc, updateDoc} from "firebase/firestore";
 import {db, auth} from "../../Firebase/firebaseconfig"
 
 export const getCollection = createAsyncThunk('collection/getCollection', async () => {
@@ -12,7 +12,10 @@ export const getCollection = createAsyncThunk('collection/getCollection', async 
         )
     }
 )
-
+async function editPostFirebase(postId, data) {
+    const postRef = doc(db, "Posts", postId);
+    await updateDoc(postRef, data);
+}
 export const collectionSlice = createSlice({
     name: "collection",
     initialState: {
@@ -29,6 +32,22 @@ export const collectionSlice = createSlice({
             const post = action.payload.postId;
             state.value = [...state.value].filter(x => x.id !== post);
         },
+        editCaption: (state,action) =>{
+            state.value = {...state.value, caption:action.payload.caption}
+        },
+        editPost: (state, action) => {
+            const user = auth.currentUser.uid;
+            const post = action.payload.post;
+
+            //if (post.user === user) {
+            //state.list.find(x => x.id === post.id) = post;
+
+            editPostFirebase(post.id, {post}).then(r => {
+                console.log("Edited post  ---------------------------------", state)
+            })
+            // }
+        },
+
         likePost: (state, action) => {
             const user = action.payload.userId;
             const post = action.payload.postId;
@@ -58,7 +77,7 @@ export const collectionSlice = createSlice({
     }
 });
 
-export const {addPost, deletePost, likePost, unlikePost} = collectionSlice.actions;
+export const {addPost, deletePost, likePost, unlikePost,editCaption} = collectionSlice.actions;
 
 export default collectionSlice.reducer;
 

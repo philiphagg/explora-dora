@@ -4,8 +4,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {Button, Text, View, Image, Alert, ScrollView, TouchableOpacity, FlatList, TextInput, KeyboardAvoidingView,
     Platform} from 'react-native';
 import LoadingSpinner from "./Components/LoadingAnimation";
-import {getCollection, editCaption} from "../Redux/redusers/collection";
-
+import {editCaption, getCollection} from "../Redux/redusers/collection";
+import {editPost, likePost, unlikePost} from "../Redux/redusers/feed";
+import {editProfile} from "../Redux/redusers/user";
 
 /*const formatData = (data, numColumns) =>{
     const collections = useSelector((state) => state.collections.value);
@@ -38,7 +39,7 @@ function DetailsView({post, setToNull}){
                        style={styles.postImage}/>
                 <View>
                     {changeC ?
-                        <>
+                        <View style={styles.row}>
                             <TextInput
                                 placeholder="New Caption"
                                 value={description}
@@ -50,7 +51,7 @@ function DetailsView({post, setToNull}){
                                 onPress={e => {setChangingC(false);
                                 dispatch(editCaption({caption:description}))} }
                             />
-                        </>
+                        </View>
                         :
                         <View style={styles.row}>
                         <Text style={styles.h2}>{post.likes.length} ❤ </Text>
@@ -79,6 +80,7 @@ function Collection() {
     const collection = useSelector((state) => state.collection);
     const theme = useSelector((state) => state.theme.value.theme);
     const user = useSelector((state) => state.user.value);
+    const dispatch = useDispatch();
 
 
     const [post, setPost] = React.useState(null);
@@ -90,28 +92,37 @@ function Collection() {
     }, []);
 
     return (
-
-        post ?
-            <DetailsView post={post} setToNull={() => setPost(null)}/>
+        collection.status !== "success" ?
+            <View>
+                <LoadingSpinner/>
+            </View>
             :
             <View>
-                <FlatList
-                    data={collections}
-                    numColumns={numColumns}
-                    renderItem={({item}) => (
+                {
+                post ?
+                <DetailsView post={post} setToNull={() => setPost(null)}/>
+                :
+                <View>
+                    <FlatList
+                        data={collection.list}
+                        numColumns={numColumns}
+                        renderItem={({item}) => (
 
-                        <View style={[styles.item]} key={item.id}>
-                            <View>
-                                <TouchableOpacity onPress={e => {setPost(item)}}>
-                                    <Image source={{uri: item.image}}
-                                           style={styles.postImageTest}/>
-                                </TouchableOpacity>
+                            <View style={[styles.item]} key={item.id}>
+                                <View>
+                                    <TouchableOpacity onPress={e => {
+                                        setPost(item)
+                                    }}>
+                                        <Image source={{uri: item.image}}
+                                               style={styles.postImageTest}/>
+                                    </TouchableOpacity>
 
+                                </View>
                             </View>
-                        </View>
-                    )}
-                />
-
+                        )}
+                    />
+                </View>
+                }
             </View>
     );
 }
