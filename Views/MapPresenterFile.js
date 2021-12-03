@@ -18,59 +18,20 @@ function MapPresenterFile() {
     });
     const [errorMsg, setErrorMsg] = React.useState(null);
     const markers = useSelector((state) => state.markers);
-
     const [heatpoints, setHeatpoints] = React.useState(null)
 
     React.useEffect(() => {
-        setHeatpoints(
-            [
-                {
-                    latitude: location.latitude + 0.004,
-                    longitude: location.longitude - 0.004,
-                    weight: 1,
-                },
-                {
-                    latitude: location.latitude,
-                    longitude: location.longitude - 0.004,
-                    weight: 1,
-                },
-                {
-                    latitude: location.latitude - 0.004,
-                    longitude: location.longitude - 0.004,
-                    weight: 1,
-                },
-                {
-                    latitude: location.latitude + 0.004,
-                    longitude: location.longitude,
-                    weight: 1,
-                },
-                {
-                    latitude: location.latitude,
-                    longitude: location.longitude,
-                    weight: 1,
-                },
-                {
-                    latitude: location.latitude - 0.004,
-                    longitude: location.longitude,
-                    weight: 1,
-                },
-                {
-                    latitude: location.latitude + 0.004,
-                    longitude: location.longitude + 0.004,
-                    weight: 1,
-                },
-                {
-                    latitude: location.latitude,
-                    longitude: location.longitude + 0.004,
-                    weight: 1,
-                },
-                {
-                    latitude: location.latitude - 0.004,
-                    longitude: location.longitude + 0.004,
-                    weight: 1,
-                },
-            ])
-    }, [location]);
+        let lat = location.latitude;
+        let lon = location.longitude;
+        let pointArray = [];
+        var x, y;
+        for (x = 1; x <= 10; x += 1) {
+            for (y = 1; y <= 10; y += 1) {
+                pointArray.push({latitude: lat + (x/1000), longitude: lon + (y/1000), weight: 1});
+            }
+        }
+        setHeatpoints(pointArray)
+    }, [location])
 
     React.useEffect(() => {
         dispatch(getMarkers())
@@ -121,10 +82,10 @@ function MapPresenterFile() {
                              maxIntensity={100}
                              gradientSmoothing={1}
                              heatmapMode={"POINTS_WEIGHT"}
-                             /*gradient={{
-                                 colors: ["#8d8d8d", "#8d8d8d", "#8d8d8d", "#8d8d8d", "rgba(0,0,0,0.37)", "rgba(0,0,0,0)"],
-                                 startPoints: [0, 0.000001, 0.000002, 0.000003, 0.5, 1],
-                             }} */
+                        /*gradient={{
+                            colors: ["#8d8d8d", "#8d8d8d", "#8d8d8d", "#8d8d8d", "rgba(0,0,0,0.37)", "rgba(0,0,0,0)"],
+                            startPoints: [0, 0.000001, 0.000002, 0.000003, 0.5, 1],
+                        }} */
                     />
 
 
