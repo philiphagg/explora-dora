@@ -82,10 +82,11 @@ function MapPresenterFile() {
                              maxIntensity={100}
                              gradientSmoothing={1}
                              heatmapMode={"POINTS_WEIGHT"}
-                        /*gradient={{
-                            colors: ["#8d8d8d", "#8d8d8d", "#8d8d8d", "#8d8d8d", "rgba(0,0,0,0.37)", "rgba(0,0,0,0)"],
-                            startPoints: [0, 0.000001, 0.000002, 0.000003, 0.5, 1],
-                        }}*/
+                             gradient={{
+                                 colors: ["#8d8d8d", "rgba(0,0,0,0.37)", "rgba(0,0,0,0)"],
+                                 startPoints: [0, 0.5, 1],
+                                 colorMapSize: 256,
+                             }}
                     />
 
 
