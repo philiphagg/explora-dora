@@ -1,33 +1,10 @@
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-
-import {Button, Text, View, Image, Alert, ScrollView, TouchableOpacity, FlatList, TextInput, KeyboardAvoidingView,
-    Platform} from 'react-native';
+import {Button, Text, View, Image, ScrollView, TouchableOpacity, FlatList, TextInput} from 'react-native';
 import LoadingSpinner from "./Components/LoadingAnimation";
-import {editCaption, getCollection} from "../Redux/redusers/collection";
-//import {editPost, likePost, unlikePost} from "../Redux/redusers/C";
-//import {editProfile} from "../Redux/redusers/user";
 
-/*const formatData = (data, numColumns) =>{
-    const collections = useSelector((state) => state.collections.value);
-    const numberOfFullRows = Math.floor(collections.length / numColumns);
-
-    let numberOfElementsLastRow = collections.length - (numberOfFullRows * numColumns);
-    while (numberOfElementsLastRow !== numColumns && numberOfElementsRow !== 0){
-        data.push({key: `blank -${numberOfElementsLastRow}`, empty: true});
-        numberOfElementsLastRow = numberOfElementsLastRow +1;
-    }
-
-    return data;
-}*/
-
-function DetailsView({post, setToNull}){
-
-    const theme = useSelector((state) => state.theme.value.theme);
-    const styles = useSelector((state) => state.theme.value.style);
+function DetailsView({post, setToNull, styles, editCaption}){
     const [changeC, setChangingC] = React.useState(false);
     const [description, setDescription] = React.useState(post.caption);
-    const dispatch = useDispatch();
 
     return (
         <ScrollView>
@@ -49,7 +26,7 @@ function DetailsView({post, setToNull}){
                             <Button
                                 title="Save"
                                 onPress={e => {setChangingC(false);
-                                dispatch(editCaption({...post, caption:description}))} }
+                                editCaption({...post, caption:description})} }
                             />
                         </View>
                         :
@@ -75,24 +52,16 @@ function DetailsView({post, setToNull}){
 }
 
 
-function Collection() {
-    const styles = useSelector((state) => state.theme.value.style);
-    const collection = useSelector((state) => state.collection);
-    const theme = useSelector((state) => state.theme.value.theme);
-    const user = useSelector((state) => state.user.value);
-    const dispatch = useDispatch();
-
-
+function Collection({posts, styles, getCollection, editCaption}) {
     const [post, setPost] = React.useState(null);
-
     const numColumns = 3;
 
     useEffect(() => {
-        dispatch(getCollection())
+        getCollection()
     }, []);
 
     return (
-        collection.status !== "success" ?
+        posts.status !== "success" ?
             <View>
                 <LoadingSpinner/>
             </View>
@@ -100,11 +69,14 @@ function Collection() {
             <View>
                 {
                 post ?
-                <DetailsView post={post} setToNull={() => setPost(null)}/>
+                <DetailsView post={post}
+                             setToNull={() => setPost(null)}
+                             styles={styles}
+                             editCaption = {editCaption}/>
                 :
                 <View>
                     <FlatList
-                        data={collection.list}
+                        data={posts.list}
                         numColumns={numColumns}
                         renderItem={({item}) => (
                             <View style={[styles.item]} key={item.id}>
