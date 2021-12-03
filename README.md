@@ -6,7 +6,7 @@ The app is designed to be a geocatching game. Walking around on the map, differe
 A new view should appear where you can upload a picture and write a caption. All these uploads will be available in a feed. Where users can like each others collectables.
 <br>
 The user can see their own collectibles under the collectibles tab. You can swap the design of the app to dark mode or light mode under the profile tab. Where the user can change their nickname.
-On the map screen the user can view the map "play" the game. Under the progress map, users will be able to see the collectibles.
+On the map screen the user can view the map "play" the game. Under the progress map, users will be able to see the collectables.
 
 ---
 ## What have we done
@@ -68,6 +68,8 @@ if it doesn't you can press  ```d``` in the terminal that runs expo. In the brow
 
 ---
 ## Short description of files
+Below image is a mindmap under construction. Was made week one to describe the architecture.
+
 ![UML](https://github.com/Digitusmedia/explora-dora/blob/main/mindmap.png)
 
 [file]: https://img.icons8.com/ios/50/000000/file--v1.png
@@ -95,24 +97,38 @@ Views
       progress - shows in map form all the collected items
 
 ### Redux
+      Storee - Combining all the reducers
+
+### Reducers
+All below files updates states for the model layer.
+
+      Camera
+      collection
+      feed
+      markers
+      paths
+      theme
+      user 
 
 ### Views
-
-      Button - containing the button function
-      Camera - containing the camera View
-      LoadingAnimation - containing a function displaying the loadingscreen
-
       Addpost - a view where u can add a post
       Collection - a view of each users private collectibles
-      Discover- should not be implemented
       Feed - shows the feed of all the users latest posts
       Highscores - A high score list of all the users based on users collectibles 
       Login - A view over the login screen
       MapPresenterFile - File should be renamed, but is the map view
       MapViewComp - experimental file
       Navigationbar - responsible for navigating the user and routing
-      Powerups - Not yet implemented
       Profile - Show the profile to the user
       Progress - shows the progress to the user
 
 ### Component
+      Button - containing the button function
+      Camera - uses the camera 
+      LoadingAnimation - containing a function displaying the loadingscreen
+
+### Other files
+      app - launches the app and the navigation
+      styles - CSS file for react native
+      stylesDark - Dark theme
+      stylesLight - Light theme
