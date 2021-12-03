@@ -7,7 +7,6 @@ import {getDistance} from "geolib";
 import {handleRemoveItem} from "../Redux/redusers/markers";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
 function MapPresenterFile({route, navigation, markers, theme, getMarkers,addPathNode}) {
     const [location, setLocation] = React.useState({
         latitude: 59.3322,
