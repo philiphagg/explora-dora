@@ -49,7 +49,7 @@ function DetailsView({post, setToNull}){
                             <Button
                                 title="Save"
                                 onPress={e => {setChangingC(false);
-                                dispatch(editCaption({caption:description}))} }
+                                dispatch(editPost({...post, caption:description}))} }
                             />
                         </View>
                         :

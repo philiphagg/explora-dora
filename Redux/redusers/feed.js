@@ -98,6 +98,6 @@ export const feedSlice = createSlice({
     }
 });
 
-export const {addPost, likePost, unlikePost} = feedSlice.actions;
+export const {addPost, likePost, unlikePost,editPost} = feedSlice.actions;
 
 export default feedSlice.reducer;

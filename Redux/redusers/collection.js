@@ -46,6 +46,18 @@ export const collectionSlice = createSlice({
 
             console.log(state)
         },
+        editPost: (state, action) => {
+            const user = auth.currentUser.uid;
+            const post = action.payload.post;
+
+            if(post.user === user){
+                //state.list.find(x => x.id === post.id) = post;
+
+                editPostFirebase(post.id, {post}).then(r => {
+                    console.log("Edited post  ---------------------------------", state)
+                })
+            }
+        },
     },
     extraReducers: {
         [getCollection.pending]: (state, action) => {
