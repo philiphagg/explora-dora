@@ -4,13 +4,14 @@ import {Camera} from 'expo-camera';
 import {useSelector} from "react-redux";
 import {setImageState} from '../../Redux/redusers/camera'
 import {addImage} from "../../Firebase/FirebaseFunctions";
+import AddPost from "../AddPost";
 
-export default function CameraView({route, navigation}) {
-    const {title, lat, lon} = route.params;
-    const [camera, setCamera] = useState(null);
-    const [image, setImage] = useState(null);
-    const [hasPermission, setHasPermission] = useState(null);
-    const [type, setType] = useState(Camera.Constants.Type.back);
+export default function CameraView({title, lat, lon, styles, user, addPost, setClaim}) {
+
+    const [image, setImage] = React.useState(null);
+    const [camera, setCamera] = React.useState(null);
+    const [hasPermission, setHasPermission] = React.useState(null);
+    const [type, setType] = React.useState(Camera.Constants.Type.back);
 
     useEffect(() => {
         (async () => {
@@ -22,10 +23,10 @@ export default function CameraView({route, navigation}) {
     const takePicture = async () => {
         if (camera) {
             const data = await camera.takePictureAsync(null)
-            setImage(data.uri);
-            console.log("Image -------------------------------",data.uri);
+            setImage(data);
+            console.log("Image -------------------------------", data.uri);
             //setImageState(data.uri);
-            navigation.navigate("Claim Landmark", {title, lat, lon, data})
+            //navigation.navigate("Claim Landmark", {title, lat, lon, data})
         }
     }
 
@@ -38,38 +39,40 @@ export default function CameraView({route, navigation}) {
 
 
     return (
-        <View style={styles.container}>
-            <Camera
-                style={styles.camera}
-                type={type}
-                ref={ref => {
-                    setCamera(ref);
-                }}>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => {
-                            setType(
-                                type === Camera.Constants.Type.back
-                                    ? Camera.Constants.Type.front
-                                    : Camera.Constants.Type.back
-                            );
-                        }}>
-                        <Text style={styles.text}> Flip </Text>
-                    </TouchableOpacity>
-                </View>
-            </Camera>
-            <Button title="Snap"
-                    onPress={() => takePicture()}
-            />
-            {
-                //image && <Image source={{uri: image}} style={{flex: 1}}/>
-            }
-        </View>
-    );
+        image != null ?
+            <AddPost title={title} lat={lat} lon={lon} image={image} styles={styles} user={user}
+                     addPost={(x) => addPost(x)} setClaim={(x) => setClaim(x)}/>
+:
+    <View style={cameraStyles.container}>
+        <Camera
+            style={cameraStyles.camera}
+            type={type}
+            ref={ref => {
+                setCamera(ref);
+            }}>
+            <View style={cameraStyles.buttonContainer}>
+                <TouchableOpacity
+                    style={cameraStyles.button}
+                    onPress={() => {
+                        setType(
+                            type === Camera.Constants.Type.back
+                                ? Camera.Constants.Type.front
+                                : Camera.Constants.Type.back
+                        );
+                    }}>
+                    <Text style={cameraStyles.text}> Flip </Text>
+                </TouchableOpacity>
+            </View>
+        </Camera>
+        <Button title="Snap"
+                onPress={() => takePicture()}
+        />
+    </View>
+)
+    ;
 }
 
-const styles = StyleSheet.create({
+const cameraStyles = StyleSheet.create({
     container: {
         flex: 1,
     },

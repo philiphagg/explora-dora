@@ -9,8 +9,8 @@ export function ProfilePresenter(props) {
     return (
         <Profile
             styles={props.styles}
-            theme={props.theme}
             user={props.user}
+            theme={props.theme}
             collection={props.collection}
 
             editUser={props.editUser}
