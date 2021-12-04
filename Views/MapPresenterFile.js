@@ -4,16 +4,20 @@ import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated, Button} from
 import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
 import {getDistance} from "geolib";
-import {handleRemoveItem} from "../Redux/redusers/markers";
+//import {handleRemoveItem} from "../Redux/redusers/markers";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function MapPresenterFile({route, navigation, markers, theme, getMarkers,addPathNode}) {
+const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
+
+function MapPresenterFile({markers, theme, getMarkers, addPathNode, setClaim}) {
+
     const [location, setLocation] = React.useState({
         latitude: 59.3322,
         longitude: 18.0642,
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
     });
+
     const [errorMsg, setErrorMsg] = React.useState(null);
 
     React.useEffect(() => {
@@ -40,7 +44,8 @@ function MapPresenterFile({route, navigation, markers, theme, getMarkers,addPath
                 pos.coords.latitudeDelta = 0.01;
                 pos.coords.longitudeDelta = 0.01;
                 setLocation(pos.coords);
-                addPathNode(pos.coords);
+                if(!disablePathFetching)
+                    addPathNode(pos.coords);
                 console.log("Continuous location: " + JSON.stringify(pos.coords))
             }
         )
@@ -92,20 +97,24 @@ function MapPresenterFile({route, navigation, markers, theme, getMarkers,addPath
                                                 //dispatch(handleRemoveItem({name: marker.name}))
                                                 console.log("Marker near you clicked")
                                             }
-
-                                            navigation.navigate("Take Picture", {
+                                            setClaim({
+                                                status: 'claiming',
                                                 title: marker.name,
                                                 lat: marker.lat,
-                                                lon: marker.lon
+                                                lon: marker.lon,
                                             });
-
+                                            /*
+                                                                                        navigation.navigate("Take Picture", {
+                                                                                            title: marker.name,
+                                                                                            lat: marker.lat,
+                                                                                            lon: marker.lon
+                                                                                        });
+                                             */
                                         }
                                         }><Ionicons name="trophy" size={40} color={'green'}/>
                                 </Marker>)
                         })}
                     < /MapView>
-
-
                 </MaskedView>
             </SafeAreaView>
     );

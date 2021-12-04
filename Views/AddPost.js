@@ -1,23 +1,21 @@
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {Button, Text, View, TextInput, Image, ScrollView} from "react-native";
 import {auth, db} from "../Firebase/firebaseconfig"
 import 'firebase/database';
-import {addPost} from "../Redux/redusers/feed";
 import {addImage} from "../Firebase/FirebaseFunctions";
 
 
-function AddPost({route, navigation}) {
-    const {title, lat, lon, data} = route.params;
+function AddPost({title, lat, lon, image, styles, user, addPost, setClaim}) {
+    //const {title, lat, lon, data} = route.params;
 
     //const camera = useSelector((state) => state.camera);
-    const styles = useSelector((state) => state.theme.value.style);
-    const user = useSelector((state) => state.user.value);
-    const dispatch = useDispatch();
+    //const styles = useSelector((state) => state.theme.value.style);
+    //const user = useSelector((state) => state.user.value);
+    //const dispatch = useDispatch();
 
 
-    const [text, onChangeText] = React.useState("");
-    const [picture, setPicture] = React.useState(false);
+    const [caption, onChangeText] = React.useState("");
+    //const [picture, setPicture] = React.useState(false);
 
     return (
         <ScrollView>
@@ -31,7 +29,7 @@ function AddPost({route, navigation}) {
             </View>
 
             <View style={styles.centerContent}>
-                <Image source={{uri: data.uri}} style={styles.postImageTest}/>
+                <Image source={{uri: image.uri}} style={styles.postImageTest}/>
             </View>
 
             <View style={styles.row}>
@@ -42,29 +40,31 @@ function AddPost({route, navigation}) {
                     style={styles.inputLarge}
                     placeholder="Write your caption here"
                     onChangeText={onChangeText}
-                    value={text}
+                    value={caption}
                 />
             </View>
 
             <Button
                 title="Submit"
                 onPress={() => {
-                    addImage(data).then()
-                    dispatch(addPost({
-                                title: title,
-                                image: "https://media.timeout.com/images/105171709/image.jpg",
-                                likes: [],
-                                caption: text,
-                                user: auth.currentUser.uid,
-                                nick: auth.currentUser.displayName,
-                                lat: lat,
-                                lon: lon,
-                            }
-                        )
-                    );
+                    addImage(addPost, setClaim, image, title, caption, auth.currentUser.uid, "thor", lat, lon).then( res =>
+                        console.log("Result of upload !!!!!!", res)
+                    ).catch()
+                        console.log("After upload !!!!!!")
+
                     /*
+                    addPost, image, title, caption, user, auth.currentUser.uid, "thor", lat, lon
+                    addPost({
+                        image: "https://media.timeout.com/images/105171709/image.jpg",
+                        title: title,
+                        likes: [],
+                        caption: caption,
+                        user: auth.currentUser.uid,
+                        nick: user.userData.name,
+                        lat: lat,
+                        lon: lon,
+                    })
                      */
-                    navigation.navigate("Map")
                 }
                 }
             />
