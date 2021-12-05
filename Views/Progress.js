@@ -53,6 +53,7 @@ function Progress({theme, paths, getPaths, collection, getCollection}) {
                             :
                             collection.list.map(post =>
                                 <Marker
+                                    key={post.id}
                                     coordinate={{
                                         latitude: parseFloat(post.lat),
                                         longitude: parseFloat(post.lon),
