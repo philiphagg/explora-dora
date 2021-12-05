@@ -10,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
 
 function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost}) {
-//{navigation, markers, theme, getMarkers, addPathNode,  user, addPost}
+
     console.log("1. Props MapPresenterFile ----------------------------------", styles)
 
     useEffect(() => {

@@ -9,9 +9,9 @@ import FeedPresenter from "../Presenters/feedPresenter";
 import HighScorePresenter from "../Presenters/HighScorePresenter";
 import ProfilePresenter from "../Presenters/ProfilePresenter";
 import ProgressPresenter from "../Presenters/ProgressPresenter";
-import MapPresenter from "../Presenters/MapPresenter";
 import CollectionPresenter from "../Presenters/CollectionPresenter";
 import MapViewNavigator from "./Navigators/MapViewNavigator";
+
 
 const Tab = createBottomTabNavigator();
 
