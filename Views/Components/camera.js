@@ -9,7 +9,7 @@ import {addImage} from "../../Firebase/FirebaseFunctions";
 export default function CameraView({navigation, route}) {
     const { title, lat, lon, styles, user, addPost} = route.params;
 
-    console.log("2. Camera props---------------------------------",route)
+    //console.log("2. Camera props---------------------------------",route)
 
     /*
     title: marker.name,

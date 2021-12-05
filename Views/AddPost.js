@@ -7,7 +7,7 @@ import {addImage} from "../Firebase/FirebaseFunctions";
 
 function AddPost({navigation, route}) {
     const { title, lat, lon, data, styles, user, addPost} = route.params;
-    console.log("3. Add image props---------------------------------",route)
+    //console.log("3. Add image props---------------------------------",route)
 
     //{title, lat, lon, image, styles, user, addPost}
     //const {title, lat, lon, data} = route.params;

@@ -11,7 +11,7 @@ const disablePathFetching = true; /* Disables the uploading of coordinates to fi
 
 function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost}) {
 
-    console.log("1. Props MapPresenterFile ----------------------------------", styles)
+   // console.log("1. Props MapPresenterFile ----------------------------------", styles)
 
     useEffect(() => {
         getMarkers()
