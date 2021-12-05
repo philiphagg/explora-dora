@@ -117,7 +117,7 @@ All below files updates states for the model layer.
       Highscores - A high score list of all the users based on users collectibles 
       Login - A view over the login screen
       MapPresenterFile - File should be renamed, but is the map view
-      MapViewComp - experimental file
+      MapViewNavigator - experimental file
       Navigationbar - responsible for navigating the user and routing
       Profile - Show the profile to the user
       Progress - shows the progress to the user

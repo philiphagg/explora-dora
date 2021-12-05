@@ -5,7 +5,11 @@ import 'firebase/database';
 import {addImage} from "../Firebase/FirebaseFunctions";
 
 
-function AddPost({title, lat, lon, image, styles, user, addPost, setClaim}) {
+function AddPost({navigation, route}) {
+    const { title, lat, lon, data, styles, user, addPost} = route.params;
+    console.log("3. Add image props---------------------------------",route)
+
+    //{title, lat, lon, image, styles, user, addPost}
     //const {title, lat, lon, data} = route.params;
 
     //const camera = useSelector((state) => state.camera);
@@ -29,7 +33,7 @@ function AddPost({title, lat, lon, image, styles, user, addPost, setClaim}) {
             </View>
 
             <View style={styles.centerContent}>
-                <Image source={{uri: image.uri}} style={styles.postImageTest}/>
+                <Image source={{uri: data.uri}} style={styles.postImageTest}/>
             </View>
 
             <View style={styles.row}>
@@ -47,24 +51,11 @@ function AddPost({title, lat, lon, image, styles, user, addPost, setClaim}) {
             <Button
                 title="Submit"
                 onPress={() => {
-                    addImage(addPost, setClaim, image, title, caption, auth.currentUser.uid, "thor", lat, lon).then( res =>
+                    addImage(addPost, data, title, caption, auth.currentUser.uid, "thor", lat, lon).then( res =>
                         console.log("Result of upload !!!!!!", res)
                     ).catch()
                         console.log("After upload !!!!!!")
-
-                    /*
-                    addPost, image, title, caption, user, auth.currentUser.uid, "thor", lat, lon
-                    addPost({
-                        image: "https://media.timeout.com/images/105171709/image.jpg",
-                        title: title,
-                        likes: [],
-                        caption: caption,
-                        user: auth.currentUser.uid,
-                        nick: user.userData.name,
-                        lat: lat,
-                        lon: lon,
-                    })
-                     */
+                    navigation.popToTop();
                 }
                 }
             />
