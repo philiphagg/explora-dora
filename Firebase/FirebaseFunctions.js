@@ -23,9 +23,9 @@ export async function addPost() {
 }
  */
 
-export async function addImage(addPost, setClaim, image, title, caption, user, name, lat, lon) {
+export async function addImage(addPost, data, title, caption, user, name, lat, lon) {
 
-    const response = await fetch(image.uri);
+    const response = await fetch(data.uri);
     const blob = await response.blob();
 
     const Path = `posts/${auth.currentUser.uid}/${Math.random().toString(36)}`;
@@ -58,7 +58,6 @@ export async function addImage(addPost, setClaim, image, title, caption, user, n
                             lat: lat,
                             lon: lon,
                         })
-                        setClaim(null)
                     }
                 }
             ]);

@@ -11,6 +11,7 @@ import ProfilePresenter from "../Presenters/ProfilePresenter";
 import ProgressPresenter from "../Presenters/ProgressPresenter";
 import MapPresenter from "../Presenters/MapPresenter";
 import CollectionPresenter from "../Presenters/CollectionPresenter";
+import MapViewNavigator from "./Navigators/MapViewNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +44,7 @@ function Navigationbar() {
                 tabBarInactiveTintColor: theme.colors.text,
             })}
         >
-            <Tab.Screen name="Map" component={MapPresenter} options={{tabBarBadge: 3}}/>
+            <Tab.Screen name="Map" component={MapViewNavigator} options={{tabBarBadge: 3}}/>
             <Tab.Screen name="Progress" component={ProgressPresenter}/>
             <Tab.Screen name="Feed" component={FeedPresenter} options={{tabBarBadge: 5}}/>
             <Tab.Screen name="High Score" component={HighScorePresenter}/>

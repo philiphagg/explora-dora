@@ -10,7 +10,6 @@ export function CollectionPresenter(props) {
                     user={props.user}
                     getCollection={props.getCollection}
                     editCaption={props.editCaption}
-
         />
     );
 }

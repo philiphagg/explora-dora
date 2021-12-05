@@ -1,15 +1,22 @@
 import * as React from 'react';
+import {useEffect} from "react";
 import MapView, {AnimatedRegion, Circle, Marker, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated, Button} from 'react-native';
 import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
 import {getDistance} from "geolib";
-//import {handleRemoveItem} from "../Redux/redusers/markers";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
 
-function MapPresenterFile({markers, theme, getMarkers, addPathNode, setClaim}) {
+function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost}) {
+//{navigation, markers, theme, getMarkers, addPathNode,  user, addPost}
+    console.log("1. Props MapPresenterFile ----------------------------------", styles)
+
+    useEffect(() => {
+        getMarkers()
+    }, []);
+
 
     const [location, setLocation] = React.useState({
         latitude: 59.3322,
@@ -20,9 +27,6 @@ function MapPresenterFile({markers, theme, getMarkers, addPathNode, setClaim}) {
 
     const [errorMsg, setErrorMsg] = React.useState(null);
 
-    React.useEffect(() => {
-        getMarkers()
-    }, []);
 
     React.useEffect(() => {
         (async () => {
@@ -44,7 +48,7 @@ function MapPresenterFile({markers, theme, getMarkers, addPathNode, setClaim}) {
                 pos.coords.latitudeDelta = 0.01;
                 pos.coords.longitudeDelta = 0.01;
                 setLocation(pos.coords);
-                if(!disablePathFetching)
+                if (!disablePathFetching)
                     addPathNode(pos.coords);
                 console.log("Continuous location: " + JSON.stringify(pos.coords))
             }
@@ -72,13 +76,13 @@ function MapPresenterFile({markers, theme, getMarkers, addPathNode, setClaim}) {
                         }}
                     >
                         { /*here is the place to put the clipping object for mask*/}
-                        <View style={styles.circle}/>
+                        <View style={mapStyles.circle}/>
                     </View>
                 }
                 >
                     {/* Shows behind the mask, you can put anything here, such as an image */}
                     <MapView region={location} showsUserLocation={true}
-                             provider={PROVIDER_GOOGLE} style={styles.map}
+                             provider={PROVIDER_GOOGLE} style={mapStyles.map}
                              customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}
                              scrollEnabled={false}
                              zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
@@ -97,19 +101,15 @@ function MapPresenterFile({markers, theme, getMarkers, addPathNode, setClaim}) {
                                                 //dispatch(handleRemoveItem({name: marker.name}))
                                                 console.log("Marker near you clicked")
                                             }
-                                            setClaim({
-                                                status: 'claiming',
+
+                                            navigation.navigate("Take Picture", {
                                                 title: marker.name,
                                                 lat: marker.lat,
                                                 lon: marker.lon,
+                                                styles: styles,
+                                                user: user,
+                                                addPost: addPost,
                                             });
-                                            /*
-                                                                                        navigation.navigate("Take Picture", {
-                                                                                            title: marker.name,
-                                                                                            lat: marker.lat,
-                                                                                            lon: marker.lon
-                                                                                        });
-                                             */
                                         }
                                         }><Ionicons name="trophy" size={40} color={'green'}/>
                                 </Marker>)
@@ -120,7 +120,7 @@ function MapPresenterFile({markers, theme, getMarkers, addPathNode, setClaim}) {
     );
 }
 
-const styles = StyleSheet.create({
+const mapStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#000000',
