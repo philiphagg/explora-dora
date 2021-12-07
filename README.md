@@ -70,8 +70,6 @@ if it doesn't you can press  ```d``` in the terminal that runs expo. In the brow
 ## Short description of files
 Below image is a mindmap under construction. Was made week one to describe the architecture.
 
-<iframe allowfullscreen frameborder="0" style="width:960px; height:720px" src="https://lucid.app/documents/embeddedchart/f0f02dbc-5e3d-4ec3-b6cc-33deef94b1b7" id="vZHyVypHVDjX"></iframe>
-
 ![UML](https://github.com/Digitusmedia/explora-dora/blob/main/mindmap.png)
 
 [file]: https://img.icons8.com/ios/50/000000/file--v1.png
