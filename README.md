@@ -8,6 +8,8 @@ A new view should appear where you can upload a picture and write a caption. All
 The user can see their own collectibles under the collectibles tab. You can swap the design of the app to dark mode or light mode under the profile tab. Where the user can change their nickname.
 On the map screen the user can view the map "play" the game. Under the progress map, users will be able to see the collectables.
 
+There is collectibles inside KTH Kista and at KTH campus for debugging purposes
+
 ---
 ## What have we done
 Firstly we created a small UML architechture for the app.
@@ -52,7 +54,7 @@ Make sure you have npm installed on your computer [download npm here](https://no
 
 1. Download the repo to your computer
 2. Use the terminal/powershell to navigate to the root directory of the project
-3. Run the command ``` npm install ```
+3. Run the command ``` npm install ``` and ```npm install expo-cli```
 4. Download the app "Expo Go" from app store or google play.
 5. Run command ``` expo start ``` or ``` npm start ```in the computers terminal/powershell, to launch the app.
    <br>The app should launch in your web-browser.
