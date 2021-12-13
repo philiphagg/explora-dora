@@ -11,6 +11,7 @@ import ProfilePresenter from "../Presenters/ProfilePresenter";
 import ProgressPresenter from "../Presenters/ProgressPresenter";
 import CollectionPresenter from "../Presenters/CollectionPresenter";
 import MapViewNavigator from "./Navigators/MapViewNavigator";
+import CollectionViewNavigator from "./Navigators/CollectiablesViewNavigator";
 
 
 const Tab = createBottomTabNavigator();
@@ -22,7 +23,7 @@ function Navigationbar() {
             screenOptions={({route}) => ({
                 tabBarIcon: ({focused, color, size}) => {
                     let iconName;
-                    if (route.name === 'Map') {
+                    if (route.name === 'MapView') {
                         iconName = focused
                             ? 'compass'
                             : 'compass-outline';
@@ -30,7 +31,7 @@ function Navigationbar() {
                         iconName = focused ? 'earth' : 'earth-outline';
                     } else if (route.name === 'Profile') {
                         iconName = focused ? 'person' : 'person-outline'
-                    } else if (route.name === 'Collectibles') {
+                    } else if (route.name === 'CollectiblesView') {
                         iconName = focused ? 'trophy' : 'trophy-outline'
                     } else if (route.name === 'High Score')
                         iconName = focused ? 'reader' : 'reader-outline'
@@ -44,15 +45,13 @@ function Navigationbar() {
                 tabBarInactiveTintColor: theme.colors.text,
             })}
         >
-            <Tab.Screen name="Map" component={MapViewNavigator} options={{tabBarBadge: 3}}/>
+            <Tab.Screen name="MapView" component={MapViewNavigator} options={{tabBarBadge: 3}}/>
             <Tab.Screen name="Progress" component={ProgressPresenter}/>
             <Tab.Screen name="Feed" component={FeedPresenter} options={{tabBarBadge: 5}}/>
             <Tab.Screen name="High Score" component={HighScorePresenter}/>
-            <Tab.Screen name="Collectibles" component={CollectionPresenter}/>
+            <Tab.Screen name="CollectiblesView" component={CollectionViewNavigator}/>
             <Tab.Screen name="Profile" component={ProfilePresenter}/>
-
         </Tab.Navigator>
-
     );
 }
 
