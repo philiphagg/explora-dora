@@ -1,5 +1,5 @@
 //import {firebase} from "@react-native-firebase/firestore";
-import {auth, db, storage, ref, uploadBytes} from './firebaseconfig'
+import {auth, db, storage, ref, uploadBytes, signOut} from './firebaseconfig'
 import {Alert} from "react-native";
 import {doc, collection, getDocs, query, where, addDoc} from "firebase/firestore";
 import {getDownloadURL} from "firebase/storage";
@@ -22,6 +22,14 @@ export async function addPost() {
     }
 }
  */
+
+export function signOuts(){
+    signOut(auth).then(() => {
+        //navigate to signin screen
+    }).catch((error) => {
+        Alert(error)
+    })
+}
 
 export async function addImage(addPost, data, title, caption, user, name, lat, lon) {
 
