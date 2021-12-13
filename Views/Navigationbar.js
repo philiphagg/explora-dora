@@ -12,6 +12,7 @@ import ProgressPresenter from "../Presenters/ProgressPresenter";
 import CollectionPresenter from "../Presenters/CollectionPresenter";
 import MapViewNavigator from "./Navigators/MapViewNavigator";
 import CollectionViewNavigator from "./Navigators/CollectiablesViewNavigator";
+import ProgressViewNavigator from "./Navigators/ProgressViewNavigation";
 
 
 const Tab = createBottomTabNavigator();
@@ -27,7 +28,7 @@ function Navigationbar() {
                         iconName = focused
                             ? 'compass'
                             : 'compass-outline';
-                    } else if (route.name === 'Progress') {
+                    } else if (route.name === 'ProgressView') {
                         iconName = focused ? 'earth' : 'earth-outline';
                     } else if (route.name === 'Profile') {
                         iconName = focused ? 'person' : 'person-outline'
@@ -46,7 +47,7 @@ function Navigationbar() {
             })}
         >
             <Tab.Screen name="MapView" component={MapViewNavigator} options={{tabBarBadge: 3}}/>
-            <Tab.Screen name="Progress" component={ProgressPresenter}/>
+            <Tab.Screen name="ProgressView" component={ProgressViewNavigator}/>
             <Tab.Screen name="Feed" component={FeedPresenter} options={{tabBarBadge: 5}}/>
             <Tab.Screen name="High Score" component={HighScorePresenter}/>
             <Tab.Screen name="CollectiblesView" component={CollectionViewNavigator}/>
