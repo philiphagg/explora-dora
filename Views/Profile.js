@@ -3,8 +3,7 @@
 */
 
 import React, {useEffect} from "react";
-import {View, Text, Switch, TouchableOpacity, TextInput, Button} from "react-native";
-import {auth, signOut} from '../Firebase/firebaseconfig';
+import {View, Text, Switch, TouchableOpacity, TextInput} from "react-native";
 import {signOuts} from "../Firebase/FirebaseFunctions";
 
 function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, user, collection}) {
@@ -46,7 +45,6 @@ function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, u
                             onPress={e => {
                                 setChangingNick(false);
                                 editUser({name: nick})
-                                //editUser({name: nick, posts: collection.list.length})
                             }}
                             style={[styles.button, styles.buttonOutline]}
                         >

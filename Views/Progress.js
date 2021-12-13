@@ -1,14 +1,11 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
-import {StyleSheet, Text, SafeAreaView, Dimensions, View, Image, TouchableHighlight} from 'react-native';
+import {StyleSheet, Text, SafeAreaView, Dimensions, Image, TouchableHighlight} from 'react-native';
 import * as Location from 'expo-location';
-import {useEffect} from "react";
 import LoadingSpinner from "./Components/LoadingAnimation";
 
-//import {TouchableHighlight} from "react-native-gesture-handler";
-
 function Progress({theme, paths, getPaths, collection, getCollection}) {
-    const [errorMsg, setErrorMsg] = React.useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
         if (paths.status !== "success")
@@ -17,7 +14,7 @@ function Progress({theme, paths, getPaths, collection, getCollection}) {
             getCollection()
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         (async () => {
             let {status} = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {

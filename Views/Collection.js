@@ -1,12 +1,10 @@
 import React, {useEffect} from "react";
-import {Button, Text, View, Image, ScrollView, TouchableOpacity, FlatList, TextInput} from 'react-native';
+import {View, Image, TouchableOpacity, FlatList} from 'react-native';
 import LoadingSpinner from "./Components/LoadingAnimation";
 
 function Collection({navigation, collection, styles, getCollection, editCaption}) {
-    //const test = false;
-    //const [post, setPost] = React.useState(null);
+
     const numColumns = 3;
-//{post, setToNull, styles, editCaption}
 
     useEffect(() => {
         if(collection.status !== "success")
@@ -45,12 +43,3 @@ function Collection({navigation, collection, styles, getCollection, editCaption}
 }
 
 export default Collection;
-
-/*
-test ?
-<DetailsView post={post}
-         setToNull={() => setPost(null)}
-         styles={styles}
-         editCaption = {editCaption}/>
-:
- */
