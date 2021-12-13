@@ -9,7 +9,8 @@ import {auth} from "../Firebase/firebaseconfig";
 function Feed({posts, styles, getFeed, likePost, unlikePost}) {
 
     useEffect(() => {
-        getFeed()
+        if(posts.status !== "success")
+            getFeed()
     }, []);
 
     return (
