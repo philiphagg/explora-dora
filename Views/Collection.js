@@ -65,9 +65,7 @@ function Collection({collection, styles, getCollection, editCaption}) {
 
     return (
         collection.status !== "success" ?
-            <View>
                 <LoadingSpinner/>
-            </View>
             :
             <View>
                     <FlatList

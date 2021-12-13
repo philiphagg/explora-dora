@@ -6,12 +6,13 @@ import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
 import {getDistance} from "geolib";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import LoadingSpinner from "./Components/LoadingAnimation";
 
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
 
 function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost}) {
 
-   // console.log("1. Props MapPresenterFile ----------------------------------", styles)
+    // console.log("1. Props MapPresenterFile ----------------------------------", styles)
 
     useEffect(() => {
         getMarkers()
@@ -28,6 +29,7 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
     const [errorMsg, setErrorMsg] = React.useState(null);
 
 
+    //initial request for location tracking. Only happens once.
     React.useEffect(() => {
         (async () => {
             let {status} = await Location.requestForegroundPermissionsAsync();
@@ -37,6 +39,7 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
         })();
     }, []);
 
+    //continuously checks the location of user and updates location state to new value
     React.useEffect(() => {
         Location.watchPositionAsync(
             {
@@ -62,7 +65,7 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
     }, []);
 
     return (
-        markers.status !== "success" ? <Text>Loading {JSON.stringify(markers)}</Text> :
+        markers.status !== "success" ? <LoadingSpinner/> :
             <SafeAreaView style={{alignItems: 'center'}}>
 
                 <MaskedView maskElement={

@@ -16,9 +16,7 @@ function Feed({posts, styles, getFeed, likePost, unlikePost}) {
         <ScrollView>
             {
                 posts.status !== "success" ?
-                    <View>
-                        <LoadingSpinner/>
-                    </View>
+                    <LoadingSpinner/>
                     :
                     <View>
                         {
