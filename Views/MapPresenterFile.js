@@ -10,12 +10,13 @@ import LoadingSpinner from "./Components/LoadingAnimation";
 
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
 
-function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost}) {
+function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost, editUser}) {
 
     // console.log("1. Props MapPresenterFile ----------------------------------", styles)
 
     useEffect(() => {
-        getMarkers()
+        if (markers.status !== 'success')
+            getMarkers()
     }, []);
 
 

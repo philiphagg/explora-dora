@@ -10,11 +10,17 @@ import {signOuts} from "../Firebase/FirebaseFunctions";
 function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, user, collection}) {
 
     useEffect(() => {
-        //if (user.status !== 'success')
+        if (user.status !== 'success')
             getUsers()
-        //if (collection.status !== 'success')
+        if (collection.status !== 'success')
             getCollection()
     }, []);
+
+    useEffect(() => {
+        if(user.userData.posts !== collection.list.length)
+            editUser({posts: collection.list.length, score: collection.list.length * 10})
+    }, [collection, user]);
+
 
     const [nick, setNick] = React.useState(user.name);
     const [changeN, setChangingNick] = React.useState(false);
@@ -23,7 +29,7 @@ function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, u
         <View style={styles.view}>
             <View style={[styles.col, styles.divider]}>
                 <Text style={styles.h1}> {user.userData.name} </Text>
-                <Text style={styles.h2}> {collection.length} Posts</Text>
+                <Text style={styles.h2}> {user.userData.posts} Posts</Text>
                 <Text style={styles.h2}> {user.userData.score} points</Text>
                 <Text style={styles.h2}> Email: {user.user.email}</Text>
             </View>
@@ -40,6 +46,7 @@ function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, u
                             onPress={e => {
                                 setChangingNick(false);
                                 editUser({name: nick})
+                                //editUser({name: nick, posts: collection.list.length})
                             }}
                             style={[styles.button, styles.buttonOutline]}
                         >
