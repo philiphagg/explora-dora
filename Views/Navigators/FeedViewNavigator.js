@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 const FeedViewNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{headerShown: true}}>
-            <Stack.Screen name="Progress" component={FeedPresenter}/>
+            <Stack.Screen name="Feed" component={FeedPresenter}/>
         </Stack.Navigator>
     );
 }

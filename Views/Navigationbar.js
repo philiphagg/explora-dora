@@ -41,6 +41,7 @@ function Navigationbar() {
                 },
                 tabBarActiveTintColor: theme.colors.text,
                 tabBarInactiveTintColor: theme.colors.text,
+                headerShown: false,
             })}
         >
             <Tab.Screen name="MapView" component={MapViewNavigator} options={{tabBarBadge: 3}}/>
