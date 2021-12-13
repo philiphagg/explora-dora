@@ -63,12 +63,13 @@ function styles(theme) {
             alignItems: 'center',
             flex: 1,
             margin: 1,
+            padding: 5,
             height: Dimensions.get('window').width /3,
 
         },
-        postImageTest: {
-            width: 123,
-            height: 125,
+        collectionImage: {
+            width: (Dimensions.get('window').width - 6) /3,
+            height: (Dimensions.get('window').width - 3) /3,
         },
         centered: {
             justifyContent: 'center',
