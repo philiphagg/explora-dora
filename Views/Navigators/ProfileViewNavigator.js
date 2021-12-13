@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import ProgressPresenter from "../../Presenters/ProgressPresenter";
+import ProfilePresenter from "../../Presenters/ProfilePresenter";
 
 const Stack = createStackNavigator();
 
-const ProgressViewNavigator = () => {
+const ProfileViewNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{headerShown: true}}>
-            <Stack.Screen name="Feed" component={ProgressPresenter}/>
+            <Stack.Screen name="Profile" component={ProfilePresenter}/>
         </Stack.Navigator>
     );
 }
-export default ProgressViewNavigator;
+export default ProfileViewNavigator;

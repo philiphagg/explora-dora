@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import ProgressPresenter from "../../Presenters/ProgressPresenter";
+import FeedPresenter from "../../Presenters/feedPresenter";
 
 const Stack = createStackNavigator();
 
-const ProgressViewNavigator = () => {
+const FeedViewNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{headerShown: true}}>
-            <Stack.Screen name="Feed" component={ProgressPresenter}/>
+            <Stack.Screen name="Progress" component={FeedPresenter}/>
         </Stack.Navigator>
     );
 }
-export default ProgressViewNavigator;
+export default FeedViewNavigator;
