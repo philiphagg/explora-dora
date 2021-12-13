@@ -25,7 +25,7 @@ export async function addPost() {
 
 export function signOuts(){
     signOut(auth).then(() => {
-
+        //navigate to signin screen
     }).catch((error) => {
         Alert(error)
     })
