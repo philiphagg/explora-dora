@@ -5,7 +5,7 @@ import Collection from "../Views/Collection";
 
 export function CollectionPresenter(props) {
     return (
-        <Collection posts={props.posts}
+        <Collection collection={props.collection}
                     styles={props.styles}
                     user={props.user}
                     getCollection={props.getCollection}
@@ -16,7 +16,7 @@ export function CollectionPresenter(props) {
 
 const mapStateToProps = state => {
     return {
-        posts: state.collection,
+        collection: state.collection,
         styles: state.theme.value.style,
         user: state.user,
     }

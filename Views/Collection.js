@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Button, Text, View, Image, ScrollView, TouchableOpacity, FlatList, TextInput} from 'react-native';
 import LoadingSpinner from "./Components/LoadingAnimation";
 
-function DetailsView({post, setToNull, styles, editCaption}){
+function DetailsView({post, setToNull, styles, editCaption}) {
     const [changeC, setChangingC] = React.useState(false);
     const [description, setDescription] = React.useState(post.caption);
 
@@ -25,17 +25,19 @@ function DetailsView({post, setToNull, styles, editCaption}){
                             />
                             <Button
                                 title="Save"
-                                onPress={e => {setChangingC(false);
-                                editCaption({...post, caption:description})} }
+                                onPress={e => {
+                                    setChangingC(false);
+                                    editCaption({...post, caption: description})
+                                }}
                             />
                         </View>
                         :
                         <View style={styles.row}>
-                        <Text style={styles.h2}>{post.likes.length} ❤ </Text>
-                        <Button
-                        title="Edit post"
-                        onPress={e => setChangingC(true)}
-                        />
+                            <Text style={styles.h2}>{post.likes.length} ❤ </Text>
+                            <Button
+                                title="Edit post"
+                                onPress={e => setChangingC(true)}
+                            />
                         </View>
                     }
                 </View>
@@ -43,7 +45,7 @@ function DetailsView({post, setToNull, styles, editCaption}){
                     <Text style={styles.h4}>{description} </Text>
                 </View>
             </View>
-            <TouchableOpacity onPress={ () => setToNull()}
+            <TouchableOpacity onPress={() => setToNull()}
                               style={[styles.button, styles.buttonOutline]}>
                 <Text style={styles.buttonOutlineText}>Back to your Collection</Text>
             </TouchableOpacity>
@@ -52,7 +54,8 @@ function DetailsView({post, setToNull, styles, editCaption}){
 }
 
 
-function Collection({posts, styles, getCollection, editCaption}) {
+function Collection({collection, styles, getCollection, editCaption}) {
+    const test = false;
     const [post, setPost] = React.useState(null);
     const numColumns = 3;
 
@@ -61,22 +64,14 @@ function Collection({posts, styles, getCollection, editCaption}) {
     }, []);
 
     return (
-        posts.status !== "success" ?
+        collection.status !== "success" ?
             <View>
                 <LoadingSpinner/>
             </View>
             :
             <View>
-                {
-                post ?
-                <DetailsView post={post}
-                             setToNull={() => setPost(null)}
-                             styles={styles}
-                             editCaption = {editCaption}/>
-                :
-                <View>
                     <FlatList
-                        data={posts.list}
+                        data={collection.list}
                         numColumns={numColumns}
                         renderItem={({item}) => (
                             <View style={[styles.item]} key={item.id}>
@@ -85,17 +80,25 @@ function Collection({posts, styles, getCollection, editCaption}) {
                                         setPost(item)
                                     }}>
                                         <Image source={{uri: item.image}}
-                                               style={styles.postImage}/>
+                                               style={[styles.collectionImage]}/>
                                     </TouchableOpacity>
 
                                 </View>
                             </View>
                         )}
                     />
-                </View>
-                }
             </View>
     );
 }
 
 export default Collection;
+
+/*
+
+test ?
+<DetailsView post={post}
+         setToNull={() => setPost(null)}
+         styles={styles}
+         editCaption = {editCaption}/>
+:
+ */
