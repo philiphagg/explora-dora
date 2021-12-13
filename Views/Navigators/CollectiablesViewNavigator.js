@@ -1,5 +1,5 @@
-import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
 import CollectionPresenter from "../../Presenters/CollectionPresenter";
 import EditPost from "../EditPost";
 
