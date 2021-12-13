@@ -25,9 +25,7 @@ const Highscores = ({getUsers, styles, theme, highscores}) => {
 
     return (
         highscores.status !== "success" ?
-            <View>
-                <LoadingSpinner/>
-            </View>
+            <LoadingSpinner/>
             :
             <View>
                 <FlatList

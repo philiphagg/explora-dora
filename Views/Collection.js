@@ -62,9 +62,7 @@ function Collection({posts, styles, getCollection, editCaption}) {
 
     return (
         posts.status !== "success" ?
-            <View>
                 <LoadingSpinner/>
-            </View>
             :
             <View>
                 {
