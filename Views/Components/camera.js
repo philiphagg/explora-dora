@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Button, Image} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 import {Camera} from 'expo-camera';
-import {useSelector} from "react-redux";
-import {setImageState} from '../../Redux/redusers/camera'
 
-export default function CameraView({route, navigation}) {
-    const {title} = route.params;
+export default function CameraView({navigation, route}) {
+    const { title, lat, lon, styles, user, addPost} = route.params;
+
+    //console.log("2. Camera props---------------------------------",route)
+
     const [camera, setCamera] = useState(null);
-    const [image, setImage] = useState(null);
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
 
@@ -21,9 +21,8 @@ export default function CameraView({route, navigation}) {
     const takePicture = async () => {
         if (camera) {
             const data = await camera.takePictureAsync(null)
-            //setImage(data.uri);
-            setImageState(data.uri);
-            navigation.navigate("Claim Landmark", {title, image})
+            console.log("Image -------------------------------", data.uri);
+            navigation.navigate("Claim Landmark", {title, lat, lon, data,styles, user,addPost})
         }
     }
 
@@ -36,16 +35,16 @@ export default function CameraView({route, navigation}) {
 
 
     return (
-        <View style={styles.container}>
+        <View style={cameraStyles.container}>
             <Camera
-                style={styles.camera}
+                style={cameraStyles.camera}
                 type={type}
                 ref={ref => {
                     setCamera(ref);
                 }}>
-                <View style={styles.buttonContainer}>
+                <View style={cameraStyles.buttonContainer}>
                     <TouchableOpacity
-                        style={styles.button}
+                        style={cameraStyles.button}
                         onPress={() => {
                             setType(
                                 type === Camera.Constants.Type.back
@@ -53,21 +52,18 @@ export default function CameraView({route, navigation}) {
                                     : Camera.Constants.Type.back
                             );
                         }}>
-                        <Text style={styles.text}> Flip </Text>
+                        <Text style={cameraStyles.text}> Flip </Text>
                     </TouchableOpacity>
                 </View>
             </Camera>
             <Button title="Snap"
                     onPress={() => takePicture()}
             />
-            {
-                image && <Image source={{uri: image}} style={{flex: 1}}/>
-            }
         </View>
-    );
+    )
 }
 
-const styles = StyleSheet.create({
+const cameraStyles = StyleSheet.create({
     container: {
         flex: 1,
     },

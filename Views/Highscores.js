@@ -20,14 +20,13 @@ function ordinal_suffix(i) {
 const Highscores = ({getUsers, styles, theme, highscores}) => {
 
     useEffect(() => {
-        getUsers()
+        if(highscores.status !== "success" )
+            getUsers()
     }, []);
 
     return (
         highscores.status !== "success" ?
-            <View>
-                <LoadingSpinner/>
-            </View>
+            <LoadingSpinner/>
             :
             <View>
                 <FlatList

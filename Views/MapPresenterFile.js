@@ -1,19 +1,36 @@
 import * as React from 'react';
+/*
 import MapView, {AnimatedRegion, Circle, Heatmap, Marker, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated} from 'react-native';
+*/
+import {useEffect} from "react";
+import MapView, {AnimatedRegion, Circle, Marker, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
+import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated, Button} from 'react-native';
 import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
 import {getDistance} from "geolib";
-import {handleRemoveItem} from "../Redux/redusers/markers";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import LoadingSpinner from "./Components/LoadingAnimation";
 
-function MapPresenterFile({markers, theme, getMarkers, addPathNode, getPaths, paths}) {
+const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
+
+function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost, editUser,getPaths,paths}) {
+
+    // console.log("1. Props MapPresenterFile ----------------------------------", styles)
+
+    useEffect(() => {
+        if (markers.status !== 'success')
+            getMarkers()
+          getPaths()
+    }, []);
+
     const [location, setLocation] = React.useState({
         latitude: 59.33100,
         longitude: 18.0002,
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
     });
+
     const [errorMsg, setErrorMsg] = React.useState(null);
     const [heatpoints, setHeatpoints] = React.useState(null)
 
@@ -30,11 +47,7 @@ function MapPresenterFile({markers, theme, getMarkers, addPathNode, getPaths, pa
         setHeatpoints(pointArray)
     }, [location])
 
-    React.useEffect(() => {
-        getMarkers()
-        getPaths()
-    }, []);
-
+    //initial request for location tracking. Only happens once.
     React.useEffect(() => {
         (async () => {
             let {status} = await Location.requestForegroundPermissionsAsync();
@@ -44,6 +57,7 @@ function MapPresenterFile({markers, theme, getMarkers, addPathNode, getPaths, pa
         })();
     }, []);
 
+    //continuously checks the location of user and updates location state to new value
     React.useEffect(() => {
         Location.watchPositionAsync(
             {
@@ -55,7 +69,8 @@ function MapPresenterFile({markers, theme, getMarkers, addPathNode, getPaths, pa
                 pos.coords.latitudeDelta = 0.01;
                 pos.coords.longitudeDelta = 0.01;
                 setLocation(pos.coords);
-                addPathNode(pos.coords);
+                if (!disablePathFetching)
+                    addPathNode(pos.coords);
                 console.log("Continuous location: " + JSON.stringify(pos.coords))
             }
         )
@@ -114,7 +129,7 @@ function MapPresenterFile({markers, theme, getMarkers, addPathNode, getPaths, pa
     );
 }
 
-const styles = StyleSheet.create({
+const mapStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#000000',
