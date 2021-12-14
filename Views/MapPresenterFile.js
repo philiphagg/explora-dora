@@ -1,13 +1,8 @@
 import * as React from 'react';
-/*
-import MapView, {AnimatedRegion, Circle, Heatmap, Marker, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
-import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated} from 'react-native';
-*/
 import {useEffect} from "react";
 import MapView, {AnimatedRegion, Circle, Marker, Heatmap,Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated, Button} from 'react-native';
 import * as Location from 'expo-location';
-import MaskedView from "@react-native-masked-view/masked-view";
 import {getDistance} from "geolib";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoadingSpinner from "./Components/LoadingAnimation";
@@ -84,7 +79,7 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
     }, []);
 ///,...paths.list.map(c => ({latitude: c.latitude, longitude: c.longitude, weight: 100}))]
     return (
-        markers.status !== "success" && paths.status !== "success" ? <Text>Loading {JSON.stringify(markers)}</Text> :
+        markers.status !== "success" && paths.status !== "success" ? <LoadingSpinner/> :
             <SafeAreaView style={mapStyles.container}>
                 <MapView region={location} showsUserLocation={true}
                          provider={PROVIDER_GOOGLE} style={mapStyles.map}
