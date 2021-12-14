@@ -7,7 +7,7 @@ import {login} from "../Redux/redusers/user";
 
 
 function Login() {
-    const user = useSelector((state) => state.user.value);
+    //const user = useSelector((state) => state.user.value);
     const styles = useSelector((state) => state.theme.value.style);
     const dispatch = useDispatch();
 

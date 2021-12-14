@@ -5,7 +5,8 @@ import Collection from "../Views/Collection";
 
 export function CollectionPresenter(props) {
     return (
-        <Collection collection={props.collection}
+        <Collection navigation={props.navigation}
+                    collection={props.collection}
                     styles={props.styles}
                     user={props.user}
                     getCollection={props.getCollection}

@@ -1,28 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Button, Image} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 import {Camera} from 'expo-camera';
-import {useSelector} from "react-redux";
-import {setImageState} from '../../Redux/redusers/camera'
-import {addImage} from "../../Firebase/FirebaseFunctions";
-//import AddPost from "../AddPost";
 
 export default function CameraView({navigation, route}) {
     const { title, lat, lon, styles, user, addPost} = route.params;
 
     //console.log("2. Camera props---------------------------------",route)
 
-    /*
-    title: marker.name,
-        lat: marker.lat,
-        lon: marker.lon,
-        styles: styles,
-        user: user,
-        addPost: addPost,
-     */
-    const [image, setImage] = React.useState(null);
-    const [camera, setCamera] = React.useState(null);
-    const [hasPermission, setHasPermission] = React.useState(null);
-    const [type, setType] = React.useState(Camera.Constants.Type.back);
+    const [camera, setCamera] = useState(null);
+    const [hasPermission, setHasPermission] = useState(null);
+    const [type, setType] = useState(Camera.Constants.Type.back);
 
     useEffect(() => {
         (async () => {
@@ -34,9 +21,7 @@ export default function CameraView({navigation, route}) {
     const takePicture = async () => {
         if (camera) {
             const data = await camera.takePictureAsync(null)
-            setImage(data);
             console.log("Image -------------------------------", data.uri);
-            //setImageState(data.uri);
             navigation.navigate("Claim Landmark", {title, lat, lon, data,styles, user,addPost})
         }
     }
@@ -50,10 +35,6 @@ export default function CameraView({navigation, route}) {
 
 
     return (
-        // image != null ?
-        //    <AddPost title={title} lat={lat} lon={lon} image={image} styles={styles} user={user}
-        //               addPost={(x) => addPost(x)} setClaim={(x) => setClaim(x)}/>
-//:
         <View style={cameraStyles.container}>
             <Camera
                 style={cameraStyles.camera}

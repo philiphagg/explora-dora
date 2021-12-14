@@ -5,6 +5,7 @@ import {getCollection} from "../Redux/redusers/collection";
 import {addPost} from "../Redux/redusers/feed";
 import {addNodeToPath, getPaths} from "../Redux/redusers/paths";
 import MapPresenterFile from "../Views/MapPresenterFile";
+import {editUser} from "../Redux/redusers/user";
 
 export function MapPresenter(props) {
     console.log("Map presenter",props)
@@ -22,6 +23,7 @@ export function MapPresenter(props) {
             getCollection = {props.getCollection}
             addPathNode = {props.addPathNode}
             addPost = {props.addPost}
+            editUser = {props.editUser}
             navigation ={props.navigation}
             route ={props.route}
         />
@@ -45,6 +47,7 @@ const mapDispatchToProps = dispatch => {
         getPaths: () => dispatch(getPaths()),
         addPathNode: (node) => dispatch(addNodeToPath(node)),
         addPost: (post) => dispatch(addPost(post)),
+        editUser: (user) => dispatch(editUser(user)),
     }
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button, Text, View, TextInput, Image, ScrollView} from "react-native";
 import {auth, db} from "../Firebase/firebaseconfig"
 import 'firebase/database';
@@ -9,21 +9,10 @@ function AddPost({navigation, route}) {
     const { title, lat, lon, data, styles, user, addPost} = route.params;
     //console.log("3. Add image props---------------------------------",route)
 
-    //{title, lat, lon, image, styles, user, addPost}
-    //const {title, lat, lon, data} = route.params;
-
-    //const camera = useSelector((state) => state.camera);
-    //const styles = useSelector((state) => state.theme.value.style);
-    //const user = useSelector((state) => state.user.value);
-    //const dispatch = useDispatch();
-
-
-    const [caption, onChangeText] = React.useState("");
-    //const [picture, setPicture] = React.useState(false);
+    const [caption, onChangeText] = useState("");
 
     return (
         <ScrollView>
-
             <View style={styles.centerContent}>
                 <Text style={[styles.h1, styles.divider]}> {title}</Text>
             </View>
@@ -33,7 +22,7 @@ function AddPost({navigation, route}) {
             </View>
 
             <View style={styles.centerContent}>
-                <Image source={{uri: data.uri}} style={styles.postImageTest}/>
+                <Image source={{uri: data.uri}} style={styles.postImage}/>
             </View>
 
             <View style={styles.row}>
@@ -51,7 +40,7 @@ function AddPost({navigation, route}) {
             <Button
                 title="Submit"
                 onPress={() => {
-                    addImage(addPost, data, title, caption, auth.currentUser.uid, "thor", lat, lon).then( res =>
+                    addImage(addPost, data, title, caption, auth.currentUser.uid, user.name, lat, lon).then( res =>
                         console.log("Result of upload !!!!!!", res)
                     ).catch()
                         console.log("After upload !!!!!!")
@@ -64,30 +53,3 @@ function AddPost({navigation, route}) {
 }
 
 export default AddPost;
-/*
-{
-                            title: place,
-                            image: "https://www.visitstockholm.se/media/original_images/f2affbc704fd4836be9b07087a955248.jpg",
-                            likes: [],
-                            caption: text,
-                            user: user.id,
-                            nick: "Gangster 44",
-                        }
-onPress={
-    async () => {
-    try {
-        const docRef = await addDoc(collection(db, "Posts"), {
-            title: place,
-            image: "https://www.visitstockholm.se/media/original_images/f2affbc704fd4836be9b07087a955248.jpg",
-            likes: [],
-            caption: text,
-            user: user.id,
-        });
-
-        console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-        console.error("Error adding document: ", e);
-    }
-}
-}
- */
