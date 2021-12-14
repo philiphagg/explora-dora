@@ -13,6 +13,17 @@ export function MapPresenter(props) {
 
     return (
         <MapPresenterFile
+/*
+            markers={props.markers}
+            theme={props.theme}
+            collection={props.collection}
+            paths={props.paths}
+
+            getMarkers={props.getMarkers}
+            getPaths={props.getPaths}
+            getCollection={props.getCollection}
+            addPathNode={props.addPathNode}
+*/
             markers = {props.markers}
             theme = {props.theme}
             collection = {props.collection}
@@ -37,6 +48,7 @@ const mapStateToProps = state => {
         markers: state.markers,
         theme: state.theme.value.theme,
         collection: state.collection,
+        paths: state.paths,
     }
 }
 
