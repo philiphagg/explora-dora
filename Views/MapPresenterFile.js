@@ -4,7 +4,7 @@ import MapView, {AnimatedRegion, Circle, Heatmap, Marker, Overlay, PROVIDER_GOOG
 import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated} from 'react-native';
 */
 import {useEffect} from "react";
-import MapView, {AnimatedRegion, Circle, Marker, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
+import MapView, {AnimatedRegion, Circle, Marker, Heatmap,Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated, Button} from 'react-native';
 import * as Location from 'expo-location';
 import MaskedView from "@react-native-masked-view/masked-view";
@@ -14,13 +14,14 @@ import LoadingSpinner from "./Components/LoadingAnimation";
 
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
 
-function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost, editUser,getPaths,paths}) {
+function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost,getPaths,paths}) {
 
     // console.log("1. Props MapPresenterFile ----------------------------------", styles)
 
     useEffect(() => {
         if (markers.status !== 'success')
             getMarkers()
+        if (paths.status !== 'success')
           getPaths()
     }, []);
 
@@ -83,10 +84,10 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
     }, []);
 ///,...paths.list.map(c => ({latitude: c.latitude, longitude: c.longitude, weight: 100}))]
     return (
-        markers.status !== "success" ? <Text>Loading {JSON.stringify(markers)}</Text> :
-            <SafeAreaView style={styles.container}>
+        markers.status !== "success" && paths.status !== "success" ? <Text>Loading {JSON.stringify(markers)}</Text> :
+            <SafeAreaView style={mapStyles.container}>
                 <MapView region={location} showsUserLocation={true}
-                         provider={PROVIDER_GOOGLE} style={styles.map}
+                         provider={PROVIDER_GOOGLE} style={mapStyles.map}
                          customMapStyle={theme.dark ? theme.darkMap : theme.lightMap} scrollEnabled={false}
                          zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
                     <Heatmap points={[...heatpoints, ...paths.list.map(c => ({
@@ -100,8 +101,8 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
                              gradientSmoothing={1}
                              heatmapMode={"POINTS_WEIGHT"}
                              gradient={{
-                                 colors: theme.dark ? theme.colors.mapOverlayDark : theme.colors.mapOverlayLight, //Light Mode
-                                 //colors: ["rgb(255,255,255)", "rgba(164,164,164,0.37)", "rgba(255,255,255,0)"], //Light Mode
+                                 //colors: theme.dark ? theme.colors.mapOverlayDark : theme.colors.mapOverlayLight, //Light Mode
+                                 colors: ["rgb(255,255,255)", "rgba(164,164,164,0.37)", "rgba(255,255,255,0)"], //Light Mode
                                  //colors: ["rgb(25, 26, 25)", "rgba(204,204,204,0.45)", "rgba(255,255,255,0)"], //Dark Mode
                                  startPoints: [0, 0.5, 1],
                                  colorMapSize: 256,
@@ -116,10 +117,17 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
                         }} onPress={() => {
                             if (getDistance(marker, location) > 15) {
                                 console.log("Marker is too far away")
-                                console.log(heatpoints)
+                                //console.log(heatpoints)
                             } else {
-                                dispatch(handleRemoveItem({name: marker.name}))
                                 console.log("Marker near you clicked")
+                                navigation.navigate("Take Picture", {
+                                    title: marker.name,
+                                    lat: marker.lat,
+                                    lon: marker.lon,
+                                    styles: styles,
+                                    user: user,
+                                    addPost: addPost,
+                                });
                             }
                         }
                         }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)

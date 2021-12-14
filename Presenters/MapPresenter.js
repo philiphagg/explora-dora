@@ -10,7 +10,7 @@ import {editUser} from "../Redux/redusers/user";
 export function MapPresenter(props) {
     console.log("Map presenter",props)
     //{title, lat, lon, styles, user, addPost} Camera
-
+    //navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost,getPaths,paths
     return (
         <MapPresenterFile
 /*
@@ -24,19 +24,22 @@ export function MapPresenter(props) {
             getCollection={props.getCollection}
             addPathNode={props.addPathNode}
 */
+            navigation ={props.navigation}
+            route ={props.route}
+
             markers = {props.markers}
-            theme = {props.theme}
             collection = {props.collection}
+            paths={props.paths}
+            theme = {props.theme}
             styles = {props.styles}
 
             getMarkers = {props.getMarkers}
             getPaths = {props.getPaths}
             getCollection = {props.getCollection}
+
             addPathNode = {props.addPathNode}
             addPost = {props.addPost}
             editUser = {props.editUser}
-            navigation ={props.navigation}
-            route ={props.route}
         />
     );
 }
