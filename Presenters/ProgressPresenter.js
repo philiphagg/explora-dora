@@ -7,6 +7,7 @@ import {getPaths} from "../Redux/redusers/paths";
 export function ProgressPresenter(props) {
     return (
         <Progress
+            navigation={props.navigation}
             styles={props.styles}
             theme={props.theme}
             paths={props.paths}
