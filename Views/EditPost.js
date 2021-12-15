@@ -2,8 +2,7 @@ import React from "react";
 import {Button, Image, ScrollView, Text, TextInput, View} from "react-native";
 
 function DetailsView({navigation, route}) {
-    const {post, styles, editCaption, deletePost} = route.params;
-
+    const {post, styles, editCaption} = route.params;
     const [isChanging, setChangingC] = React.useState(false);
     const [description, setDescription] = React.useState(post.caption);
 
@@ -28,15 +27,7 @@ function DetailsView({navigation, route}) {
                                 title="Save"
                                 onPress={e => {
                                     setChangingC(false);
-                                    editCaption({id: post.id, user: post.user, caption: description})
-                                }}
-                            />
-                            <Button
-                                title="Delete"
-                                onPress={e => {
-                                    setChangingC(false)
-                                    deletePost({...post})
-                                    navigation.popToTop()
+                                    editCaption({...post, caption: description})
                                 }}
                             />
                         </View>
