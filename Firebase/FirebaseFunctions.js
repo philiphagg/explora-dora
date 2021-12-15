@@ -46,7 +46,6 @@ export async function addImage(addPost, data, title, caption, user, name, lat, l
         Alert.alert(
             "Image Uploaded Successfully",
             "Post this to your collection and to all other users to see on their feed",
-           // + await url,
             [
                 {
                     text: "Cancel",
