@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
-import {editCaption, getCollection,} from "../Redux/redusers/collection";
+import {editCaption, getCollection, deletePost} from "../Redux/redusers/collection";
 import Collection from "../Views/Collection";
 
 export function CollectionPresenter(props) {
@@ -11,6 +11,7 @@ export function CollectionPresenter(props) {
                     user={props.user}
                     getCollection={props.getCollection}
                     editCaption={props.editCaption}
+                    deletePost={props.deletePost}
         />
     );
 }
@@ -27,6 +28,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getCollection: () => dispatch(getCollection()),
         editCaption: (updateCaption) => dispatch(editCaption(updateCaption)),
+        deletePost: (post) => dispatch(deletePost(post)),
     }
 }
 

@@ -17,7 +17,7 @@ function Feed({posts, styles, getFeed, likePost, unlikePost}) {
     useEffect(() => {
         if (posts.status !== "success")
             getFeed()
-    }, []);
+    }, [posts]);
 
     // State for reloading and animation
     const [refreshing, setRefreshing] = React.useState(false);

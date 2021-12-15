@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import 'firebase/database';
 import {addDoc, collection, getDocs, query, updateDoc, setDoc, getDoc, doc, orderBy,} from "firebase/firestore";
 import {auth, db} from "../../Firebase/firebaseconfig"
+import {getCollection} from "./collection";
 
 export const getFeed = createAsyncThunk('firebase/getPosts', async () => {
         return getDocs(query(collection(db, "Posts"), orderBy("date", "desc"))).then((snapshot) => {
@@ -34,9 +35,10 @@ export const feedSlice = createSlice({
     reducers: {
         addPost: (state, action) => {
             console.log("Added post: " + action.payload.title);
+
+            state.status = "refresh";
+
             addPostFirebase({...action.payload, date: new Date()}).then(r => {
-                    console.log("Add performed successfully");
-                    state.list = [ {...action.payload, date: new Date().valueOf()/1000}, ...state.list];
                 }
             ).catch()
         },
@@ -62,7 +64,6 @@ export const feedSlice = createSlice({
             if (likes.includes(user)) {
                 likes = likes.filter(x => x !== user);
                 state.list.find(x => x.id === post.id).likes = likes;
-                //console.log("Del  ---------------------------------", likes, user)
                 editPostFirebase(post.id, {likes: likes}).then(r => {
                     console.log("Like deleted  ---------------------------------", state)
                 })
@@ -72,7 +73,7 @@ export const feedSlice = createSlice({
             const user = auth.currentUser.uid;
             const post = action.payload.post;
 
-            if(post.user === user){
+            if (post.user === user) {
                 editPostFirebase(post.id, {post}).then(r => {
                     console.log("Edited post  ---------------------------------", state)
                 })
@@ -93,6 +94,6 @@ export const feedSlice = createSlice({
     }
 });
 
-export const {addPost, likePost, unlikePost,editPost} = feedSlice.actions;
+export const {addPost, likePost, unlikePost, editPost} = feedSlice.actions;
 
 export default feedSlice.reducer;
