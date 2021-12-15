@@ -5,7 +5,7 @@ import {getCollection} from "../Redux/redusers/collection";
 import {addPost} from "../Redux/redusers/feed";
 import {addNodeToPath, getPaths} from "../Redux/redusers/paths";
 import MapPresenterFile from "../Views/MapPresenterFile";
-import {editUser} from "../Redux/redusers/user";
+import {editUser, getUsers} from "../Redux/redusers/user";
 
 export function MapPresenter(props) {
     console.log("Map presenter",props)
@@ -13,33 +13,28 @@ export function MapPresenter(props) {
     //navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost,getPaths,paths
     return (
         <MapPresenterFile
-/*
-            markers={props.markers}
-            theme={props.theme}
-            collection={props.collection}
-            paths={props.paths}
-
-            getMarkers={props.getMarkers}
-            getPaths={props.getPaths}
-            getCollection={props.getCollection}
-            addPathNode={props.addPathNode}
-*/
             navigation ={props.navigation}
             route ={props.route}
 
             markers = {props.markers}
+            getMarkers = {props.getMarkers}
+
             collection = {props.collection}
+            getCollection = {props.getCollection}
+
             paths={props.paths}
+            getPaths = {props.getPaths}
+
+            user={props.user.userData}
+            getUser = {props.getUser}
+            editUser = {props.editUser}
+
             theme = {props.theme}
             styles = {props.styles}
 
-            getMarkers = {props.getMarkers}
-            getPaths = {props.getPaths}
-            getCollection = {props.getCollection}
-
             addPathNode = {props.addPathNode}
             addPost = {props.addPost}
-            editUser = {props.editUser}
+
         />
     );
 }
@@ -60,6 +55,7 @@ const mapDispatchToProps = dispatch => {
         getMarkers: () => dispatch(getMarkers()),
         getCollection: () => dispatch(getCollection()),
         getPaths: () => dispatch(getPaths()),
+        getUser: () => dispatch(getUsers()),
         addPathNode: (node) => dispatch(addNodeToPath(node)),
         addPost: (post) => dispatch(addPost(post)),
         editUser: (user) => dispatch(editUser(user)),

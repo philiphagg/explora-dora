@@ -41,7 +41,7 @@ function AddPost({navigation, route}) {
                 title="Submit"
                 onPress={() => {
                     addImage(addPost, data, title, caption, auth.currentUser.uid, user.name, lat, lon).then( res =>
-                        console.log("Result of upload !!!!!!", res)
+                        console.log("Result of upload !!!!!!", res, user)
                     ).catch()
                         console.log("After upload !!!!!!")
                     navigation.popToTop();
