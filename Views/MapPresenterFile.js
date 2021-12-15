@@ -10,7 +10,7 @@ import LoadingSpinner from "./Components/LoadingAnimation";
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
 
 function MapPresenterFile(
-    {navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost, getPaths, paths}) {
+    {navigation, route, markers, theme, getMarkers, addPathNode, styles, user,getUser, addPost, getPaths, paths}) {
 
     // console.log("1. Props MapPresenterFile ----------------------------------", styles)
     const offsett = 0.0008;
@@ -19,6 +19,8 @@ function MapPresenterFile(
             getMarkers()
         if (paths.status !== 'success')
             getPaths()
+        if (getUser.status !== 'success')
+            getUser()
     }, []);
 
     const [location, setLocation] = React.useState({
