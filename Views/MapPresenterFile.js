@@ -9,7 +9,7 @@ import LoadingSpinner from "./Components/LoadingAnimation";
 
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
 
-function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost,getPaths,paths}) {
+function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost,getPaths,paths, collection, getCollection}) {
 
     // console.log("1. Props MapPresenterFile ----------------------------------", styles)
 
@@ -83,8 +83,8 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
             <SafeAreaView style={mapStyles.container}>
                 <MapView region={location} showsUserLocation={true}
                          provider={PROVIDER_GOOGLE} style={mapStyles.map}
-                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap} scrollEnabled={false}
-                         zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
+                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap} scrollEnabled={true}
+                         zoomEnabled={true} rotateEnabled={true} pitchEnabled={true}>
                     <Heatmap points={[...heatpoints, ...paths.list.map(c => ({
                         latitude: c.latitude,
                         longitude: c.longitude,
@@ -105,14 +105,13 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
                     />
 
 
-                    {markers.list.map(marker => {
+                    {markers.list.filter(({ lat: id1 }) => !collection.list.some(({ lat: id2 }) => id2 === id1)).map(marker => {
                         return (<Marker key={marker.lat} coordinate={{
                             latitude: parseFloat(marker.lat),
                             longitude: parseFloat(marker.lon)
                         }} onPress={() => {
                             if (getDistance(marker, location) > 15) {
                                 console.log("Marker is too far away")
-                                //console.log(heatpoints)
                             } else {
                                 console.log("Marker near you clicked")
                                 navigation.navigate("Take Picture", {
