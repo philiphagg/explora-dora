@@ -7,6 +7,8 @@ import {addImage} from "../Firebase/FirebaseFunctions";
 
 function AddPost({navigation, route}) {
     const { title, lat, lon, data, styles, user, addPost} = route.params;
+    //console.log("3. Add image props---------------------------------",route)
+
     const [caption, onChangeText] = useState("");
 
     return (
@@ -42,7 +44,6 @@ function AddPost({navigation, route}) {
                         console.log("Result of upload !!!!!!", res, user)
                     ).catch()
                         console.log("After upload !!!!!!")
-
                     navigation.popToTop();
                 }
                 }
