@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useEffect} from "react";
-import MapView, {AnimatedRegion, Circle, Marker, Heatmap,Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
+import MapView, {AnimatedRegion, Circle, Marker, Heatmap, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated, Button} from 'react-native';
 import * as Location from 'expo-location';
 import {getDistance} from "geolib";
@@ -9,15 +9,29 @@ import LoadingSpinner from "./Components/LoadingAnimation";
 
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
 
-function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost,getPaths,paths, collection, getCollection}) {
-
-    // console.log("1. Props MapPresenterFile ----------------------------------", styles)
+function MapPresenterFile({
+                              navigation,
+                              route,
+                              markers,
+                              theme,
+                              getMarkers,
+                              addPathNode,
+                              styles,
+                              user,
+                              addPost,
+                              getPaths,
+                              paths,
+                              collection,
+                              getCollection
+                          }) {
 
     useEffect(() => {
         if (markers.status !== 'success')
             getMarkers()
         if (paths.status !== 'success')
-          getPaths()
+            getPaths()
+        if (collection.status !== 'success')
+            getCollection()
     }, []);
 
     const [location, setLocation] = React.useState({
@@ -30,6 +44,7 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
     const [errorMsg, setErrorMsg] = React.useState(null);
     const [heatpoints, setHeatpoints] = React.useState(null)
 
+    //creates a grid of points that follows user based on location state
     React.useEffect(() => {
         let lat = location.latitude;
         let lon = location.longitude;
@@ -77,7 +92,7 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
                 setErrorMsg(err.message);
             });
     }, []);
-///,...paths.list.map(c => ({latitude: c.latitude, longitude: c.longitude, weight: 100}))]
+
     return (
         markers.status !== "success" && paths.status !== "success" ? <LoadingSpinner/> :
             <SafeAreaView style={mapStyles.container}>
@@ -104,8 +119,7 @@ function MapPresenterFile({navigation, route, markers, theme, getMarkers, addPat
                              }}
                     />
 
-
-                    {markers.list.filter(({ lat: id1 }) => !collection.list.some(({ lat: id2 }) => id2 === id1)).map(marker => {
+                    {markers.list.filter(({lat: id1}) => !collection.list.some(({lat: id2}) => id2 === id1)).map(marker => {
                         return (<Marker key={marker.lat} coordinate={{
                             latitude: parseFloat(marker.lat),
                             longitude: parseFloat(marker.lon)
