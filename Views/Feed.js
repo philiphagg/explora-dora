@@ -40,7 +40,7 @@ function Feed({posts, styles, getFeed, likePost, unlikePost}) {
                     <View>
                         {
                             posts.list.map(post =>
-                                <Post route={{params: {likeable: true, post, styles, unlikePost, likePost}}}/>
+                                <Post key={post.id} route={{params: {likeable: true, post, styles, unlikePost, likePost}}}/>
                             )
                         }
                     </View>
