@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useEffect} from "react";
 import MapView, {AnimatedRegion, Circle, Marker, Heatmap, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated, Button} from 'react-native';
 import * as Location from 'expo-location';
@@ -25,7 +24,7 @@ function MapPresenterFile({
                               getCollection
                           }) {
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (markers.status !== 'success')
             getMarkers()
         if (paths.status !== 'success')
@@ -147,7 +146,7 @@ function MapPresenterFile({
                         }} onPress={() => {
                             console.log("This is a claimed landmark!")
                         }
-                        }><Ionicons name="star" size={40} color={'yellow'}/></Marker>)
+                        }><Ionicons name="star" size={40} color={'orange'}/></Marker>)
                     })}
                 < /MapView>
             </SafeAreaView>
