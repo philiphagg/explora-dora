@@ -140,9 +140,19 @@ function MapPresenterFile({
                         }
                         }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
                     })}
+                    {collection.list.map(marker => {
+                        return (<Marker key={marker.lat} coordinate={{
+                            latitude: parseFloat(marker.lat),
+                            longitude: parseFloat(marker.lon)
+                        }} onPress={() => {
+                            console.log("This is a claimed landmark!")
+                        }
+                        }><Ionicons name="star" size={40} color={'yellow'}/></Marker>)
+                    })}
                 < /MapView>
             </SafeAreaView>
-    );
+    )
+        ;
 }
 
 const mapStyles = StyleSheet.create({
