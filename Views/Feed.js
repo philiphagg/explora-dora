@@ -2,19 +2,37 @@
     Main Contributor Thor
 */
 import React, {useEffect} from "react";
-import {Button, Text, View, Image, ScrollView, TouchableOpacity} from "react-native";
+import {View, ScrollView, RefreshControl} from "react-native";
 import LoadingSpinner from "./Components/LoadingAnimation";
-import {auth} from "../Firebase/firebaseconfig";
+import Post from "./Post";
+
+//Delay function for pull to reload wait time
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 function Feed({posts, styles, getFeed, likePost, unlikePost}) {
 
+    //Load feed data if it is not already loaded successfully
     useEffect(() => {
-        if(posts.status !== "success")
+        if (posts.status !== "success")
             getFeed()
     }, []);
 
+    // State for reloading and animation
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    // Updates on refresh, updates feed
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getFeed();
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
+
     return (
-        <ScrollView>
+        <ScrollView refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
+        }>
             {
                 posts.status !== "success" ?
                     <LoadingSpinner/>
@@ -22,40 +40,11 @@ function Feed({posts, styles, getFeed, likePost, unlikePost}) {
                     <View>
                         {
                             posts.list.map(post =>
-                                <View style={[styles.divider]} key={post.id}>
-                                    <View style={styles.row}>
-                                        <Text style={styles.h2}>{post.title}</Text>
-                                        <Text style={styles.h2}>{post.nick}</Text>
-                                    </View>
-                                    <Image source={{uri: post.image}}
-                                           style={styles.postImage}/>
-                                    <View style={styles.row}>
-                                        <Text style={styles.h2}>{post.likes.length} ♥ </Text>
-                                        <Button
-                                            title={post.likes.includes(auth.currentUser.uid) ? "Unlike" : "Like  "}
-                                            onPress={() => {
-                                                post.likes.includes(auth.currentUser.uid) ?
-                                                    unlikePost({post: post}) :
-                                                    likePost({post: post})
-                                            }}
-                                        />
-                                    </View>
-                                    <View style={styles.row}>
-                                        <Text style={styles.h4}>{post.caption} </Text>
-                                    </View>
-                                </View>
+                                <Post key={post.id} route={{params: {likeable: true, post, styles, unlikePost, likePost}}}/>
                             )
                         }
                     </View>
             }
-            <TouchableOpacity
-                onPress={() => {
-                    getFeed()
-                }}
-                style={styles.button}
-            >
-                <Text style={styles.buttonText}>Load New Posts</Text>
-            </TouchableOpacity>
         </ScrollView>
     );
 }

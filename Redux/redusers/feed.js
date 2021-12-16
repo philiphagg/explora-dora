@@ -1,19 +1,16 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import 'firebase/database';
-import {addDoc, collection, getDocs, query, updateDoc, setDoc, getDoc, doc,} from "firebase/firestore";
+import {addDoc, collection, getDocs, query, updateDoc, setDoc, getDoc, doc, orderBy,} from "firebase/firestore";
 import {auth, db} from "../../Firebase/firebaseconfig"
 
 export const getFeed = createAsyncThunk('firebase/getPosts', async () => {
-        return getDocs(query(collection(db, "Posts"))).then((snapshot) => {
+        return getDocs(query(collection(db, "Posts"), orderBy("date", "desc"))).then((snapshot) => {
                 let list = [];
                 snapshot.forEach(doc => {
-                        list.push({id: doc.id, ...doc.data()});
+                        list.push({id: doc.id, ...doc.data(), date: doc.data().date.seconds});
                     }
                 );
                 return list;
-                /*
-                snapshot.forEach((doc) => list.push(doc.data()));
-                 */
             }
         )
     }
@@ -37,9 +34,9 @@ export const feedSlice = createSlice({
     reducers: {
         addPost: (state, action) => {
             console.log("Added post: " + action.payload.title);
-            addPostFirebase(action.payload).then(r => {
+            addPostFirebase({...action.payload, date: new Date()}).then(r => {
                     console.log("Add performed successfully");
-                    state.list = [...state.list, action.payload];
+                    state.list = [ {...action.payload, date: new Date().valueOf()/1000}, ...state.list];
                 }
             ).catch()
         },
@@ -76,8 +73,6 @@ export const feedSlice = createSlice({
             const post = action.payload.post;
 
             if(post.user === user){
-                //state.list.find(x => x.id === post.id) = post;
-
                 editPostFirebase(post.id, {post}).then(r => {
                     console.log("Edited post  ---------------------------------", state)
                 })

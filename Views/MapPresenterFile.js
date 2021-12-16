@@ -1,13 +1,12 @@
 import * as React from 'react';
-import MapView, {AnimatedRegion, Circle, Marker, Heatmap, Overlay, PROVIDER_GOOGLE} from 'react-native-maps'
-import {StyleSheet, Text, View, SafeAreaView, Dimensions, Animated, Button} from 'react-native';
+import MapView, {Marker, Heatmap, PROVIDER_GOOGLE} from 'react-native-maps'
+import {StyleSheet, Text, SafeAreaView, Dimensions, Alert} from 'react-native';
 import * as Location from 'expo-location';
 import {getDistance} from "geolib";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoadingSpinner from "./Components/LoadingAnimation";
 
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
-
 function MapPresenterFile({
                               navigation,
                               route,
@@ -17,13 +16,15 @@ function MapPresenterFile({
                               addPathNode,
                               styles,
                               user,
+                              getUser,
                               addPost,
                               getPaths,
                               paths,
                               collection,
                               getCollection
                           }) {
-
+    //offset for rendering grid surrounding walked path
+    const offset = 0.0008;
     React.useEffect(() => {
         if (markers.status !== 'success')
             getMarkers()
@@ -31,6 +32,8 @@ function MapPresenterFile({
             getPaths()
         if (collection.status !== 'success')
             getCollection()
+        if (getUser.status !== 'success')
+            getUser()
     }, []);
 
     const [location, setLocation] = React.useState({
@@ -95,51 +98,92 @@ function MapPresenterFile({
     return (
         markers.status !== "success" && paths.status !== "success" ? <LoadingSpinner/> :
             <SafeAreaView style={mapStyles.container}>
-                <MapView region={location} showsUserLocation={true}
+                <MapView region={location}
+                         moveOnMarkerPress={false}
+                         toolbarEnabled={true}
+                         showsUserLocation={true}
+                         showsMyLocationButton={false}
+                         loadingEnabled={false}
                          provider={PROVIDER_GOOGLE} style={mapStyles.map}
-                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap} scrollEnabled={true}
-                         zoomEnabled={true} rotateEnabled={true} pitchEnabled={true}>
-                    <Heatmap points={[...heatpoints, ...paths.list.map(c => ({
-                        latitude: c.latitude,
-                        longitude: c.longitude,
-                        weight: 100
-                    }))]}
-                             opacity={1}
+                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap} scrollEnabled={false}
+                         zoomEnabled={false} rotateEnabled={false} pitchEnabled={false}>
+                    <Heatmap points={
+                        [
+                            ...heatpoints,
+                            ...paths.list.map(c => (
+                                {latitude: c.latitude, longitude: c.longitude, weight: 100})),
+                            ...paths.list.map(c => (
+                                {latitude: c.latitude + offset * 0.5, longitude: c.longitude - offset, weight: 100})),
+                            ...paths.list.map(c => (
+                                {latitude: c.latitude + offset * 0.5, longitude: c.longitude + offset, weight: 100})),
+                            ...paths.list.map(c => (
+                                {latitude: c.latitude - offset * 0.5, longitude: c.longitude + offset, weight: 100})),
+                            ...paths.list.map(c => (
+                                {latitude: c.latitude - offset * 0.5, longitude: c.longitude - offset, weight: 100})),
+
+                            {
+                                latitude: location.latitude + offset * 0.5 * 1.1,
+                                longitude: location.longitude,
+                                weight: 100
+                            },
+                            {
+                                latitude: location.latitude - offset * 0.5 * 1.1,
+                                longitude: location.longitude,
+                                weight: 100
+                            },
+                            {latitude: location.latitude, longitude: location.longitude + offset * 1.1, weight: 100},
+                            {latitude: location.latitude, longitude: location.longitude - offset * 1.1, weight: 100},
+                        ]
+                    }
+                             opacity={0.9}
                              radius={50}
                              maxIntensity={50}
                              gradientSmoothing={1}
                              heatmapMode={"POINTS_WEIGHT"}
                              gradient={{
-                                 //colors: theme.dark ? theme.colors.mapOverlayDark : theme.colors.mapOverlayLight, //Light Mode
-                                 colors: ["rgb(255,255,255)", "rgba(164,164,164,0.37)", "rgba(255,255,255,0)"], //Light Mode
-                                 //colors: ["rgb(25, 26, 25)", "rgba(204,204,204,0.45)", "rgba(255,255,255,0)"], //Dark Mode
-                                 startPoints: [0, 0.5, 1],
-                                 colorMapSize: 256,
+                                 colors: theme.dark ? theme.colors.mapOverlayDark : theme.colors.mapOverlayLight,
+                                 startPoints: [0, 0.3, 1],
+                                 colorMapSize: 15,
                              }}
                     />
-
                     {markers.list.filter(({lat: id1}) => !collection.list.some(({lat: id2}) => id2 === id1)).map(marker => {
                         return (<Marker key={marker.lat} coordinate={{
                             latitude: parseFloat(marker.lat),
                             longitude: parseFloat(marker.lon)
                         }} onPress={() => {
                             if (getDistance(marker, location) > 15) {
-                                console.log("Marker is too far away")
-                            } else {
-                                console.log("Marker near you clicked")
-                                navigation.navigate("Take Picture", {
-                                    title: marker.name,
-                                    lat: marker.lat,
-                                    lon: marker.lon,
-                                    styles: styles,
-                                    user: user,
-                                    addPost: addPost,
-                                });
-                            }
-                        }
-                        }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
+                                        Alert.alert("Marker is too far away!", "go closer to be able to claim it!")
+                                        console.log("Marker is too far away")
+                                    } else {
+                                        Alert.alert(
+                                            "Do you want to claim this landmark?",
+                                            "Take a picture of it to claim!",
+                                            [
+                                                {
+                                                    text: "Claim Landmark!",
+                                                    onPress: () => navigation.navigate("Take Picture", {
+                                                        title: marker.name,
+                                                        lat: marker.lat,
+                                                        lon: marker.lon,
+                                                        styles: styles,
+                                                        user: user,
+                                                        addPost: addPost,
+                                                    })
+                                                },
+                                                {
+                                                    text: "Cancel",
+                                                    onPress: () => console.log("Cancel Pressed"),
+                                                    style: "cancel"
+                                                },
+                                            ]
+                                        )
+                                        console.log("Marker near you clicked")
+
+                                    }
+                                }
+                                }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
                     })}
-                    {collection.list.map(marker => {
+                                        {collection.list.map(marker => {
                         return (<Marker key={marker.lat} coordinate={{
                             latitude: parseFloat(marker.lat),
                             longitude: parseFloat(marker.lon)
@@ -148,6 +192,21 @@ function MapPresenterFile({
                         }
                         }><Ionicons name="star" size={40} color={'orange'}/></Marker>)
                     })}
+                    {
+                        paths.status !== "success" ?
+                            null
+                            :
+                            <MapView.Heatmap points={paths.list.map(c => ({
+                                latitude: c.latitude,
+                                longitude: c.longitude,
+                                weight: 100
+                            }))}
+                                             opacity={0.3}
+                                             radius={50}
+                                             maxIntensity={50}
+                                             gradientSmoothing={1}
+                                             heatmapMode={"POINTS_WEIGHT"}/>
+                    }
                 < /MapView>
             </SafeAreaView>
     )

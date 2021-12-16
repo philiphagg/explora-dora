@@ -4,7 +4,7 @@ import {StyleSheet, Text, SafeAreaView, Dimensions, Image, TouchableHighlight} f
 import * as Location from 'expo-location';
 import LoadingSpinner from "./Components/LoadingAnimation";
 
-function Progress({theme, paths, getPaths, collection, getCollection}) {
+function Progress({navigation, styles, theme, paths, getPaths, collection, getCollection}) {
     const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
@@ -24,10 +24,12 @@ function Progress({theme, paths, getPaths, collection, getCollection}) {
     }, []);
 
     return (
-        errorMsg ? <Text>{errorMsg}</Text> :
-            <SafeAreaView style={styles.container}>
+        errorMsg || paths.status !== "success" || collection.status !== "success" ?
+            <LoadingSpinner/>
+            :
+            <SafeAreaView style={mapStyles.container}>
                 <MapView followsUserLocation={true} showsMyLocationButton={true} showsUserLocation={true}
-                         provider={PROVIDER_GOOGLE} style={styles.map}
+                         provider={PROVIDER_GOOGLE} style={mapStyles.map}
                          customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}>
                     {
                         paths.status !== "success" ?
@@ -56,16 +58,17 @@ function Progress({theme, paths, getPaths, collection, getCollection}) {
                                         longitude: parseFloat(post.lon),
                                     }}
                                     description={post.title}
+                                    onPress={() => navigation.navigate("Collectible", {likeable: false, post, styles,})}
                                 >
                                     <TouchableHighlight
-                                        style={[styles.profileImgContainer, {
+                                        style={[mapStyles.profileImgContainer, {
                                             borderColor: theme.colors.text,
                                             borderWidth: 2
                                         }]}
                                     >
                                         <Image
                                             source={{uri: post.image}}
-                                            style={styles.profileImg}/>
+                                            style={mapStyles.profileImg}/>
                                     </TouchableHighlight>
                                 </Marker>
                             )
@@ -75,7 +78,7 @@ function Progress({theme, paths, getPaths, collection, getCollection}) {
     );
 }
 
-const styles = StyleSheet.create({
+const mapStyles = StyleSheet.create({
     profileImgContainer: {
         // marginLeft: 1,
         height: 36,
