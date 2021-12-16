@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useEffect} from "react";
 import MapView, {Marker, Heatmap, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, SafeAreaView, Dimensions, Alert} from 'react-native';
 import * as Location from 'expo-location';
@@ -8,19 +7,31 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoadingSpinner from "./Components/LoadingAnimation";
 
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
-
-function MapPresenterFile(
-    {navigation, route, markers, theme, getMarkers, addPathNode, styles, user, getUser, addPost, getPaths, paths}) {
-
-    // console.log("1. Props MapPresenterFile ----------------------------------", styles)
-
+function MapPresenterFile({
+                              navigation,
+                              route,
+                              markers,
+                              theme,
+                              getMarkers,
+                              addPathNode,
+                              styles,
+                              user,
+                              getUser,
+                              addPost,
+                              getPaths,
+                              paths,
+                              collection,
+                              getCollection
+                          }) {
     //offset for rendering grid surrounding walked path
     const offset = 0.0008;
-    useEffect(() => {
+    React.useEffect(() => {
         if (markers.status !== 'success')
             getMarkers()
         if (paths.status !== 'success')
             getPaths()
+        if (collection.status !== 'success')
+            getCollection()
         if (getUser.status !== 'success')
             getUser()
     }, []);
@@ -35,6 +46,7 @@ function MapPresenterFile(
     const [errorMsg, setErrorMsg] = React.useState(null);
     const [heatpoints, setHeatpoints] = React.useState(null)
 
+    //creates a grid of points that follows user based on location state
     React.useEffect(() => {
         let lat = location.latitude;
         let lon = location.longitude;
@@ -134,18 +146,12 @@ function MapPresenterFile(
                                  colorMapSize: 15,
                              }}
                     />
-
-
-                    {markers.list.map(marker => {
-                        return (
-                            <Marker
-                                key={marker.lat}
-                                coordinate={{
-                                    latitude: parseFloat(marker.lat),
-                                    longitude: parseFloat(marker.lon)
-                                }}
-                                onPress={() => {
-                                    if (getDistance(marker, location) > 15) {
+                    {markers.list.filter(({lat: id1}) => !collection.list.some(({lat: id2}) => id2 === id1)).map(marker => {
+                        return (<Marker key={marker.lat} coordinate={{
+                            latitude: parseFloat(marker.lat),
+                            longitude: parseFloat(marker.lon)
+                        }} onPress={() => {
+                            if (getDistance(marker, location) > 15) {
                                         Alert.alert("Marker is too far away!", "go closer to be able to claim it!")
                                         console.log("Marker is too far away")
                                     } else {
@@ -177,6 +183,15 @@ function MapPresenterFile(
                                 }
                                 }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
                     })}
+                                        {collection.list.map(marker => {
+                        return (<Marker key={marker.lat} coordinate={{
+                            latitude: parseFloat(marker.lat),
+                            longitude: parseFloat(marker.lon)
+                        }} onPress={() => {
+                            console.log("This is a claimed landmark!")
+                        }
+                        }><Ionicons name="star" size={40} color={'orange'}/></Marker>)
+                    })}
                     {
                         paths.status !== "success" ?
                             null
@@ -194,7 +209,8 @@ function MapPresenterFile(
                     }
                 < /MapView>
             </SafeAreaView>
-    );
+    )
+        ;
 }
 
 const mapStyles = StyleSheet.create({
