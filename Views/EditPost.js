@@ -3,7 +3,6 @@ import {Button, Image, ScrollView, Text, TextInput, View} from "react-native";
 
 function DetailsView({navigation, route}) {
     const {post, styles, editCaption, deletePost, editUser,collection} = route.params;
-
     const [isChanging, setChangingC] = React.useState(false);
     const [description, setDescription] = React.useState(post.caption);
 

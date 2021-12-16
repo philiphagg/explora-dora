@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useEffect} from "react";
 import MapView, {Marker, Heatmap, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, SafeAreaView, Dimensions, Alert} from 'react-native';
 import * as Location from 'expo-location';
@@ -19,6 +18,8 @@ function MapPresenterFile(
             getMarkers()
         if (paths.status !== 'success')
             getPaths()
+        if (collection.status !== 'success')
+            getCollection()
         if (getUser.status !== 'success')
             getUser()
     }, []);
@@ -33,6 +34,7 @@ function MapPresenterFile(
     const [errorMsg, setErrorMsg] = React.useState(null);
     const [heatpoints, setHeatpoints] = React.useState(null)
 
+    //creates a grid of points that follows user based on location state
     React.useEffect(() => {
         let lat = location.latitude;
         let lon = location.longitude;
@@ -99,26 +101,26 @@ function MapPresenterFile(
                             ...paths.list.map(c => (
                                 {latitude: c.latitude, longitude: c.longitude, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude + offsett * 0.5, longitude: c.longitude - offsett, weight: 100})),
+                                {latitude: c.latitude + offset * 0.5, longitude: c.longitude - offset, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude + offsett * 0.5, longitude: c.longitude + offsett, weight: 100})),
+                                {latitude: c.latitude + offset * 0.5, longitude: c.longitude + offset, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude - offsett * 0.5, longitude: c.longitude + offsett, weight: 100})),
+                                {latitude: c.latitude - offset * 0.5, longitude: c.longitude + offset, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude - offsett * 0.5, longitude: c.longitude - offsett, weight: 100})),
+                                {latitude: c.latitude - offset * 0.5, longitude: c.longitude - offset, weight: 100})),
 
                             {
-                                latitude: location.latitude + offsett * 0.5 * 1.1,
+                                latitude: location.latitude + offset * 0.5 * 1.1,
                                 longitude: location.longitude,
                                 weight: 100
                             },
                             {
-                                latitude: location.latitude - offsett * 0.5 * 1.1,
+                                latitude: location.latitude - offset * 0.5 * 1.1,
                                 longitude: location.longitude,
                                 weight: 100
                             },
-                            {latitude: location.latitude, longitude: location.longitude + offsett * 1.1, weight: 100},
-                            {latitude: location.latitude, longitude: location.longitude - offsett * 1.1, weight: 100},
+                            {latitude: location.latitude, longitude: location.longitude + offset * 1.1, weight: 100},
+                            {latitude: location.latitude, longitude: location.longitude - offset * 1.1, weight: 100},
                         ]
                     }
                              opacity={0.9}
@@ -132,7 +134,38 @@ function MapPresenterFile(
                                  colorMapSize: 15,
                              }}
                     />
-
+                    {markers.list.filter(({lat: id1}) => !collection.list.some(({lat: id2}) => id2 === id1)).map(marker => {
+                        return (<Marker key={marker.lat} coordinate={{
+                            latitude: parseFloat(marker.lat),
+                            longitude: parseFloat(marker.lon)
+                        }} onPress={() => {
+                            if (getDistance(marker, location) > 15) {
+                                Alert.alert("Marker is too far away!", "go closer to be able to claim it!")
+                                console.log("Marker is too far away")
+                            } else {
+                                Alert.alert(
+                                    "Do you want to claim this landmark?",
+                                    "Take a picture of it to claim!",
+                                    [
+                                        {
+                                            text: "Claim Landmark!",
+                                            onPress: () => navigation.navigate("Take Picture", {
+                                                title: marker.name,
+                                                lat: marker.lat,
+                                                lon: marker.lon,
+                                                styles: styles,
+                                                user: user,
+                                                addPost: addPost,
+                                            })
+                                        },
+                                        {
+                                            text: "Cancel",
+                                            onPress: () => console.log("Cancel Pressed"),
+                                            style: "cancel"
+                                        },
+                                    ]
+                                )
+                                console.log("Marker near you clicked")
 
                     {markers.list.map(marker => {
                         return (
@@ -175,9 +208,10 @@ function MapPresenterFile(
                                     }
                                 }
                                 }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
+
                     })}
                     {
-                        paths.status !== "succesds" ?
+                        paths.status !== "success" ?
                             null
                             :
                             <MapView.Heatmap points={paths.list.map(c => ({
@@ -193,7 +227,8 @@ function MapPresenterFile(
                     }
                 < /MapView>
             </SafeAreaView>
-    );
+    )
+        ;
 }
 
 const mapStyles = StyleSheet.create({

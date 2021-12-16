@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import Collection from "../Views/Collection";
 import {editCaption, getCollection, deletePost} from "../Redux/redusers/collection";
@@ -14,6 +14,7 @@ export function CollectionPresenter(props) {
                     editCaption={props.editCaption}
                     deletePost={props.deletePost}
                     editUser={props.editUser}
+
         />
     );
 }
