@@ -30,8 +30,8 @@ function Progress({navigation, styles, theme, paths, getPaths, collection, getCo
                 <MapView region={{
                     latitude: 59.328962051618056,
                     longitude: 18.068436284363813,
-                    latitudeDelta: 0.01,
-                    longitudeDelta: 0.01,
+                    latitudeDelta: 0.05,
+                    longitudeDelta: 0.05,
                 }} followsUserLocation={true} showsMyLocationButton={true}
                          showsUserLocation={true}
                          provider={PROVIDER_GOOGLE} style={mapStyles.map}

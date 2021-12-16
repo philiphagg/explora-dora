@@ -36,7 +36,7 @@ function AppWrapper() {
                 showHideTransition={true}
                 hidden={false} />
             {
-                user.status === 'loggedIn' || user.status === 'signingOut' ?
+                user.status === 'loggedIn' || user.status === 'signingOut' || auth.currentUser ?
                     <Navigationbar/>
                     :
                     <Login/>
