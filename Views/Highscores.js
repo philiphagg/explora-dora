@@ -26,14 +26,16 @@ const Highscores = ({getUsers, styles, theme, user,collection, getCollection, ed
     const highscores = user.users;
 
     useEffect(() => {
-        //if(user.userData.posts !== collection.list.length)
-         //   editUser({posts: collection.list.length, score: collection.list.length * 10})
-
         if(highscores.status !== "success" )
             getUsers()
         if (collection.status !== 'success')
             getCollection()
     }, [user,collection]);
+
+    useEffect(() => {
+        if(user.userData.posts !== collection.list.length)
+            editUser({posts: collection.list.length, score: collection.list.length * 10})
+    }, [collection, user]);
 
     // State for reloading and animation
     const [refreshing, setRefreshing] = React.useState(false);
