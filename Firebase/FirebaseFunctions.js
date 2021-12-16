@@ -31,7 +31,7 @@ export function signOuts(){
     })
 }
 
-export async function addImage(addPost, data, title, caption, user, name, lat, lon) {
+export async function addImage(addPost, data, title, caption, user, name, lat, lon, resetCollection) {
 
     const response = await fetch(data.uri);
     const blob = await response.blob();
@@ -65,6 +65,7 @@ export async function addImage(addPost, data, title, caption, user, name, lat, l
                             lat: lat,
                             lon: lon,
                         })
+                        resetCollection();
                     }
                 }
             ]);

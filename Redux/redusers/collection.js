@@ -54,6 +54,9 @@ export const collectionSlice = createSlice({
                 state.list = [...state.list].filter(x => x.id !== post.id)
             }
         },
+        resetCollection: (state, action) => {
+            state.status = "resetting";
+        },
     },
     extraReducers: {
         [getCollection.pending]: (state, action) => {
@@ -69,7 +72,7 @@ export const collectionSlice = createSlice({
     }
 });
 
-export const {editCaption, deletePost} = collectionSlice.actions;
+export const {editCaption, deletePost, resetCollection} = collectionSlice.actions;
 
 export default collectionSlice.reducer;
 

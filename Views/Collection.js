@@ -8,7 +8,7 @@ const wait = (timeout) => {
 }
 
 
-function Collection({navigation, collection, styles, getCollection, editCaption, deletePost}) {
+function Collection({navigation, collection, styles, getCollection, editCaption, deletePost, editUser}) {
 
     const numColumns = 3;
 
@@ -75,6 +75,8 @@ function Collection({navigation, collection, styles, getCollection, editCaption,
                                             styles: styles,
                                             editCaption: editCaption,
                                             deletePost: deletePost,
+                                            editUser: editUser,
+                                            collection: collection,
                                         });
                                     }}>
                                     <Image source={{uri: item.image}}

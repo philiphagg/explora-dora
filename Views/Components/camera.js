@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 import {Camera} from 'expo-camera';
 
 export default function CameraView({navigation, route}) {
-    const { title, lat, lon, styles, user, addPost} = route.params;
+    const { title, lat, lon, styles, user, addPost, resetCollection} = route.params;
 
     //console.log("2. Camera props---------------------------------",route)
 
@@ -22,7 +22,7 @@ export default function CameraView({navigation, route}) {
         if (camera) {
             const data = await camera.takePictureAsync(null)
             console.log("Image -------------------------------", data.uri);
-            navigation.navigate("Claim Landmark", {title, lat, lon, data,styles, user,addPost})
+            navigation.navigate("Claim Landmark", {title, lat, lon, data,styles, user,addPost, resetCollection})
         }
     }
 

@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {editCaption, getCollection, deletePost} from "../Redux/redusers/collection";
 import Collection from "../Views/Collection";
+import {editCaption, getCollection, deletePost} from "../Redux/redusers/collection";
+import {editUser} from "../Redux/redusers/user";
 
 export function CollectionPresenter(props) {
     return (
@@ -12,6 +13,7 @@ export function CollectionPresenter(props) {
                     getCollection={props.getCollection}
                     editCaption={props.editCaption}
                     deletePost={props.deletePost}
+                    editUser={props.editUser}
         />
     );
 }
@@ -29,6 +31,7 @@ const mapDispatchToProps = dispatch => {
         getCollection: () => dispatch(getCollection()),
         editCaption: (updateCaption) => dispatch(editCaption(updateCaption)),
         deletePost: (post) => dispatch(deletePost(post)),
+        editUser: (post) => dispatch(editUser(post)),
     }
 }
 

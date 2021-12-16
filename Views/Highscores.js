@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Alert, FlatList, Text, View, TouchableOpacity} from 'react-native';
+import {Alert, FlatList, Text, View, TouchableOpacity, RefreshControl} from 'react-native';
 import LoadingSpinner from "./Components/LoadingAnimation";
 
 function ordinal_suffix(i) {
@@ -17,11 +17,36 @@ function ordinal_suffix(i) {
     return i + "th";
 }
 
-const Highscores = ({getUsers, styles, theme, highscores}) => {
+//Delay function for pull to reload wait time
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
+const Highscores = ({getUsers, styles, theme, user,collection, getCollection, editUser}) => {
+    const highscores = user.users;
 
     useEffect(() => {
+        //if(user.userData.posts !== collection.list.length)
+         //   editUser({posts: collection.list.length, score: collection.list.length * 10})
+
         if(highscores.status !== "success" )
             getUsers()
+        if (collection.status !== 'success')
+            getCollection()
+
+    }, [user,collection]);
+
+    // State for reloading and animation
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    // Updates on refresh, updates feed
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getCollection();
+        getUsers();
+        wait(2000).then(() => setRefreshing(false));
+        if(user.userData.posts !== collection.list.length)
+            editUser({posts: collection.list.length, score: collection.list.length * 10})
     }, []);
 
     return (
@@ -30,6 +55,9 @@ const Highscores = ({getUsers, styles, theme, highscores}) => {
             :
             <View>
                 <FlatList
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
+                    }
                     data={highscores.list}
                     renderItem={({item, index}) => (
                         <TouchableOpacity onPress={() => {
