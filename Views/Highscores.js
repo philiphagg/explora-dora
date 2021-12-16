@@ -33,7 +33,6 @@ const Highscores = ({getUsers, styles, theme, user,collection, getCollection, ed
             getUsers()
         if (collection.status !== 'success')
             getCollection()
-
     }, [user,collection]);
 
     // State for reloading and animation

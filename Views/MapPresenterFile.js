@@ -9,11 +9,27 @@ import LoadingSpinner from "./Components/LoadingAnimation";
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
 
 function MapPresenterFile(
-    {navigation, route, markers, theme, getMarkers, addPathNode, styles, user,getUser, addPost, getPaths, paths, resetCollection}) {
+    {
+        navigation,
+        route,
+        markers,
+        theme,
+        getMarkers,
+        addPathNode,
+        styles,
+        user,
+        getUser,
+        addPost,
+        getPaths,
+        paths,
+        collection,
+        getCollection,
+        resetCollection
+    }) {
 
     // console.log("1. Props MapPresenterFile ----------------------------------", styles)
-    const offsett = 0.0008;
-    useEffect(() => {
+    const length = 0.0008;
+    React.useEffect(() => {
         if (markers.status !== 'success')
             getMarkers()
         if (paths.status !== 'success')
@@ -101,26 +117,25 @@ function MapPresenterFile(
                             ...paths.list.map(c => (
                                 {latitude: c.latitude, longitude: c.longitude, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude + offset * 0.5, longitude: c.longitude - offset, weight: 100})),
+                                {latitude: c.latitude + length * 0.5, longitude: c.longitude - length, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude + offset * 0.5, longitude: c.longitude + offset, weight: 100})),
+                                {latitude: c.latitude + length * 0.5, longitude: c.longitude + length, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude - offset * 0.5, longitude: c.longitude + offset, weight: 100})),
+                                {latitude: c.latitude - length * 0.5, longitude: c.longitude + length, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude - offset * 0.5, longitude: c.longitude - offset, weight: 100})),
-
+                                {latitude: c.latitude - length * 0.5, longitude: c.longitude - length, weight: 100})),
                             {
-                                latitude: location.latitude + offset * 0.5 * 1.1,
+                                latitude: location.latitude + length * 0.5 * 1.1,
                                 longitude: location.longitude,
                                 weight: 100
                             },
                             {
-                                latitude: location.latitude - offset * 0.5 * 1.1,
+                                latitude: location.latitude - length * 0.5 * 1.1,
                                 longitude: location.longitude,
                                 weight: 100
                             },
-                            {latitude: location.latitude, longitude: location.longitude + offset * 1.1, weight: 100},
-                            {latitude: location.latitude, longitude: location.longitude - offset * 1.1, weight: 100},
+                            {latitude: location.latitude, longitude: location.longitude + length * 1.1, weight: 100},
+                            {latitude: location.latitude, longitude: location.longitude - length * 1.1, weight: 100},
                         ]
                     }
                              opacity={0.9}
@@ -156,6 +171,7 @@ function MapPresenterFile(
                                                 styles: styles,
                                                 user: user,
                                                 addPost: addPost,
+                                                resetCollection: resetCollection,
                                             })
                                         },
                                         {
@@ -166,69 +182,23 @@ function MapPresenterFile(
                                     ]
                                 )
                                 console.log("Marker near you clicked")
-
-                    {markers.list.map(marker => {
-                        return (
-                            <Marker
-                                key={marker.lat}
-                                coordinate={{
-                                    latitude: parseFloat(marker.lat),
-                                    longitude: parseFloat(marker.lon)
-                                }}
-                                onPress={() => {
-                                    if (getDistance(marker, location) > 15) {
-                                        Alert.alert("Marker is too far away!", "go closer to be able to claim it!")
-                                        console.log("Marker is too far away")
-                                    } else {
-                                        Alert.alert(
-                                            "Do you want to claim this landmark!",
-                                            "Take a picture of it to claim!",
-                                            [
-                                                {
-                                                    text: "Claim Landmark!",
-                                                    onPress: () => navigation.navigate("Take Picture", {
-                                                        title: marker.name,
-                                                        lat: marker.lat,
-                                                        lon: marker.lon,
-                                                        styles: styles,
-                                                        user: user,
-                                                        addPost: addPost,
-                                                        resetCollection: resetCollection,
-                                                    })
-                                                },
-                                                {
-                                                    text: "Cancel",
-                                                    onPress: () => console.log("Cancel Pressed"),
-                                                    style: "cancel"
-                                                },
-                                            ]
-                                        )
-                                        console.log("Marker near you clicked")
-
-                                    }
-                                }
-                                }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
-
+                            }
+                        }
+                        }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
                     })}
-                    {
-                        paths.status !== "success" ?
-                            null
-                            :
-                            <MapView.Heatmap points={paths.list.map(c => ({
-                                latitude: c.latitude,
-                                longitude: c.longitude,
-                                weight: 100
-                            }))}
-                                             opacity={0.3}
-                                             radius={50}
-                                             maxIntensity={50}
-                                             gradientSmoothing={1}
-                                             heatmapMode={"POINTS_WEIGHT"}/>
-                    }
+                    {collection.list.map(marker => {
+                        return (<Marker key={marker.id} coordinate={{
+                            latitude: parseFloat(marker.lat),
+                            longitude: parseFloat(marker.lon)
+                        }} onPress={() => {
+                            Alert.alert("You've already claimed this landmark!", "Go find another one!")
+                            console.log("This is a claimed landmark!")
+                        }
+                        }><Ionicons name="star" size={40} color={'orange'}/></Marker>)
+                    })}
                 < /MapView>
             </SafeAreaView>
-    )
-        ;
+    );
 }
 
 const mapStyles = StyleSheet.create({
