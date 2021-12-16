@@ -33,10 +33,8 @@ export const feedSlice = createSlice({
     },
     reducers: {
         addPost: (state, action) => {
-            console.log("Added post: " + action.payload.title);
+            state.status = "refresh";
             addPostFirebase({...action.payload, date: new Date()}).then(r => {
-                    console.log("Add performed successfully");
-                    state.list = [ {...action.payload, date: new Date().valueOf()/1000}, ...state.list];
                 }
             ).catch()
         },
@@ -78,6 +76,9 @@ export const feedSlice = createSlice({
                 })
             }
         },
+        resetFeed: (state, action) => {
+            state.status = "resetting";
+        },
     },
     extraReducers: {
         [getFeed.pending]: (state, action) => {
@@ -93,6 +94,6 @@ export const feedSlice = createSlice({
     }
 });
 
-export const {addPost, likePost, unlikePost,editPost} = feedSlice.actions;
+export const {addPost, likePost, unlikePost,editPost, resetFeed} = feedSlice.actions;
 
 export default feedSlice.reducer;

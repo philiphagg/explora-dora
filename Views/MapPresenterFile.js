@@ -27,7 +27,6 @@ function MapPresenterFile(
         resetCollection
     }) {
 
-    // console.log("1. Props MapPresenterFile ----------------------------------", styles)
     const length = 0.0008;
     React.useEffect(() => {
         if (markers.status !== 'success')

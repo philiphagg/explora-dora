@@ -72,6 +72,9 @@ export const userSlice = createSlice({
             }
             state.userData = {...state.userData, status: "updated", ...action.payload,}
         },
+        resetUser: (state, action) => {
+            state.users.status = "resetting";
+        },
     },
     extraReducers: {
         [getUsers.pending]: (state, action) => {
@@ -94,7 +97,7 @@ export const userSlice = createSlice({
 export const {
     login,
     editUser,
-    updateScores,
+    resetUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;
