@@ -152,38 +152,38 @@ function MapPresenterFile({
                             longitude: parseFloat(marker.lon)
                         }} onPress={() => {
                             if (getDistance(marker, location) > 15) {
-                                        Alert.alert("Marker is too far away!", "go closer to be able to claim it!")
-                                        console.log("Marker is too far away")
-                                    } else {
-                                        Alert.alert(
-                                            "Do you want to claim this landmark?",
-                                            "Take a picture of it to claim!",
-                                            [
-                                                {
-                                                    text: "Claim Landmark!",
-                                                    onPress: () => navigation.navigate("Take Picture", {
-                                                        title: marker.name,
-                                                        lat: marker.lat,
-                                                        lon: marker.lon,
-                                                        styles: styles,
-                                                        user: user,
-                                                        addPost: addPost,
-                                                    })
-                                                },
-                                                {
-                                                    text: "Cancel",
-                                                    onPress: () => console.log("Cancel Pressed"),
-                                                    style: "cancel"
-                                                },
-                                            ]
-                                        )
-                                        console.log("Marker near you clicked")
+                                Alert.alert("Marker is too far away!", "go closer to be able to claim it!")
+                                console.log("Marker is too far away")
+                            } else {
+                                Alert.alert(
+                                    "Do you want to claim this landmark?",
+                                    "Take a picture of it to claim!",
+                                    [
+                                        {
+                                            text: "Claim Landmark!",
+                                            onPress: () => navigation.navigate("Take Picture", {
+                                                title: marker.name,
+                                                lat: marker.lat,
+                                                lon: marker.lon,
+                                                styles: styles,
+                                                user: user,
+                                                addPost: addPost,
+                                            })
+                                        },
+                                        {
+                                            text: "Cancel",
+                                            onPress: () => console.log("Cancel Pressed"),
+                                            style: "cancel"
+                                        },
+                                    ]
+                                )
+                                console.log("Marker near you clicked")
 
-                                    }
-                                }
-                                }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
+                            }
+                        }
+                        }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
                     })}
-                                        {collection.list.map(marker => {
+                    {collection.list.map(marker => {
                         return (<Marker key={marker.lat} coordinate={{
                             latitude: parseFloat(marker.lat),
                             longitude: parseFloat(marker.lon)
