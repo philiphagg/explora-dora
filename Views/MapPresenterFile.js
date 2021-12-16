@@ -10,10 +10,12 @@ import LoadingSpinner from "./Components/LoadingAnimation";
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
 
 function MapPresenterFile(
-    {navigation, route, markers, theme, getMarkers, addPathNode, styles, user,getUser, addPost, getPaths, paths}) {
+    {navigation, route, markers, theme, getMarkers, addPathNode, styles, user, getUser, addPost, getPaths, paths}) {
 
     // console.log("1. Props MapPresenterFile ----------------------------------", styles)
-    const offsett = 0.0008;
+
+    //offset for rendering grid surrounding walked path
+    const offset = 0.0008;
     useEffect(() => {
         if (markers.status !== 'success')
             getMarkers()
@@ -99,26 +101,26 @@ function MapPresenterFile(
                             ...paths.list.map(c => (
                                 {latitude: c.latitude, longitude: c.longitude, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude + offsett * 0.5, longitude: c.longitude - offsett, weight: 100})),
+                                {latitude: c.latitude + offset * 0.5, longitude: c.longitude - offset, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude + offsett * 0.5, longitude: c.longitude + offsett, weight: 100})),
+                                {latitude: c.latitude + offset * 0.5, longitude: c.longitude + offset, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude - offsett * 0.5, longitude: c.longitude + offsett, weight: 100})),
+                                {latitude: c.latitude - offset * 0.5, longitude: c.longitude + offset, weight: 100})),
                             ...paths.list.map(c => (
-                                {latitude: c.latitude - offsett * 0.5, longitude: c.longitude - offsett, weight: 100})),
+                                {latitude: c.latitude - offset * 0.5, longitude: c.longitude - offset, weight: 100})),
 
                             {
-                                latitude: location.latitude + offsett * 0.5 * 1.1,
+                                latitude: location.latitude + offset * 0.5 * 1.1,
                                 longitude: location.longitude,
                                 weight: 100
                             },
                             {
-                                latitude: location.latitude - offsett * 0.5 * 1.1,
+                                latitude: location.latitude - offset * 0.5 * 1.1,
                                 longitude: location.longitude,
                                 weight: 100
                             },
-                            {latitude: location.latitude, longitude: location.longitude + offsett * 1.1, weight: 100},
-                            {latitude: location.latitude, longitude: location.longitude - offsett * 1.1, weight: 100},
+                            {latitude: location.latitude, longitude: location.longitude + offset * 1.1, weight: 100},
+                            {latitude: location.latitude, longitude: location.longitude - offset * 1.1, weight: 100},
                         ]
                     }
                              opacity={0.9}
@@ -148,7 +150,7 @@ function MapPresenterFile(
                                         console.log("Marker is too far away")
                                     } else {
                                         Alert.alert(
-                                            "Do you want to claim this landmark!",
+                                            "Do you want to claim this landmark?",
                                             "Take a picture of it to claim!",
                                             [
                                                 {
@@ -176,7 +178,7 @@ function MapPresenterFile(
                                 }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
                     })}
                     {
-                        paths.status !== "succesds" ?
+                        paths.status !== "success" ?
                             null
                             :
                             <MapView.Heatmap points={paths.list.map(c => ({
