@@ -17,7 +17,7 @@ function Collection({navigation, collection, styles, getCollection, editCaption,
     useEffect(() => {
         if(collection.status !== "success")
             getCollection()
-    }, []);
+    }, [collection]);
 
     return (
         collection.status !== "success" ?

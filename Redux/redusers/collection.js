@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import 'firebase/database';
-import {collection, getDocs, query, where, orderBy, doc, updateDoc} from "firebase/firestore";
+import {collection, getDocs, query, where, orderBy, doc, updateDoc, deleteDoc} from "firebase/firestore";
 import {db, auth} from "../../Firebase/firebaseconfig"
 
 export const getCollection = createAsyncThunk('collection/getCollection', async () => {
@@ -19,6 +19,11 @@ export const getCollection = createAsyncThunk('collection/getCollection', async 
 async function editPostFirebase(postId, data) {
     const postRef = doc(db, "Posts", postId);
     await updateDoc(postRef, data);
+}
+
+async function deletePostFirebase(postId) {
+    const postRef = doc(db, "Posts", postId);
+    await deleteDoc(postRef);
 }
 
 export const collectionSlice = createSlice({
@@ -52,7 +57,6 @@ export const collectionSlice = createSlice({
         resetCollection: (state, action) => {
             state.status = "resetting";
         },
-
     },
     extraReducers: {
         [getCollection.pending]: (state, action) => {
