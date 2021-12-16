@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {editUser, getUsers} from "../Redux/redusers/user";
+import {editUser, getUsers, logout} from "../Redux/redusers/user";
 import Profile from "../Views/Profile";
 import {toggleTheme} from "../Redux/redusers/theme";
 import {getCollection} from "../Redux/redusers/collection";
@@ -8,6 +8,7 @@ import {getCollection} from "../Redux/redusers/collection";
 export function ProfilePresenter(props) {
     return (
         <Profile
+            navigation={props.navigation}
             styles={props.styles}
             user={props.user}
             theme={props.theme}
@@ -17,6 +18,7 @@ export function ProfilePresenter(props) {
             toggleTheme={props.toggleTheme}
             getCollection={props.getCollection}
             getUsers={props.getUsers}
+            logout={props.logout}
         />
     );
 }
@@ -36,6 +38,7 @@ const mapDispatchToProps = dispatch => {
         toggleTheme: () => dispatch(toggleTheme()),
         getCollection: () => dispatch(getCollection()),
         getUsers: () => dispatch(getUsers()),
+        logout: () => dispatch(logout()),
     }
 }
 

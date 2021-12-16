@@ -35,7 +35,7 @@ function MapPresenterFile(
             getPaths()
         if (collection.status !== 'success')
             getCollection()
-        if (getUser.status !== 'success')
+        if (user.status !== 'success')
             getUser()
     }, []);
 
@@ -99,7 +99,7 @@ function MapPresenterFile(
     }, []);
 
     return (
-        markers.status !== "success" && paths.status !== "success" ? <LoadingSpinner/> :
+        markers.status !== "success" && paths.status !== "success" && collection.status !== "success" && user.status !== 'loggedIn' ? <LoadingSpinner/> :
             <SafeAreaView style={mapStyles.container}>
                 <MapView region={location}
                          moveOnMarkerPress={false}

@@ -6,7 +6,7 @@ import React, {useEffect} from "react";
 import {View, Text, Switch, TouchableOpacity, TextInput} from "react-native";
 import {signOuts} from "../Firebase/FirebaseFunctions";
 
-function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, user, collection}) {
+function Profile({navigation, editUser, toggleTheme, getCollection, getUsers, styles, theme, user, collection, logout}) {
 
     useEffect(() => {
         if (user.status !== 'success')
@@ -16,7 +16,7 @@ function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, u
     }, []);
 
     useEffect(() => {
-        if(user.userData.posts !== collection.list.length)
+        if (user.userData.posts !== collection.list.length)
             editUser({posts: collection.list.length, score: collection.list.length * 10})
     }, [collection, user]);
 
@@ -72,9 +72,10 @@ function Profile({editUser, toggleTheme,getCollection, getUsers,styles, theme, u
                     value={theme.dark}
                 />
                 <TouchableOpacity
-                    onPress={() =>
-                        signOuts()
-
+                    onPress={() => {
+                        signOuts(logout);
+                        navigation.navigate("Sign out", {styles})
+                    }
                     }
                     style={[styles.button, styles.buttonOutline]}
                 >

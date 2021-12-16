@@ -1,33 +1,17 @@
-//import {firebase} from "@react-native-firebase/firestore";
 import {auth, db, storage, ref, uploadBytes, signOut} from './firebaseconfig'
-import {Alert} from "react-native";
+import {Alert, NativeModules} from "react-native";
 import {doc, collection, getDocs, query, where, addDoc} from "firebase/firestore";
 import {getDownloadURL} from "firebase/storage";
-//import {useSelector} from "react-redux";
-//import {expectRendersMatchingSnapshot} from "react-native/Libraries/Utilities/ReactNativeTestTools";
 
-/*
-export async function addPost() {
-    try {
-        await addDoc(collection(db, "Posts"), {
-            title: "Test With Add Doc ",
-            image: "https://media.timeout.com/images/105171709/image.jpg",
-            likes: [],
-            caption: "Detta är ett test text",
-            user: auth.currentUser.uid,
-            nick: "Magnus Uggla",
-        });
-    }catch (error){
-        console.log(error)
-    }
-}
- */
 
-export function signOuts(){
+export function signOuts(logout){
     signOut(auth).then(() => {
         //navigate to signin screen
+        logout();
+        NativeModules.DevSettings.reload();
     }).catch((error) => {
-        Alert(error)
+        console.log(error)
+        Alert.alert(error)
     })
 }
 

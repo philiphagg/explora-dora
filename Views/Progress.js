@@ -6,7 +6,6 @@ import LoadingSpinner from "./Components/LoadingAnimation";
 
 function Progress({navigation, styles, theme, paths, getPaths, collection, getCollection}) {
     const [errorMsg, setErrorMsg] = useState(null);
-
     useEffect(() => {
         if (paths.status !== "success")
             getPaths()
@@ -28,7 +27,13 @@ function Progress({navigation, styles, theme, paths, getPaths, collection, getCo
             <LoadingSpinner/>
             :
             <SafeAreaView style={mapStyles.container}>
-                <MapView followsUserLocation={true} showsMyLocationButton={true} showsUserLocation={true}
+                <MapView region={{
+                    latitude: 59.328962051618056,
+                    longitude: 18.068436284363813,
+                    latitudeDelta: 0.05,
+                    longitudeDelta: 0.05,
+                }} followsUserLocation={true} showsMyLocationButton={true}
+                         showsUserLocation={true}
                          provider={PROVIDER_GOOGLE} style={mapStyles.map}
                          customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}
                          >
