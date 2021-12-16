@@ -75,6 +75,9 @@ export const userSlice = createSlice({
         resetUser: (state, action) => {
             state.users.status = "resetting";
         },
+        logout: (state, action) => {
+            state.status = "signingOut";
+        },
     },
     extraReducers: {
         [getUsers.pending]: (state, action) => {
@@ -98,6 +101,7 @@ export const {
     login,
     editUser,
     resetUser,
+    logout,
 } = userSlice.actions;
 
 export default userSlice.reducer;

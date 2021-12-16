@@ -36,14 +36,10 @@ function AppWrapper() {
                 showHideTransition={true}
                 hidden={false} />
             {
-              console.log("User ??? ", user.user)
-            }
-            {
-                //Object.keys(user.apiKey).length === 0 ?
-                user.status !== 'loggedIn' ?
-                    <Login/>
-                    :
+                user.status === 'loggedIn' || user.status === 'signingOut' ?
                     <Navigationbar/>
+                    :
+                    <Login/>
             }
         </NavigationContainer>
     )
