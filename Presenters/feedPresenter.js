@@ -5,17 +5,21 @@ import Feed from "../Views/Feed";
 
 export function FeedPresenter(props) {
     return (
-        <Feed posts={props.posts}
-              styles={props.styles}
-              user={props.user}
-              getFeed={props.getFeed}
-              likePost={props.likePost}
-              unlikePost={props.unlikePost}/>
+        <Feed
+            navigation={props.navigation}
+            theme={props.theme}
+            posts={props.posts}
+            styles={props.styles}
+            user={props.user}
+            getFeed={props.getFeed}
+            likePost={props.likePost}
+            unlikePost={props.unlikePost}/>
     );
 }
 
 const mapStateToProps = state => {
     return {
+        theme: state.theme.value.theme,
         posts: state.feed,
         styles: state.theme.value.style,
         user: state.user,
