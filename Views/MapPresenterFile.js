@@ -6,7 +6,7 @@ import {getDistance} from "geolib";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoadingSpinner from "./Components/LoadingAnimation";
 
-const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
+const disablePathFetching = false; /* Disables the uploading of coordinates to firebase while developing */
 
 function MapPresenterFile(
     {

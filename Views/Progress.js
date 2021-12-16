@@ -33,7 +33,7 @@ function Progress({navigation, styles, theme, paths, getPaths, collection, getCo
                          customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}
                          >
                     {
-                        paths.status !== "success" ?
+                        paths.list.length === 0 ?
                             null
                             :
                             <MapView.Heatmap points={paths.list.map(c => ({
@@ -48,7 +48,7 @@ function Progress({navigation, styles, theme, paths, getPaths, collection, getCo
                                              heatmapMode={"POINTS_WEIGHT"}/>
                     }
                     {
-                        collection.status !== "success" ?
+                        collection.list.length === 0 ?
                             null
                             :
                             collection.list.map(post =>
