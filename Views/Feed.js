@@ -11,7 +11,7 @@ const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-function Feed({posts, styles, getFeed, likePost, unlikePost}) {
+function Feed({navigation,posts, styles, getFeed, likePost, unlikePost, theme}) {
 
     //Load feed data if it is not already loaded successfully
     useEffect(() => {
@@ -40,7 +40,7 @@ function Feed({posts, styles, getFeed, likePost, unlikePost}) {
                     <View>
                         {
                             posts.list.map(post =>
-                                <Post key={post.id} route={{params: {likeable: true, post, styles, unlikePost, likePost}}}/>
+                                <Post key={post.id} route={{params: {likeable: true, post, styles, unlikePost, likePost, navigation, theme}}}/>
                             )
                         }
                     </View>
