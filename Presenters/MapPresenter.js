@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getMarkers} from "../Redux/redusers/markers";
-import {getCollection} from "../Redux/redusers/collection";
+import {getCollection, resetCollection} from "../Redux/redusers/collection";
 import {addPost} from "../Redux/redusers/feed";
 import {addNodeToPath, getPaths} from "../Redux/redusers/paths";
 import MapPresenterFile from "../Views/MapPresenterFile";
@@ -21,6 +21,7 @@ export function MapPresenter(props) {
 
             collection = {props.collection}
             getCollection = {props.getCollection}
+            resetCollection = {props.resetCollection}
 
             paths={props.paths}
             getPaths = {props.getPaths}
@@ -59,6 +60,7 @@ const mapDispatchToProps = dispatch => {
         addPathNode: (node) => dispatch(addNodeToPath(node)),
         addPost: (post) => dispatch(addPost(post)),
         editUser: (user) => dispatch(editUser(user)),
+        resetCollection: () => dispatch(resetCollection()),
     }
 }
 

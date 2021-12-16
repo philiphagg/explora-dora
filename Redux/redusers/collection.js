@@ -39,6 +39,20 @@ export const collectionSlice = createSlice({
                 state.list.find(x => x.id === post.id).caption = action.payload.caption;
             }
         },
+        deletePost: (state, action) => {
+            const user = auth.currentUser.uid;
+            const post = action.payload;
+
+            if (post.user === user) {
+                deletePostFirebase(post.id).then(r => {
+                }).catch()
+                state.list = [...state.list].filter(x => x.id !== post.id)
+            }
+        },
+        resetCollection: (state, action) => {
+            state.status = "resetting";
+        },
+
     },
     extraReducers: {
         [getCollection.pending]: (state, action) => {
@@ -54,7 +68,7 @@ export const collectionSlice = createSlice({
     }
 });
 
-export const {editCaption} = collectionSlice.actions;
+export const {editCaption, deletePost, resetCollection} = collectionSlice.actions;
 
 export default collectionSlice.reducer;
 

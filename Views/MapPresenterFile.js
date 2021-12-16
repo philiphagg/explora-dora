@@ -7,25 +7,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoadingSpinner from "./Components/LoadingAnimation";
 
 const disablePathFetching = true; /* Disables the uploading of coordinates to firebase while developing */
-function MapPresenterFile({
-                              navigation,
-                              route,
-                              markers,
-                              theme,
-                              getMarkers,
-                              addPathNode,
-                              styles,
-                              user,
-                              getUser,
-                              addPost,
-                              getPaths,
-                              paths,
-                              collection,
-                              getCollection
-                          }) {
-    //offset for rendering grid surrounding walked path
-    const offset = 0.0008;
-    React.useEffect(() => {
+
+function MapPresenterFile(
+    {navigation, route, markers, theme, getMarkers, addPathNode, styles, user,getUser, addPost, getPaths, paths, resetCollection}) {
+
+    // console.log("1. Props MapPresenterFile ----------------------------------", styles)
+    const offsett = 0.0008;
+    useEffect(() => {
         if (markers.status !== 'success')
             getMarkers()
         if (paths.status !== 'success')
@@ -179,19 +167,48 @@ function MapPresenterFile({
                                 )
                                 console.log("Marker near you clicked")
 
-                            }
-                        }
-                        }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
-                    })}
-                    {collection.list.map(marker => {
-                        return (<Marker key={marker.id} coordinate={{
-                            latitude: parseFloat(marker.lat),
-                            longitude: parseFloat(marker.lon)
-                        }} onPress={() => {
-                            Alert.alert("You've already claimed this landmark!")
-                            console.log("This is a claimed landmark!")
-                        }
-                        }><Ionicons name="star" size={40} color={'orange'}/></Marker>)
+                    {markers.list.map(marker => {
+                        return (
+                            <Marker
+                                key={marker.lat}
+                                coordinate={{
+                                    latitude: parseFloat(marker.lat),
+                                    longitude: parseFloat(marker.lon)
+                                }}
+                                onPress={() => {
+                                    if (getDistance(marker, location) > 15) {
+                                        Alert.alert("Marker is too far away!", "go closer to be able to claim it!")
+                                        console.log("Marker is too far away")
+                                    } else {
+                                        Alert.alert(
+                                            "Do you want to claim this landmark!",
+                                            "Take a picture of it to claim!",
+                                            [
+                                                {
+                                                    text: "Claim Landmark!",
+                                                    onPress: () => navigation.navigate("Take Picture", {
+                                                        title: marker.name,
+                                                        lat: marker.lat,
+                                                        lon: marker.lon,
+                                                        styles: styles,
+                                                        user: user,
+                                                        addPost: addPost,
+                                                        resetCollection: resetCollection,
+                                                    })
+                                                },
+                                                {
+                                                    text: "Cancel",
+                                                    onPress: () => console.log("Cancel Pressed"),
+                                                    style: "cancel"
+                                                },
+                                            ]
+                                        )
+                                        console.log("Marker near you clicked")
+
+                                    }
+                                }
+                                }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
+
                     })}
                     {
                         paths.status !== "success" ?
