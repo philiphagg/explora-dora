@@ -188,6 +188,7 @@ function MapPresenterFile({
                             latitude: parseFloat(marker.lat),
                             longitude: parseFloat(marker.lon)
                         }} onPress={() => {
+                            Alert.alert("You've already claimed this landmark!")
                             console.log("This is a claimed landmark!")
                         }
                         }><Ionicons name="star" size={40} color={'orange'}/></Marker>)
