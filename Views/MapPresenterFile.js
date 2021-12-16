@@ -184,7 +184,7 @@ function MapPresenterFile({
                         }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
                     })}
                     {collection.list.map(marker => {
-                        return (<Marker key={marker.lat} coordinate={{
+                        return (<Marker key={marker.id} coordinate={{
                             latitude: parseFloat(marker.lat),
                             longitude: parseFloat(marker.lon)
                         }} onPress={() => {
