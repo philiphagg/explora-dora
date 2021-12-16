@@ -3,7 +3,7 @@ import {Button, Text, View, Image} from "react-native";
 import {auth} from "../Firebase/firebaseconfig";
 
 function Post({route}) {
-    const {likeable, post, styles, likePost, unlikePost} = route.params;
+    const {likeable,theme, post, styles, likePost, unlikePost, navigation} = route.params;
 
     return (
         <View style={[styles.divider]} key={post.id}>
@@ -14,21 +14,31 @@ function Post({route}) {
             </View>
             <Image source={{uri: post.image}}
                    style={styles.postImage}/>
-            <View style={styles.row}>
-                <Text style={styles.h2}>{post.likes.length} ♥ </Text>
+
                 {
                     likeable ?
-                <Button
-                    title={post.likes.includes(auth.currentUser.uid) ? "Unlike" : "Like  "}
-                    onPress={() => {
-                        post.likes.includes(auth.currentUser.uid) ?
-                            unlikePost({post: post}) :
-                            likePost({post: post})
-                    }}
-                />
-                        : null
+                        <View style={styles.row}>
+                            <Text style={styles.h2}>{post.likes.length} ♥ </Text>
+                            <Button
+                                title={post.likes.includes(auth.currentUser.uid) ? "Unlike" : "Like  "}
+                                onPress={() => {
+                                    post.likes.includes(auth.currentUser.uid) ?
+                                        unlikePost({post: post}) :
+                                        likePost({post: post})
+                                }}
+                            />
+                            <Button
+                                title={"Show on Map"}
+                                onPress={() => {
+                                    navigation.navigate("Post on Map", {theme, post});
+                                }}
+                            />
+                        </View>
+                        :
+                        <View style={styles.row}>
+                            <Text style={styles.h2}>{post.likes.length} ♥ </Text>
+                        </View>
                 }
-            </View>
             <View style={styles.row}>
                 <Text style={styles.h4}>{post.caption} </Text>
             </View>

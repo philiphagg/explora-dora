@@ -30,7 +30,8 @@ function Progress({navigation, styles, theme, paths, getPaths, collection, getCo
             <SafeAreaView style={mapStyles.container}>
                 <MapView followsUserLocation={true} showsMyLocationButton={true} showsUserLocation={true}
                          provider={PROVIDER_GOOGLE} style={mapStyles.map}
-                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}>
+                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}
+                         >
                     {
                         paths.status !== "success" ?
                             null
