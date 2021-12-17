@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {View, Image, TouchableOpacity, FlatList, ScrollView, RefreshControl, Text, Dimensions} from 'react-native';
 import LoadingSpinner from "../Components/LoadingAnimation";
-import trophyImage from "../assets/favpng_trophy-cartoon.png"
+import trophyImage from "../assets/trophypic.png"
 
 //Delay function for pull to reload wait time
 const wait = (timeout) => {
