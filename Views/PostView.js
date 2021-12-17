@@ -30,7 +30,7 @@ function PostView({route}) {
                             <Button
                                 title={"Show on Map"}
                                 onPress={() => {
-                                    navigation.navigate("PostView on Map", {theme, post});
+                                    navigation.navigate("Post on Map", {theme, post});
                                 }}
                             />
                         </View>

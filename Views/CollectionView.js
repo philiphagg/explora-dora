@@ -72,7 +72,7 @@ function CollectionView({navigation, collection, styles, getCollection, editCapt
                             <View>
                                 <TouchableOpacity
                                     onPress={() => {
-                                        navigation.navigate("Edit PostView", {
+                                        navigation.navigate("Edit Post", {
                                             post: {...item},
                                             styles: styles,
                                             editCaption: editCaption,
