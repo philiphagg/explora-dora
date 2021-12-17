@@ -1,9 +1,8 @@
 import React from "react";
 import {Button, Text, View, Image} from "react-native";
-import {auth} from "../Firebase/firebaseconfig";
 
 function PostView({route}) {
-    const {likeable,theme, post, styles, likePost, unlikePost, navigation} = route.params;
+    const {likeable,theme, post, user, styles, likePost, unlikePost, navigation} = route.params;
 
     return (
         <View style={[styles.divider]} key={post.id}>
@@ -14,15 +13,14 @@ function PostView({route}) {
             </View>
             <Image source={{uri: post.image}}
                    style={styles.postImage}/>
-
                 {
                     likeable ?
                         <View style={styles.row}>
                             <Text style={styles.h2}>{post.likes.length} ♥ </Text>
                             <Button
-                                title={post.likes.includes(auth.currentUser.uid) ? "Unlike" : "Like  "}
+                                title={post.likes.includes(user) ? "Unlike" : "Like  "}
                                 onPress={() => {
-                                    post.likes.includes(auth.currentUser.uid) ?
+                                    post.likes.includes(user) ?
                                         unlikePost({post: post}) :
                                         likePost({post: post})
                                 }}
