@@ -11,13 +11,15 @@ const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-function FeedView({navigation,posts, styles, getFeed, likePost, unlikePost, theme}) {
+function FeedView({navigation,posts, styles, getFeed, likePost, unlikePost, theme, user, getUser}) {
 
     //Load feed data if it is not already loaded successfully
     useEffect(() => {
         if (posts.status !== "success")
             getFeed()
-    }, [posts]);
+        if (user.status !== "success")
+            getUser()
+    }, [posts, user]);
 
     // State for reloading and animation
     const [refreshing, setRefreshing] = React.useState(false);
@@ -40,7 +42,7 @@ function FeedView({navigation,posts, styles, getFeed, likePost, unlikePost, them
                     <View>
                         {
                             posts.list.map(post =>
-                                <PostView key={post.id} route={{params: {likeable: true, post, styles, unlikePost, likePost, navigation, theme}}}/>
+                                <PostView key={post.id} route={{params: {likeable: true, post, styles, unlikePost, likePost, navigation, theme, user}}}/>
                             )
                         }
                     </View>

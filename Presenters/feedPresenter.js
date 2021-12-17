@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {getFeed, likePost, unlikePost} from "../Redux/Redusers/feed";
 import FeedView from "../Views/FeedView";
+import {getUsers} from "../Redux/Redusers/user";
 
 export function FeedPresenter(props) {
     return (
@@ -10,10 +11,13 @@ export function FeedPresenter(props) {
             theme={props.theme}
             posts={props.posts}
             styles={props.styles}
-            user={props.user}
             getFeed={props.getFeed}
             likePost={props.likePost}
-            unlikePost={props.unlikePost}/>
+            unlikePost={props.unlikePost}
+            user={props.user}
+            getUser={props.getUser}
+
+        />
     );
 }
 
@@ -22,13 +26,14 @@ const mapStateToProps = state => {
         theme: state.theme.value.theme,
         posts: state.feed,
         styles: state.theme.value.style,
-        user: state.user,
+        user: state.user.user.id,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getFeed: () => dispatch(getFeed()),
+        getUser: () => dispatch(getUsers()),
         likePost: (data) => dispatch(likePost(data)),
         unlikePost: (data) => dispatch(unlikePost(data)),
     }
