@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
-import {View, Image, TouchableOpacity, FlatList, ScrollView, RefreshControl, Text} from 'react-native';
+import {View, Image, TouchableOpacity, FlatList, ScrollView, RefreshControl, Text, Dimensions} from 'react-native';
 import LoadingSpinner from "../Components/LoadingAnimation";
+import trophyImage from "../assets/trophypic.png"
 
 //Delay function for pull to reload wait time
 const wait = (timeout) => {
@@ -8,7 +9,17 @@ const wait = (timeout) => {
 }
 
 
-function CollectionView({navigation, collection, styles, getCollection, editCaption, deletePost, editUser, resetFeed, resetUser}) {
+function CollectionView({
+                            navigation,
+                            collection,
+                            styles,
+                            getCollection,
+                            editCaption,
+                            deletePost,
+                            editUser,
+                            resetFeed,
+                            resetUser
+                        }) {
 
 
     const numColumns = 3;
@@ -47,14 +58,20 @@ function CollectionView({navigation, collection, styles, getCollection, editCapt
                             </Text>
                         </View>
                         <View style={[styles.row]}>
+                            <Image style={{
+                                justifyContent: 'center',
+                                flex: 1,
+                                width: Dimensions.get('window').width / 2,
+                                height: Dimensions.get('window').height / 2,
+                            }}
+                                   source={(trophyImage)}
+                            />
+                        </View>
+                        <View style={[styles.row]}>
                             <Text style={styles.h3}>
                                 Open your map and start exploring your surroundings on your mission to find collectibles
                                 and photograph them.
-                            </Text>
-                        </View>
-                        <View style={[styles.row, styles.divider]}>
-                            <Text style={styles.h3}>
-                                While you search your map will expand and reveal more of your surroundings as you walk.
+                                While you search for collectibles, your map will expand and reveal more of your surroundings as you walk.
                                 All your collectibles that you collect will appear here.
                             </Text>
                         </View>
