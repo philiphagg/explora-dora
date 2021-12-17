@@ -4,11 +4,11 @@ import {StyleSheet, Text, SafeAreaView, Dimensions, Alert} from 'react-native';
 import * as Location from 'expo-location';
 import {getDistance} from "geolib";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import LoadingSpinner from "./Components/LoadingAnimation";
+import LoadingSpinner from "../Components/LoadingAnimation";
 
 const disablePathFetching = false; /* Disables the uploading of coordinates to firebase while developing */
 
-function MapPresenterFile(
+function MapView1(
     {
         navigation,
         route,
@@ -220,4 +220,4 @@ const mapStyles = StyleSheet.create({
     },
 });
 
-export default MapPresenterFile;
+export default MapView1;

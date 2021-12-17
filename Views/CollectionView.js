@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {View, Image, TouchableOpacity, FlatList, ScrollView, RefreshControl, Text} from 'react-native';
-import LoadingSpinner from "./Components/LoadingAnimation";
+import LoadingSpinner from "../Components/LoadingAnimation";
 
 //Delay function for pull to reload wait time
 const wait = (timeout) => {
@@ -8,7 +8,7 @@ const wait = (timeout) => {
 }
 
 
-function Collection({navigation, collection, styles, getCollection, editCaption, deletePost, editUser, resetFeed, resetUser}) {
+function CollectionView({navigation, collection, styles, getCollection, editCaption, deletePost, editUser, resetFeed, resetUser}) {
 
 
     const numColumns = 3;
@@ -72,7 +72,7 @@ function Collection({navigation, collection, styles, getCollection, editCaption,
                             <View>
                                 <TouchableOpacity
                                     onPress={() => {
-                                        navigation.navigate("Edit Post", {
+                                        navigation.navigate("Edit PostView", {
                                             post: {...item},
                                             styles: styles,
                                             editCaption: editCaption,
@@ -92,4 +92,4 @@ function Collection({navigation, collection, styles, getCollection, editCaption,
     );
 }
 
-export default Collection;
+export default CollectionView;

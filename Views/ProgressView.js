@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 import {StyleSheet, Text, SafeAreaView, Dimensions, Image, TouchableHighlight} from 'react-native';
 import * as Location from 'expo-location';
-import LoadingSpinner from "./Components/LoadingAnimation";
+import LoadingSpinner from "../Components/LoadingAnimation";
 
-function Progress({navigation, styles, theme, paths, getPaths, collection, getCollection}) {
+function ProgressView({navigation, styles, theme, paths, getPaths, collection, getCollection}) {
     const [errorMsg, setErrorMsg] = useState(null);
     useEffect(() => {
         if (paths.status !== "success")
@@ -109,4 +109,4 @@ const mapStyles = StyleSheet.create({
     },
 });
 
-export default Progress;
+export default ProgressView;

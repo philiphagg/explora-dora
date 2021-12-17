@@ -1,6 +1,6 @@
 import React from "react";
 import {View, Text, NativeModules} from "react-native";
-import LoadingSpinner from "./Components/LoadingAnimation";
+import LoadingSpinner from "../Components/LoadingAnimation";
 
 function SignOutView({navigation, route}) {
 

@@ -1,18 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Highscores from "../Views/Highscores";
-import {editUser, getUsers} from "../Redux/redusers/user";
-import {getCollection} from "../Redux/redusers/collection";
+import HighscoreView from "../Views/HighscoreView";
+import {editUser, getUsers} from "../Redux/Redusers/user";
+import {getCollection} from "../Redux/Redusers/collection";
 
 export function HighScorePresenter(props) {
     return (
-        <Highscores styles={props.styles}
-                    theme={props.theme}
-                    user={props.user}
-                    collection={props.collection}
-                    getUsers={props.getUsers}
-                    getCollection={props.getCollection}
-                    editUser={props.editUser}
+        <HighscoreView styles={props.styles}
+                       theme={props.theme}
+                       user={props.user}
+                       collection={props.collection}
+                       getUsers={props.getUsers}
+                       getCollection={props.getCollection}
+                       editUser={props.editUser}
         />
     );
 }

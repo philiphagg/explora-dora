@@ -56,7 +56,7 @@ function styles(theme) {
         },
         /* The Styles Above Are Standardized for both dark and light mode*/
 
-        /*Collection Styling*/
+        /*CollectionView Styling*/
         item: {
             backgroundColor: theme.colors.backgroundColor,
             justifyContent: 'center',

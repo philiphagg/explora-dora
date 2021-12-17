@@ -3,10 +3,10 @@ import {KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View}
 import {auth} from '../Firebase/firebaseconfig';
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 import {useDispatch, useSelector} from "react-redux";
-import {login} from "../Redux/redusers/user";
+import {login} from "../Redux/Redusers/user";
 
 
-function Login() {
+function LoginView() {
     //const user = useSelector((state) => state.user.value);
     const styles = useSelector((state) => state.theme.value.style);
     const dispatch = useDispatch();
@@ -78,6 +78,6 @@ function Login() {
 }
 
 
-export default Login;
+export default LoginView;
 
 

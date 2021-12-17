@@ -4,12 +4,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {useSelector} from "react-redux";
 
-import MapViewNavigator from "./Navigators/MapViewNavigator";
-import CollectionViewNavigator from "./Navigators/CollectiablesViewNavigator";
-import ProgressViewNavigator from "./Navigators/ProgressViewNavigation";
-import FeedViewNavigator from "./Navigators/FeedViewNavigator";
-import HighscoresViewNavigator from "./Navigators/HighscoresViewNavigator";
-import ProfileViewNavigator from "./Navigators/ProfileViewNavigator";
+import MapViewNavigator from "./MapViewNavigator";
+import CollectionViewNavigator from "./CollectiablesViewNavigator";
+import ProgressViewNavigator from "./ProgressViewNavigation";
+import FeedViewNavigator from "./FeedViewNavigator";
+import HighscoresViewNavigator from "./HighscoresViewNavigator";
+import ProfileViewNavigator from "./ProfileViewNavigator";
 
 
 const Tab = createBottomTabNavigator();
@@ -44,9 +44,9 @@ function Navigationbar() {
                 headerShown: false,
             })}
         >
-            <Tab.Screen name="MapView" component={MapViewNavigator} options={{tabBarBadge: 3}}/>
+            <Tab.Screen name="MapView" component={MapViewNavigator} />
             <Tab.Screen name="ProgressView" component={ProgressViewNavigator}/>
-            <Tab.Screen name="FeedView" component={FeedViewNavigator} options={{tabBarBadge: 5}}/>
+            <Tab.Screen name="FeedView" component={FeedViewNavigator} />
             <Tab.Screen name="HighScoreView" component={HighscoresViewNavigator}/>
             <Tab.Screen name="CollectiblesView" component={CollectionViewNavigator}/>
             <Tab.Screen name="ProfileView" component={ProfileViewNavigator}/>

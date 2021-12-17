@@ -1,18 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getMarkers} from "../Redux/redusers/markers";
-import {getCollection, resetCollection} from "../Redux/redusers/collection";
-import {addPost} from "../Redux/redusers/feed";
-import {addNodeToPath, getPaths} from "../Redux/redusers/paths";
-import MapPresenterFile from "../Views/MapPresenterFile";
-import {editUser, getUsers} from "../Redux/redusers/user";
+import {getMarkers} from "../Redux/Redusers/markers";
+import {getCollection, resetCollection} from "../Redux/Redusers/collection";
+import {addPost} from "../Redux/Redusers/feed";
+import {addNodeToPath, getPaths} from "../Redux/Redusers/paths";
+import MapView1 from "../Views/MapView1";
+import {editUser, getUsers} from "../Redux/Redusers/user";
 
 export function MapPresenter(props) {
     console.log("Map presenter",props)
     //{title, lat, lon, styles, user, addPost} Camera
     //navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost,getPaths,paths
     return (
-        <MapPresenterFile
+        <MapView1
             navigation ={props.navigation}
             route ={props.route}
 

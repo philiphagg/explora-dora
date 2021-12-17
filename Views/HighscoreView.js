@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Alert, FlatList, Text, View, TouchableOpacity, RefreshControl} from 'react-native';
-import LoadingSpinner from "./Components/LoadingAnimation";
+import LoadingSpinner from "../Components/LoadingAnimation";
 
 function ordinal_suffix(i) {
     var j = i % 10,
@@ -22,7 +22,7 @@ const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-const Highscores = ({getUsers, styles, theme, user,collection, getCollection, editUser}) => {
+const HighscoreView = ({getUsers, styles, theme, user,collection, getCollection, editUser}) => {
     const highscores = user.users;
 
     useEffect(() => {
@@ -82,4 +82,4 @@ const Highscores = ({getUsers, styles, theme, user,collection, getCollection, ed
     )
 }
 
-export default Highscores;
+export default HighscoreView;

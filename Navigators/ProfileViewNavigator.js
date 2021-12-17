@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import ProfilePresenter from "../../Presenters/ProfilePresenter";
-import SignOutView from "../SignOutView";
+import ProfilePresenter from "../Presenters/ProfilePresenter";
+import SignOutView from "../Views/SignOutView";
 
 const Stack = createStackNavigator();
 

@@ -1,22 +1,22 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import Collection from "../Views/Collection";
-import {editCaption, getCollection, deletePost} from "../Redux/redusers/collection";
-import {editUser, resetUser} from "../Redux/redusers/user";
-import {resetFeed} from "../Redux/redusers/feed";
+import CollectionView from "../Views/CollectionView";
+import {editCaption, getCollection, deletePost} from "../Redux/Redusers/collection";
+import {editUser, resetUser} from "../Redux/Redusers/user";
+import {resetFeed} from "../Redux/Redusers/feed";
 
 export function CollectionPresenter(props) {
     return (
-        <Collection navigation={props.navigation}
-                    collection={props.collection}
-                    styles={props.styles}
-                    user={props.user}
-                    getCollection={props.getCollection}
-                    editCaption={props.editCaption}
-                    deletePost={props.deletePost}
-                    editUser={props.editUser}
-                    resetFeed={props.resetFeed}
-                    resetUser={props.resetUser}
+        <CollectionView navigation={props.navigation}
+                        collection={props.collection}
+                        styles={props.styles}
+                        user={props.user}
+                        getCollection={props.getCollection}
+                        editCaption={props.editCaption}
+                        deletePost={props.deletePost}
+                        editUser={props.editUser}
+                        resetFeed={props.resetFeed}
+                        resetUser={props.resetUser}
 
         />
     );

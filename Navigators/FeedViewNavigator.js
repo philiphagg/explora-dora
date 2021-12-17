@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import FeedPresenter from "../../Presenters/feedPresenter";
-import PostMap from "../PostMap"
+import FeedPresenter from "../Presenters/feedPresenter";
+import PostMapView from "../Views/PostMapView"
 
 const Stack = createStackNavigator();
 
@@ -9,7 +9,7 @@ const FeedViewNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{headerShown: true}}>
             <Stack.Screen name="Feed" component={FeedPresenter}/>
-            <Stack.Screen name="Post on Map" component={PostMap}/>
+            <Stack.Screen name="Post on Map" component={PostMapView}/>
         </Stack.Navigator>
     );
 }

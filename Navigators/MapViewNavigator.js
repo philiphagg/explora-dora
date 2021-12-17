@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import MapPresenter from "../../Presenters/MapPresenter";
-import AddPost from "../AddPost";
-import Camera from "../Components/camera";
+import MapPresenter from "../Presenters/MapPresenter";
+import AddPost from "../Views/AddPost";
+import Camera from "../Views/CameraView";
 
 const Stack = createStackNavigator();
 

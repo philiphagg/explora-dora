@@ -4,9 +4,9 @@ import {Provider, useSelector} from 'react-redux';
 import {Platform, StatusBar} from 'react-native';
 import store from './Redux/Store';
 
-import Navigationbar from "./Views/Navigationbar";
+import Navigationbar from "./Navigators/Navigationbar";
 import {NavigationContainer} from '@react-navigation/native';
-import Login from "./Views/Login";
+import LoginView from "./Views/LoginView";
 import {auth} from "./Firebase/firebaseconfig";
 
 export default function App() {
@@ -39,7 +39,7 @@ function AppWrapper() {
                 user.status === 'loggedIn' || user.status === 'signingOut' || auth.currentUser ?
                     <Navigationbar/>
                     :
-                    <Login/>
+                    <LoginView/>
             }
         </NavigationContainer>
     )

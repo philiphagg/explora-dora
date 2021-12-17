@@ -1,11 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
-import userReducer from "./redusers/user";
-import themeReducer from "./redusers/theme";
-import feedReducer from './redusers/feed';
-import collectionReducer from './redusers/collection';
-import markersReducer from './redusers/markers';
-import cameraReducer from './redusers/camera';
-import pathsReducer from './redusers/paths';
+import userReducer from "./Redusers/user";
+import themeReducer from "./Redusers/theme";
+import feedReducer from './Redusers/feed';
+import collectionReducer from './Redusers/collection';
+import markersReducer from './Redusers/markers';
+import cameraReducer from './Redusers/camera';
+import pathsReducer from './Redusers/paths';
 
 const store = configureStore({
     reducer: {

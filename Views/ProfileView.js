@@ -6,7 +6,7 @@ import React, {useEffect} from "react";
 import {View, Text, Switch, TouchableOpacity, TextInput} from "react-native";
 import {signOuts} from "../Firebase/FirebaseFunctions";
 
-function Profile({navigation, editUser, toggleTheme, getCollection, getUsers, styles, theme, user, collection, logout}) {
+function ProfileView({navigation, editUser, toggleTheme, getCollection, getUsers, styles, theme, user, collection, logout}) {
 
     useEffect(() => {
         if (user.status !== 'success')
@@ -86,4 +86,4 @@ function Profile({navigation, editUser, toggleTheme, getCollection, getUsers, st
     );
 }
 
-export default Profile;
+export default ProfileView;

@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getCollection} from "../Redux/redusers/collection";
-import Progress from "../Views/Progress";
-import {getPaths} from "../Redux/redusers/paths";
+import {getCollection} from "../Redux/Redusers/collection";
+import ProgressView from "../Views/ProgressView";
+import {getPaths} from "../Redux/Redusers/paths";
 
 export function ProgressPresenter(props) {
     return (
-        <Progress
+        <ProgressView
             navigation={props.navigation}
             styles={props.styles}
             theme={props.theme}

@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Text, View, Image} from "react-native";
 import {auth} from "../Firebase/firebaseconfig";
 
-function Post({route}) {
+function PostView({route}) {
     const {likeable,theme, post, styles, likePost, unlikePost, navigation} = route.params;
 
     return (
@@ -30,7 +30,7 @@ function Post({route}) {
                             <Button
                                 title={"Show on Map"}
                                 onPress={() => {
-                                    navigation.navigate("Post on Map", {theme, post});
+                                    navigation.navigate("PostView on Map", {theme, post});
                                 }}
                             />
                         </View>
@@ -46,7 +46,7 @@ function Post({route}) {
     )
 }
 
-export default Post;
+export default PostView;
 
 //Returns string with "time ago" message
 function timeAgo(time) {

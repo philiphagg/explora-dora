@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {SafeAreaView, StyleSheet, Dimensions, } from "react-native";
 import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 
-function PostMap({route}) {
+function PostMapView({route}) {
     const {theme, post} = route.params;
 
     return (
@@ -57,4 +57,4 @@ const mapStyles = StyleSheet.create({
     },
 });
 
-export default PostMap;
+export default PostMapView;

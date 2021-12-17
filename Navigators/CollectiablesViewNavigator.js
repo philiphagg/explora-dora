@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import CollectionPresenter from "../../Presenters/CollectionPresenter";
-import EditPost from "../EditPost";
+import CollectionPresenter from "../Presenters/CollectionPresenter";
+import EditPost from "../Views/EditPost";
 
 const Stack = createStackNavigator();
 

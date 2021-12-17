@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import {getFeed, likePost, unlikePost} from "../Redux/redusers/feed";
-import Feed from "../Views/Feed";
+import {getFeed, likePost, unlikePost} from "../Redux/Redusers/feed";
+import FeedView from "../Views/FeedView";
 
 export function FeedPresenter(props) {
     return (
-        <Feed
+        <FeedView
             navigation={props.navigation}
             theme={props.theme}
             posts={props.posts}

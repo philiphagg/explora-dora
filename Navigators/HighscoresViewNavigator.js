@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import HighScorePresenter from "../../Presenters/HighScorePresenter";
+import HighScorePresenter from "../Presenters/HighScorePresenter";
 
 const Stack = createStackNavigator();
 

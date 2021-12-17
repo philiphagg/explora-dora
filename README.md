@@ -15,7 +15,7 @@ There is collectibles inside KTH Kista and at KTH campus for debugging purposes
 Firstly we created a small UML architecture for the app.
 We understood that by creating and deciding what views we needed was a good entry point to see how the actual app would
 look like. We started off with the main one that were the "Navigationbar" that would show the menu containing
-"Map, Progress, Feed, High score, Collectibles, Profile".
+"Map, ProgressView, FeedView, High score, Collectibles, ProfileView".
 After that we divided the work in the group to make the work as efficient as possible.
 After that we implemented redux, firebase auth, map and pages.
 
@@ -95,7 +95,7 @@ Views
       firebaseConfig - containing the api-keys etc
       FirebaseFunctions - helper functions to communicate with firebase
 ### Presenters
-      Collection - View the collection of the signed in user
+      CollectionView - View the collection of the signed in user
       feed - shows the feed of all users collected items 
       high score - shows a high score list of all the users
       map - handles the api calls and presenting the map to the users
@@ -118,15 +118,15 @@ All below files updates states for the model layer.
 
 ### Views
       Addpost - a view where u can add a post
-      Collection - a view of each users private collectibles
-      Feed - shows the feed of all the users latest posts
-      Highscores - A high score list of all the users based on users collectibles 
-      Login - A view over the login screen
-      MapPresenterFile - File should be renamed, but is the map view
+      CollectionView - a view of each users private collectibles
+      FeedView - shows the feed of all the users latest posts
+      HighscoreView - A high score list of all the users based on users collectibles 
+      LoginView - A view over the login screen
+      MapView1 - File should be renamed, but is the map view
       MapViewNavigator - experimental file
       Navigationbar - responsible for navigating the user and routing
-      Profile - Show the profile to the user
-      Progress - shows the progress to the user
+      ProfileView - Show the profile to the user
+      ProgressView - shows the progress to the user
 
 ### Component
       Button - containing the button function
