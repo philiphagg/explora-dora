@@ -9,6 +9,19 @@ import MaskedView from "@react-native-masked-view/masked-view";
 
 const disablePathFetching = false; /* Disables the uploading of coordinates to firebase while developing */
 
+/**
+ * A view of the exploration map with available markers to claim and of the user's claimed landmarks
+ * @param navigation stack view for changing internal views
+ * @param markers Array of all existing markers
+ * @param theme dark/light mode
+ * @param addPathNode Adds walked coordinate to array of paths walked by user
+ * @param styles css styling
+ * @param user user data
+ * @param addPost Adds a post containing claimed marker coordinates, image data etc.
+ * @param paths An array containing coordinates of the user's walked path
+ * @param collection an array of claimed landmarks with coords etc.
+
+ */
 function MapView1(
     {
         navigation,
@@ -28,6 +41,7 @@ function MapView1(
         resetCollection
     }) {
 
+    //offset for heatmap grid rendered around user
     const length = 0.0008;
     React.useEffect(() => {
         if (markers.status !== 'success')
