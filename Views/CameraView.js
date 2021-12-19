@@ -17,6 +17,7 @@ export default function CameraView({navigation, route}) {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
 
+    //Get camera permission.
     useEffect(() => {
         (async () => {
             const {status} = await Camera.requestCameraPermissionsAsync();
@@ -24,6 +25,7 @@ export default function CameraView({navigation, route}) {
         })();
     }, []);
 
+    //Take picture and go to Claim landmark view
     const takePicture = async () => {
         if (camera) {
             const data = await camera.takePictureAsync(null)

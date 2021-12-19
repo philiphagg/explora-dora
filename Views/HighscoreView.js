@@ -47,6 +47,7 @@ const wait = (timeout) => {
 const HighscoreView = ({getUsers, styles, theme, user,collection, getCollection, editUser}) => {
     const highscores = user.users;
 
+    //Load user and collection data if it is not already loaded successfully
     useEffect(() => {
         if(highscores.status !== "success" )
             getUsers()
@@ -54,6 +55,7 @@ const HighscoreView = ({getUsers, styles, theme, user,collection, getCollection,
             getCollection()
     }, [user,collection]);
 
+    //Updates the user score and posts count
     useEffect(() => {
         if(user.userData.posts !== collection.list.length)
             editUser({posts: collection.list.length, score: collection.list.length * 10})

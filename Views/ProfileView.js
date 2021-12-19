@@ -20,6 +20,7 @@ import {signOuts} from "../Firebase/FirebaseFunctions";
  */
 function ProfileView({navigation, editUser, toggleTheme, getCollection, getUsers, styles, theme, user, collection, logout,resetUser}) {
 
+    //Load user and collection data if it is not already loaded successfully
     useEffect(() => {
         if (user.users.status !== 'success')
             getUsers()
