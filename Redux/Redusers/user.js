@@ -10,7 +10,6 @@ export const getUsers = createAsyncThunk('users/getUsers', async () => {
                         list.push({id: doc.id, ...doc.data()});
                     }
                 );
-                console.log(list)
                 return list;
             }
         )

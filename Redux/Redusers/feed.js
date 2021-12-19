@@ -48,7 +48,6 @@ export const feedSlice = createSlice({
                 state.list.find(x => x.id === post.id).likes.push(user);
 
                 editPostFirebase(post.id, {likes: likes}).then(r => {
-                    console.log("Like added ---------------------------------", state)
                 })
             }
         },
@@ -60,9 +59,7 @@ export const feedSlice = createSlice({
             if (likes.includes(user)) {
                 likes = likes.filter(x => x !== user);
                 state.list.find(x => x.id === post.id).likes = likes;
-                //console.log("Del  ---------------------------------", likes, user)
                 editPostFirebase(post.id, {likes: likes}).then(r => {
-                    console.log("Like deleted  ---------------------------------", state)
                 })
             }
         },
@@ -72,7 +69,6 @@ export const feedSlice = createSlice({
 
             if(post.user === user){
                 editPostFirebase(post.id, {post}).then(r => {
-                    console.log("Edited post  ---------------------------------", state)
                 })
             }
         },

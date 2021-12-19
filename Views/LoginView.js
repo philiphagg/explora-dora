@@ -17,7 +17,7 @@ function LoginView() {
     useEffect(() => {
         return auth.onAuthStateChanged(user => {
             if (user) {
-                console.log("User saved", user);
+
                 dispatch(login({id: user.uid, email: user.email}));
             }
         })
@@ -26,7 +26,7 @@ function LoginView() {
     const handleSignUp = () => {
         createUserWithEmailAndPassword(auth, email, password).then(userCredentials => {
             const user = userCredentials.user;
-            console.log('Registered with : ', user.email);
+
             dispatch(login({id: user.uid, email: user.email}));
         }).catch(error => alert(error.message))
     }
@@ -34,7 +34,6 @@ function LoginView() {
     const handleLogin = () => {
         signInWithEmailAndPassword(auth, email, password).then(userCredentials => {
             const user = userCredentials.user;
-            console.log('logged in with: ', user.email);
             dispatch(login({id: user.uid, email: user.email}));
         }).catch(error => alert(error.message))
     }
