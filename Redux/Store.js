@@ -4,7 +4,6 @@ import themeReducer from "./Redusers/theme";
 import feedReducer from './Redusers/feed';
 import collectionReducer from './Redusers/collection';
 import markersReducer from './Redusers/markers';
-import cameraReducer from './Redusers/camera';
 import pathsReducer from './Redusers/paths';
 
 const store = configureStore({
@@ -15,10 +14,7 @@ const store = configureStore({
         collection: collectionReducer,
         paths: pathsReducer,
         markers: markersReducer,
-        camera: cameraReducer,
     },
 });
-
-//, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 export default store;

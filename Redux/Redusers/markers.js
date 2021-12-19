@@ -1,8 +1,11 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import 'firebase/database';
-import {collection, getDocs, getFirestore, onSnapshot, query, where, orderBy, addDoc} from "firebase/firestore";
-import {db, auth} from "../../Firebase/firebaseconfig"
+import {collection, getDocs, query} from "firebase/firestore";
+import {db} from "../../Firebase/firebaseconfig"
 
+/**
+ * Fetches markers from firebase collection "markers".
+ */
 export const getMarkers = createAsyncThunk('markers/getMarkers ', async () => {
         return getDocs(query(collection(db, "markers"))).then((res) => {
                 let list = [];
@@ -13,6 +16,10 @@ export const getMarkers = createAsyncThunk('markers/getMarkers ', async () => {
     }
 )
 
+/**
+ * Creates a slice of the store and maps reducers to actions.
+ * @type {Slice<{list: *[], status: null}, {}, string>}
+ */
 export const markersSlice = createSlice({
     name: "markers",
     initialState: {
@@ -20,23 +27,35 @@ export const markersSlice = createSlice({
         status: null,
     },
     reducers: {
-        handleRemoveItem: (state, action) => {
-            state.list = [...state.list].filter(item => item.name !== action.payload.name)
-        },
     },
     extraReducers: {
+        /**
+         * Handles the async operation of getCollection if pending.
+         * @param state to update.
+         * @param action provides the reducer no data.
+         */
         [getMarkers.pending]: (state, action) => {
             state.status = "loading";
         },
+        /**
+         * Handles the async operation of getCollection if fulfilled.
+         * @param state to update.
+         * @param payload provides the reducer data.
+         */
         [getMarkers.fulfilled]: (state, {payload}) => {
             state.list = payload;
             state.status = "success";
         },
+        /**
+         * Handles the async operation of getCollection if rejected.
+         * @param state to update.
+         * @param action provides the reducer no data.
+         */
         [getMarkers.rejected]: (state, action) => {
             state.status = "failed";
         }
     }
 });
 
-export const {handleRemoveItem} = markersSlice.actions;
+export const {} = markersSlice.actions;
 export default markersSlice .reducer;
