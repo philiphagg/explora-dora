@@ -6,10 +6,10 @@ import React, {useEffect} from "react";
 import {View, Text, Switch, TouchableOpacity, TextInput} from "react-native";
 import {signOuts} from "../Firebase/FirebaseFunctions";
 
-function ProfileView({navigation, editUser, toggleTheme, getCollection, getUsers, styles, theme, user, collection, logout}) {
+function ProfileView({navigation, editUser, toggleTheme, getCollection, getUsers, styles, theme, user, collection, logout,resetUser}) {
 
     useEffect(() => {
-        if (user.status !== 'success')
+        if (user.users.status !== 'success')
             getUsers()
         if (collection.status !== 'success')
             getCollection()
@@ -45,6 +45,7 @@ function ProfileView({navigation, editUser, toggleTheme, getCollection, getUsers
                             onPress={e => {
                                 setChangingNick(false);
                                 editUser({name: nick})
+                                resetUser()
                             }}
                             style={[styles.button, styles.buttonOutline]}
                         >
