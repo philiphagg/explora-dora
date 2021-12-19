@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 const CollectionViewNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{headerShown: true}}>
-            <Stack.Screen name="Collectibles" component={CollectionPresenter}/>
+            <Stack.Screen name="My Collection" component={CollectionPresenter}/>
             <Stack.Screen name="Edit Post" component={EditPost}/>
         </Stack.Navigator>
     );

@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 const ProgressViewNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{headerShown: true}}>
-            <Stack.Screen name="Progress" component={ProgressPresenter}/>
+            <Stack.Screen name="My Progress" component={ProgressPresenter}/>
             <Stack.Screen name="Collectible" component={PostView}/>
         </Stack.Navigator>
     );

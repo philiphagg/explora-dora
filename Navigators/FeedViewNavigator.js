@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 const FeedViewNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{headerShown: true}}>
-            <Stack.Screen name="Feed" component={FeedPresenter}/>
+            <Stack.Screen name="Highlights" component={FeedPresenter}/>
             <Stack.Screen name="Post on Map" component={PostMapView}/>
         </Stack.Navigator>
     );

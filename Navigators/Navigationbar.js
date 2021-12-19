@@ -21,19 +21,19 @@ function Navigationbar() {
             screenOptions={({route}) => ({
                 tabBarIcon: ({focused, color, size}) => {
                     let iconName;
-                    if (route.name === 'MapView') {
+                    if (route.name === 'Explore') {
                         iconName = focused
                             ? 'compass'
                             : 'compass-outline';
-                    } else if (route.name === 'ProgressView') {
+                    } else if (route.name === 'Progress') {
                         iconName = focused ? 'earth' : 'earth-outline';
-                    } else if (route.name === 'ProfileView') {
+                    } else if (route.name === 'Profile') {
                         iconName = focused ? 'person' : 'person-outline'
-                    } else if (route.name === 'CollectiblesView') {
+                    } else if (route.name === 'Collection') {
                         iconName = focused ? 'trophy' : 'trophy-outline'
-                    } else if (route.name === 'HighScoreView')
+                    } else if (route.name === 'Highscores')
                         iconName = focused ? 'reader' : 'reader-outline'
-                    else if (route.name === 'FeedView')
+                    else if (route.name === 'Feed')
                         iconName = focused ? 'newspaper' : 'newspaper-outline'
 
                     // You can return any component that you like here!
@@ -44,12 +44,12 @@ function Navigationbar() {
                 headerShown: false,
             })}
         >
-            <Tab.Screen name="MapView" component={MapViewNavigator} />
-            <Tab.Screen name="ProgressView" component={ProgressViewNavigator}/>
-            <Tab.Screen name="FeedView" component={FeedViewNavigator} />
-            <Tab.Screen name="HighScoreView" component={HighscoresViewNavigator}/>
-            <Tab.Screen name="CollectiblesView" component={CollectionViewNavigator}/>
-            <Tab.Screen name="ProfileView" component={ProfileViewNavigator}/>
+            <Tab.Screen name="Explore" component={MapViewNavigator} />
+            <Tab.Screen name="Progress" component={ProgressViewNavigator}/>
+            <Tab.Screen name="Feed" component={FeedViewNavigator} />
+            <Tab.Screen name="Highscores" component={HighscoresViewNavigator}/>
+            <Tab.Screen name="Collection" component={CollectionViewNavigator}/>
+            <Tab.Screen name="Profile" component={ProfileViewNavigator}/>
         </Tab.Navigator>
     );
 }

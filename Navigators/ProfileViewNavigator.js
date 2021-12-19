@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 const ProfileViewNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{headerShown: true}}>
-            <Stack.Screen name="Profile" component={ProfilePresenter}/>
+            <Stack.Screen name="My Profile" component={ProfilePresenter}/>
             <Stack.Screen name="Sign out" component={SignOutView}/>
         </Stack.Navigator>
     );
