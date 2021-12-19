@@ -36,16 +36,6 @@ While using the api for the map, we want to track the users movement. So the out
 ```javascript
 Continuous location: {"speed":-1,"heading":-1,"longitude":17.868970969615283,"accuracy":35,"latitude":59.41208123563255,"altitudeAccuracy":14.094679832458496,"altitude":15.767148971557617,"latitudeDelta":0.01,"longitudeDelta":0.01}
 ```
-
----
-## What should we do next
-+ We need to save the user's path on firebase in order to display them as a heatmap onto the progress screen
-+ image upload is still buggy and needs fixes for IOS.
-+ image uploads should be linked to the post
-+ async animations when user is waiting
-+ heatmap optimisation
-+ add more collectibles
-
 ---
 # How to install and run the app
 Because the app is made for mobile devices, Examinator has confirmed that we don't need to host the app, on Heroku/Firebase
@@ -74,7 +64,7 @@ if it doesn't you can press  ```d``` in the terminal that runs expo. In the brow
 
 ---
 ## Short description of files
-Below image is a mindmap under construction. Was made week one to describe the architecture.
+Below image is a mindmap. Was made week one to describe the architecture.
 
 ![UML](https://github.com/Digitusmedia/explora-dora/blob/main/mindmap.png)
 
@@ -91,19 +81,32 @@ Redux
 
 ![](https://img.icons8.com/material-outlined/24/000000/folder-invoices.png)
 Views
+
+### Project proposal and planning board
+https://rhinestone-asteroid-f6a.notion.site/Project-Proposal-Exploradora-b90c8c4294a44d26aef21888648fdf27
 ### Firebase 
       firebaseConfig - containing the api-keys etc
       FirebaseFunctions - helper functions to communicate with firebase
+
+### Navigators
+      CollectiblesViewNavigator
+      FeedViewNavigator
+      HighscoresViewNavigator
+      MapViewNavigator
+      Navigationbar
+      ProfileViewNavigator
+      ProgressViewNavigation
+
 ### Presenters
-      CollectionView - View the collection of the signed in user
-      feed - shows the feed of all users collected items 
-      high score - shows a high score list of all the users
-      map - handles the api calls and presenting the map to the users
-      profile - user profile, where you can change app theme and nickname and credentials
-      progress - shows in map form all the collected items
+      CollectionPresenter
+      feedPresenter - shows the feed of all users collected items 
+      HighScorePresenter - shows a high score list of all the users
+      MapPresenter - shows the map view to the user
+      ProfilePresenter - shows the profile view to the user
+      ProgressPresenter - shows the progress view to the user
 
 ### Redux
-      Storee - Combining all the reducers
+      Store - Combining all the reducers
 
 ### Reducers
 All below files updates states for the model layer.
@@ -119,14 +122,13 @@ All below files updates states for the model layer.
 ### Views
       Addpost - a view where u can add a post
       CollectionView - a view of each users private collectibles
-      FeedView - shows the feed of all the users latest posts
-      HighscoreView - A high score list of all the users based on users collectibles 
-      LoginView - A view over the login screen
-      MapView1 - File should be renamed, but is the map view
-      MapViewNavigator - experimental file
-      Navigationbar - responsible for navigating the user and routing
-      ProfileView - Show the profile to the user
-      ProgressView - shows the progress to the user
+      CameraView - a view of the camera usage
+      FeedView - a view the feed of all the users latest posts
+      HighscoreView - a view of high score list of all the users based on users collectibles 
+      LoginView - a view over the login screen
+      MapView1 - a view of the exploration map
+      ProfileView - a view showing the user's profile
+      ProgressView - a view of the progress made during exploration.
 
 ### Component
       Button - containing the button function
