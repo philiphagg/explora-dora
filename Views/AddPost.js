@@ -4,7 +4,15 @@ import {auth, db} from "../Firebase/firebaseconfig"
 import 'firebase/database';
 import {addImage} from "../Firebase/FirebaseFunctions";
 
-
+/**
+ * Responsible for the view that uploads pictures. When user collects
+ * landmark they will be prompted with this view.
+ *
+ * @param navigation
+ * @param route
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function AddPost({navigation, route}) {
     const {title, lat, lon, data, styles, user, addPost, resetCollection} = route.params;
     const [caption, onChangeText] = useState("");

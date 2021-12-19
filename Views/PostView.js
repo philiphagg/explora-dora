@@ -1,6 +1,12 @@
 import React from "react";
 import {Button, Text, View, Image} from "react-native";
 
+/**
+ * View that displays information about a users post
+ * @param route
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function PostView({route}) {
     const {likeable,theme, post, user, styles, likePost, unlikePost, navigation} = route.params;
 
@@ -46,7 +52,11 @@ function PostView({route}) {
 
 export default PostView;
 
-//Returns string with "time ago" message
+/**
+ * Returns string with "time ago" message
+ * @param time
+ * @returns {*}
+ */
 function timeAgo(time) {
 
     var templates = {

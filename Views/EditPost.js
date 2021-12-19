@@ -1,6 +1,14 @@
 import React from "react";
 import {Button, Image, ScrollView, Text, TextInput, View} from "react-native";
 
+
+/**
+ * View that handles the edit post screen.
+ * @param navigation
+ * @param route
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function DetailsView({navigation, route}) {
     const {post, styles, editCaption, deletePost, editUser,collection} = route.params;
     const [isChanging, setChangingC] = React.useState(false);

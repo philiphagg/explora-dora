@@ -5,9 +5,15 @@ import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "fireba
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../Redux/Redusers/user";
 
-
+/**
+ * View that displays the login screen for the user and handles
+ * firebase auth
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function LoginView() {
-    //const user = useSelector((state) => state.user.value);
+
     const styles = useSelector((state) => state.theme.value.style);
     const dispatch = useDispatch();
 

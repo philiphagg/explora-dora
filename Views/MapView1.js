@@ -9,6 +9,27 @@ import MaskedView from "@react-native-masked-view/masked-view";
 
 const disablePathFetching = false; /* Disables the uploading of coordinates to firebase while developing */
 
+
+/**
+ * View that displays the map (explore) screen to the user
+ * @param navigation
+ * @param route
+ * @param markers
+ * @param theme
+ * @param getMarkers
+ * @param addPathNode
+ * @param styles
+ * @param user
+ * @param getUser
+ * @param addPost
+ * @param getPaths
+ * @param paths
+ * @param collection
+ * @param getCollection
+ * @param resetCollection
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function MapView1(
     {
         navigation,
@@ -99,7 +120,10 @@ function MapView1(
             });
     }, []);
 
-    //Main exploration map with platform specific map effects
+
+    /**
+     * Main exploration map with platform specific map effects
+     */
     return (Platform.OS === "ios" ? markers.status !== "success" && paths.status !== "success" && collection.status !== "success" && user.status !== 'loggedIn' ?
                 <LoadingSpinner/> :
                 <SafeAreaView style={{alignItems: 'center'}}>
@@ -301,6 +325,10 @@ function MapView1(
         ;
 }
 
+/**
+ * Styling for the map
+ * @type {{container: {backgroundColor: string, alignItems: string, flex: number, justifyContent: string}, button: {padding: number, backgroundColor: string, alignItems: string, flexDirection: string}, circle: {backgroundColor: string, borderColor: string, shadowRadius: number, borderRadius: number, width: number, shadowOpacity: number, shadowColor: string, height: number}, map: {flex: number, width: number, height: number}}}
+ */
 const mapStyles = StyleSheet.create({
     container: {
         flex: 1,

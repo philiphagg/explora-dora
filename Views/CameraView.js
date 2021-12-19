@@ -2,6 +2,14 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 import {Camera} from 'expo-camera';
 
+/**
+ * View for handling the camera that will take the picture
+ * for the landmark collection.
+ * @param navigation
+ * @param route
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function CameraView({navigation, route}) {
     const { title, lat, lon, styles, user, addPost, resetCollection} = route.params;
 
@@ -60,6 +68,10 @@ export default function CameraView({navigation, route}) {
     )
 }
 
+/**
+ * styles for the camera view
+ * @type {{container: {flex: number}, button: {alignSelf: string, alignItems: string, flex: number}, buttonContainer: {backgroundColor: string, margin: number, flex: number, flexDirection: string}, text: {color: string, fontSize: number}, camera: {flex: number}}}
+ */
 const cameraStyles = StyleSheet.create({
     container: {
         flex: 1,

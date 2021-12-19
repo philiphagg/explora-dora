@@ -3,12 +3,29 @@ import {View, Image, TouchableOpacity, FlatList, ScrollView, RefreshControl, Tex
 import LoadingSpinner from "../Components/LoadingAnimation";
 import trophyImage from "../assets/trophypic.png"
 
-//Delay function for pull to reload wait time
+/**
+ * Delay function for pull to reload wait time
+ * @param timeout
+ * @returns {Promise<unknown> | Promise.Promise}
+ */
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-
+/**
+ * view that handles the collection screen
+ * @param navigation
+ * @param collection
+ * @param styles
+ * @param getCollection
+ * @param editCaption
+ * @param deletePost
+ * @param editUser
+ * @param resetFeed
+ * @param resetUser
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function CollectionView({
                             navigation,
                             collection,
