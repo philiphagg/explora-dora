@@ -9,6 +9,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import LoginView from "./Views/LoginView";
 import {auth} from "./Firebase/firebaseconfig";
 
+
+/**
+ * function responsible to launch and run the application.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function App() {
 
     return (
@@ -19,10 +26,17 @@ export default function App() {
 }
 
 //Needed to have theme saved with use selector
+/**
+ * Launches the app through a Navigator container and changes the
+ * color of the system icons (wifi, battery etc)
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function AppWrapper() {
     const theme = useSelector((state) => state.theme.value.theme);
     const user = useSelector((state) => state.user);
-//statusbar
+
     return (
         <NavigationContainer theme={theme}>
             <StatusBar

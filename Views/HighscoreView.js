@@ -2,6 +2,11 @@ import React, {useEffect} from 'react';
 import {Alert, FlatList, Text, View, TouchableOpacity, RefreshControl} from 'react-native';
 import LoadingSpinner from "../Components/LoadingAnimation";
 
+/**
+ * Function that styles the rows of table in different colors
+ * @param i
+ * @returns {string}
+ */
 function ordinal_suffix(i) {
     var j = i % 10,
         k = i % 100;
@@ -17,11 +22,28 @@ function ordinal_suffix(i) {
     return i + "th";
 }
 
-//Delay function for pull to reload wait time
+
+/**
+ * Delay function for pull to reload wait time
+ * @param timeout
+ * @returns {Promise<unknown> | Promise.Promise}
+ */
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
+/**
+ * The view that displays high score to the user
+ * @param getUsers
+ * @param styles
+ * @param theme
+ * @param user
+ * @param collection
+ * @param getCollection
+ * @param editUser
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const HighscoreView = ({getUsers, styles, theme, user,collection, getCollection, editUser}) => {
     const highscores = user.users;
 

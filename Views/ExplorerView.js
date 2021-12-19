@@ -22,7 +22,7 @@ const disablePathFetching = false; /* Disables the uploading of coordinates to f
  * @param collection an array of claimed landmarks with coords etc.
 
  */
-function MapView1(
+function ExplorerView(
     {
         navigation,
         route,
@@ -345,4 +345,4 @@ const mapStyles = StyleSheet.create({
     }
 });
 
-export default MapView1;
+export default ExplorerView;

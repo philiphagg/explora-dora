@@ -2,6 +2,13 @@ import React, {useEffect} from "react";
 import {SafeAreaView, StyleSheet, Dimensions, } from "react-native";
 import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 
+/**
+ * Displays the map when user wants to see location of a specific post
+ * in the feed
+ * @param route
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function PostMapView({route}) {
     const {theme, post} = route.params;
 
@@ -32,6 +39,10 @@ function PostMapView({route}) {
 
 }
 
+/**
+ * Styling for this view
+ * @type {{container: {backgroundColor: string, alignItems: string, flex: number, justifyContent: string}, profileImgContainer: {borderRadius: number, width: number, height: number}, profileImg: {borderRadius: number, width: number, height: number}, map: {flex: number, width: number, height: number}}}
+ */
 const mapStyles = StyleSheet.create({
     profileImgContainer: {
         // marginLeft: 1,

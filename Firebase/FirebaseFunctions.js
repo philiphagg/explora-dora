@@ -3,7 +3,11 @@ import {Alert, NativeModules} from "react-native";
 import {doc, collection, getDocs, query, where, addDoc} from "firebase/firestore";
 import {getDownloadURL} from "firebase/storage";
 
-
+/**
+ * Function that handles signingout via firebase
+ *
+ * @param logout
+ */
 export function signOuts(logout){
     signOut(auth).then(() => {
         logout();
@@ -14,6 +18,20 @@ export function signOuts(logout){
     })
 }
 
+/**
+ * Function that handles image upload to  firebase.
+ *
+ * @param addPost
+ * @param data
+ * @param title
+ * @param caption
+ * @param user
+ * @param name
+ * @param lat
+ * @param lon
+ * @param resetCollection
+ * @returns {Promise<void>}
+ */
 export async function addImage(addPost, data, title, caption, user, name, lat, lon, resetCollection) {
 
     const response = await fetch(data.uri);

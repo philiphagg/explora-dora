@@ -2,6 +2,22 @@ import React, {useEffect} from "react";
 import {View, Text, Switch, TouchableOpacity, TextInput} from "react-native";
 import {signOuts} from "../Firebase/FirebaseFunctions";
 
+/**
+ * View that displays the profile to the user
+ * @param navigation
+ * @param editUser
+ * @param toggleTheme
+ * @param getCollection
+ * @param getUsers
+ * @param styles
+ * @param theme
+ * @param user
+ * @param collection
+ * @param logout
+ * @param resetUser
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function ProfileView({navigation, editUser, toggleTheme, getCollection, getUsers, styles, theme, user, collection, logout,resetUser}) {
 
     useEffect(() => {

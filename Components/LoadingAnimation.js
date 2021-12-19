@@ -1,6 +1,13 @@
 import React from 'react';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
+
+/**
+ * Spinner icon that is used to show user when app is loading
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const LoadingSpinner = () => (
     <View style={styles.container}>
         <ActivityIndicator size="large" color="black"/>
