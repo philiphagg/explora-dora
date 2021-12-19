@@ -23,7 +23,6 @@ function LoginView() {
     useEffect(() => {
         return auth.onAuthStateChanged(user => {
             if (user) {
-
                 dispatch(login({id: user.uid, email: user.email}));
             }
         })

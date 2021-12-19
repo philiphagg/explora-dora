@@ -15,6 +15,8 @@ import LoadingSpinner from "../Components/LoadingAnimation";
  */
 function ProgressView({navigation, styles, theme, paths, getPaths, collection, getCollection}) {
     const [errorMsg, setErrorMsg] = useState(null);
+
+    //Load paths and collection data if it is not already loaded successfully
     useEffect(() => {
         if (paths.status !== "success")
             getPaths()
@@ -37,16 +39,18 @@ function ProgressView({navigation, styles, theme, paths, getPaths, collection, g
             <LoadingSpinner/>
             :
             <SafeAreaView style={mapStyles.container}>
-                <MapView region={{
-                    latitude: 59.328962051618056,
-                    longitude: 18.068436284363813,
-                    latitudeDelta: 0.05,
-                    longitudeDelta: 0.05,
-                }} followsUserLocation={true} showsMyLocationButton={true}
-                         showsUserLocation={true}
-                         provider={PROVIDER_GOOGLE} style={mapStyles.map}
-                         customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}
-                         >
+                <MapView
+                    initialRegion={{
+                        latitude: 59.328962051618056,
+                        longitude: 18.068436284363813,
+                        latitudeDelta: 0.1,
+                        longitudeDelta: 0.05,
+                    }}
+                    followsUserLocation={true} showsMyLocationButton={true}
+                    showsUserLocation={true}
+                    provider={PROVIDER_GOOGLE} style={mapStyles.map}
+                    customMapStyle={theme.dark ? theme.darkMap : theme.lightMap}
+                >
                     {
                         paths.list.length === 0 ?
                             null
@@ -96,7 +100,6 @@ function ProgressView({navigation, styles, theme, paths, getPaths, collection, g
 
 const mapStyles = StyleSheet.create({
     profileImgContainer: {
-        // marginLeft: 1,
         height: 36,
         width: 36,
         borderRadius: 18,

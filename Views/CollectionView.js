@@ -41,6 +41,7 @@ function CollectionView({
 
     const numColumns = 3;
 
+    //Load collection data if it is not already loaded successfully
     useEffect(() => {
         if (collection.status !== "success")
             getCollection()
