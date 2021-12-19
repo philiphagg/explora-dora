@@ -9,26 +9,18 @@ import MaskedView from "@react-native-masked-view/masked-view";
 
 const disablePathFetching = false; /* Disables the uploading of coordinates to firebase while developing */
 
-
 /**
- * View that displays the map (explore) screen to the user
- * @param navigation
- * @param route
- * @param markers
- * @param theme
- * @param getMarkers
- * @param addPathNode
- * @param styles
- * @param user
- * @param getUser
- * @param addPost
- * @param getPaths
- * @param paths
- * @param collection
- * @param getCollection
- * @param resetCollection
- * @returns {JSX.Element}
- * @constructor
+ * A view of the exploration map with available markers to claim and of the user's claimed landmarks
+ * @param navigation stack view for changing internal views
+ * @param markers Array of all existing markers
+ * @param theme dark/light mode
+ * @param addPathNode Adds walked coordinate to array of paths walked by user
+ * @param styles css styling
+ * @param user user data
+ * @param addPost Adds a post containing claimed marker coordinates, image data etc.
+ * @param paths An array containing coordinates of the user's walked path
+ * @param collection an array of claimed landmarks with coords etc.
+
  */
 function MapView1(
     {
@@ -49,6 +41,7 @@ function MapView1(
         resetCollection
     }) {
 
+    //offset for heatmap grid rendered around user
     const length = 0.0008;
     React.useEffect(() => {
         if (markers.status !== 'success')
@@ -120,10 +113,7 @@ function MapView1(
             });
     }, []);
 
-
-    /**
-     * Main exploration map with platform specific map effects
-     */
+    //Main exploration map with platform specific map effects
     return (Platform.OS === "ios" ? markers.status !== "success" && paths.status !== "success" && collection.status !== "success" && user.status !== 'loggedIn' ?
                 <LoadingSpinner/> :
                 <SafeAreaView style={{alignItems: 'center'}}>
@@ -325,10 +315,6 @@ function MapView1(
         ;
 }
 
-/**
- * Styling for the map
- * @type {{container: {backgroundColor: string, alignItems: string, flex: number, justifyContent: string}, button: {padding: number, backgroundColor: string, alignItems: string, flexDirection: string}, circle: {backgroundColor: string, borderColor: string, shadowRadius: number, borderRadius: number, width: number, shadowOpacity: number, shadowColor: string, height: number}, map: {flex: number, width: number, height: number}}}
- */
 const mapStyles = StyleSheet.create({
     container: {
         flex: 1,
