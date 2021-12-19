@@ -39,7 +39,6 @@ export const collectionSlice = createSlice({
 
             if (post.user === user) {
                 editPostFirebase(post.id, {...post}).then(r => {
-                    console.log("Edited post  ---------------------------------", state)
                 }).catch()
                 state.list.find(x => x.id === post.id).caption = action.payload.caption;
             }

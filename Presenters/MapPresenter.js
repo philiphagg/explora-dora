@@ -8,7 +8,6 @@ import MapView1 from "../Views/MapView1";
 import {editUser, getUsers} from "../Redux/Redusers/user";
 
 export function MapPresenter(props) {
-    console.log("Map presenter",props)
     //{title, lat, lon, styles, user, addPost} Camera
     //navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost,getPaths,paths
     return (

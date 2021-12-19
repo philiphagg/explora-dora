@@ -6,7 +6,6 @@ import {getDownloadURL} from "firebase/storage";
 
 export function signOuts(logout){
     signOut(auth).then(() => {
-        //navigate to signin screen
         logout();
         NativeModules.DevSettings.reload();
     }).catch((error) => {
@@ -25,7 +24,6 @@ export async function addImage(addPost, data, title, caption, user, name, lat, l
     const storageRef = ref(storage, Path);
 
     uploadBytes(storageRef, blob).then(async (snapshot) => {
-        console.log('Image Uploaded Successfully ---------------------------');
         const url = getDownloadURL(storageRef)
         Alert.alert(
             "Image Uploaded Successfully",
@@ -39,7 +37,7 @@ export async function addImage(addPost, data, title, caption, user, name, lat, l
                 },
                 {
                     text: "Post", onPress: async () => {
-                        console.log("OK Pressed")
+
                         addPost({
                             image: await url,
                             title: title,
@@ -57,8 +55,7 @@ export async function addImage(addPost, data, title, caption, user, name, lat, l
 
 
     }).catch(err => {
-            console.log('Image Upload Failed ---------------------------', err);
-            Alert.alert("Image Failed To upload, check with the noobs if they can fix it");
+            Alert.alert("Image Failed To upload");
         }
     )
 }

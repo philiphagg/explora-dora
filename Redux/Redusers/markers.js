@@ -7,7 +7,6 @@ export const getMarkers = createAsyncThunk('markers/getMarkers ', async () => {
         return getDocs(query(collection(db, "markers"))).then((res) => {
                 let list = [];
                 res.forEach((doc) => list.push(doc.data()));
-                console.log("Markers adddd ---------------------------------------------------")
                 return list;
             }
         )

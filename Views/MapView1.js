@@ -156,7 +156,6 @@ function MapView1(
                                                 },
                                                 {
                                                     text: "Cancel",
-                                                    onPress: () => console.log("Cancel Pressed"),
                                                     style: "cancel"
                                                 },
                                             ]
@@ -281,7 +280,6 @@ function MapView1(
                                             },
                                             {
                                                 text: "Cancel",
-                                                onPress: () => console.log("Cancel Pressed"),
                                                 style: "cancel"
                                             },
                                         ]
