@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {editUser, getUsers, logout} from "../Redux/Redusers/user";
+import {editUser, getUsers, logout, resetUser} from "../Redux/Redusers/user";
 import ProfileView from "../Views/ProfileView";
 import {toggleTheme} from "../Redux/Redusers/theme";
 import {getCollection} from "../Redux/Redusers/collection";
@@ -19,6 +19,7 @@ export function ProfilePresenter(props) {
             getCollection={props.getCollection}
             getUsers={props.getUsers}
             logout={props.logout}
+            resetUser={props.resetUser}
         />
     );
 }
@@ -39,6 +40,7 @@ const mapDispatchToProps = dispatch => {
         getCollection: () => dispatch(getCollection()),
         getUsers: () => dispatch(getUsers()),
         logout: () => dispatch(logout()),
+        resetUser: () => dispatch(resetUser()),
     }
 }
 

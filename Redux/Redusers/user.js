@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {addDoc, collection, doc, getDocs, orderBy, query, updateDoc} from "firebase/firestore";
-import {auth, db} from "../../Firebase/firebaseconfig";
+import {db} from "../../Firebase/firebaseconfig";
 
 
 export const getUsers = createAsyncThunk('users/getUsers', async () => {
@@ -58,14 +58,14 @@ export const userSlice = createSlice({
                     status: "updated",
                     uid: state.user.id,
                     email: state.user.email,
-                    name: action.payload.name,
+                    name: "Enter Username",
                     darkTheme: false,
                     score: 0,
                     posts: 0,
-                    distance: 0,
+                    distance: 0, ...action.payload
                 }).then().catch()
             } else {
-                if (state.users) {
+                if (state.users.status === "success") {
                     const dbUserId = state.users.list.find(user => user.uid === state.user.id).id;
                     updateUserFirebase(dbUserId, {...action.payload}).then().catch()
                 }
