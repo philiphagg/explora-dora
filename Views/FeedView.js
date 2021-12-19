@@ -1,6 +1,4 @@
-/*
-    Main Contributor Thor
-*/
+
 import React, {useEffect} from "react";
 import {View, ScrollView, RefreshControl} from "react-native";
 import LoadingSpinner from "../Components/LoadingAnimation";

@@ -10,7 +10,7 @@ import LoginView from "./Views/LoginView";
 import {auth} from "./Firebase/firebaseconfig";
 
 export default function App() {
-    //console.log(store.getState())
+
     return (
         <Provider store={store}>
             <AppWrapper/>

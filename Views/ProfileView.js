@@ -1,7 +1,3 @@
-/*
-    Main Contributor Fredrik
-*/
-
 import React, {useEffect} from "react";
 import {View, Text, Switch, TouchableOpacity, TextInput} from "react-native";
 import {signOuts} from "../Firebase/FirebaseFunctions";

@@ -5,8 +5,6 @@ import {Camera} from 'expo-camera';
 export default function CameraView({navigation, route}) {
     const { title, lat, lon, styles, user, addPost, resetCollection} = route.params;
 
-    //console.log("2. Camera props---------------------------------",route)
-
     const [camera, setCamera] = useState(null);
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
@@ -21,7 +19,6 @@ export default function CameraView({navigation, route}) {
     const takePicture = async () => {
         if (camera) {
             const data = await camera.takePictureAsync(null)
-            console.log("Image -------------------------------", data.uri);
             navigation.navigate("Claim Landmark", {title, lat, lon, data,styles, user,addPost, resetCollection})
         }
     }

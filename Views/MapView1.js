@@ -89,13 +89,12 @@ function MapView1(
                 setLocation(pos.coords);
                 if (!disablePathFetching)
                     addPathNode(pos.coords);
-                console.log("Continuous location: " + JSON.stringify(pos.coords))
+
             }
         )
             .then(() => {
             })
             .catch((err) => {
-                console.log("position error: ", err.message);
                 setErrorMsg(err.message);
             });
     }, []);
@@ -136,7 +135,6 @@ function MapView1(
                                 }} onPress={() => {
                                     if (getDistance(marker, location) > 15) {
                                         Alert.alert("Marker is too far away!", "go closer to be able to claim it!")
-                                        console.log("Marker is too far away")
                                     } else {
                                         Alert.alert(
                                             "Do you want to claim this landmark?",
@@ -160,7 +158,7 @@ function MapView1(
                                                 },
                                             ]
                                         )
-                                        console.log("Marker near you clicked")
+
                                     }
                                 }
                                 }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
@@ -171,7 +169,7 @@ function MapView1(
                                     longitude: parseFloat(marker.lon)
                                 }} onPress={() => {
                                     Alert.alert("You've already claimed this landmark!", "Go find another one!")
-                                    console.log("This is a claimed landmark!")
+
                                 }
                                 }><Ionicons name="star" size={40} color={'orange'}/></Marker>)
                             })}
@@ -260,7 +258,7 @@ function MapView1(
                             }} onPress={() => {
                                 if (getDistance(marker, location) > 15) {
                                     Alert.alert("Marker is too far away!", "go closer to be able to claim it!")
-                                    console.log("Marker is too far away")
+
                                 } else {
                                     Alert.alert(
                                         "Do you want to claim this landmark?",
@@ -284,7 +282,6 @@ function MapView1(
                                             },
                                         ]
                                     )
-                                    console.log("Marker near you clicked")
                                 }
                             }
                             }><Ionicons name="trophy" size={40} color={'green'}/></Marker>)
@@ -295,7 +292,6 @@ function MapView1(
                                 longitude: parseFloat(marker.lon)
                             }} onPress={() => {
                                 Alert.alert("You've already claimed this landmark!", "Go find another one!")
-                                console.log("This is a claimed landmark!")
                             }
                             }><Ionicons name="star" size={40} color={'orange'}/></Marker>)
                         })}
