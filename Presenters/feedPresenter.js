@@ -4,6 +4,14 @@ import {getFeed, likePost, unlikePost} from "../Redux/Redusers/feed";
 import FeedView from "../Views/FeedView";
 import {getUsers} from "../Redux/Redusers/user";
 
+
+/**
+ * responsible to handle feed presenters and it's props
+ *
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function FeedPresenter(props) {
     return (
         <FeedView
@@ -21,6 +29,13 @@ export function FeedPresenter(props) {
     );
 }
 
+/**
+ * collects dispatch to props
+ *
+ * @param state
+ * @returns {{theme, styles, posts: Reducer<{list: *[], status: null}>, user}}
+ */
+
 const mapStateToProps = state => {
     return {
         theme: state.theme.value.theme,
@@ -30,6 +45,12 @@ const mapStateToProps = state => {
     }
 }
 
+/**
+ * collects dispatch to props
+ *
+ * @param dispatch
+ * @returns {{unlikePost: (function(*=): *), getUser: (function(): *), getFeed: (function(): *), likePost: (function(*=): *)}}
+ */
 const mapDispatchToProps = dispatch => {
     return {
         getFeed: () => dispatch(getFeed()),
