@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {addDoc, collection, doc, getDocs, orderBy, query, updateDoc} from "firebase/firestore";
-import {auth, db} from "../../Firebase/firebaseconfig";
+import {db} from "../../Firebase/firebaseconfig";
 
 
 export const getUsers = createAsyncThunk('users/getUsers', async () => {
@@ -53,7 +53,6 @@ export const userSlice = createSlice({
             state.status = 'loggedIn';
         },
         editUser: (state, action) => {
-            console.log("Edit User state :::........................" , state)
             if (state.userData.status !== "updated") {
                 addUserToFirebase({
                     status: "updated",
