@@ -4,6 +4,15 @@ import {StyleSheet, Text, SafeAreaView, Dimensions, Image, TouchableHighlight} f
 import * as Location from 'expo-location';
 import LoadingSpinner from "../Components/LoadingAnimation";
 
+/**
+ * A view of the progress made during exploration. Shows a map with markers of the user's claimed landmarks
+ * and a heatmap of the paths walked
+ * @param navigation stack view for changing internal views
+ * @param styles css styling
+ * @param theme dark/light mode
+ * @param paths An array containing coordinates of the user's walked path
+ * @param collection an array of claimed landmarks with coords etc.
+ */
 function ProgressView({navigation, styles, theme, paths, getPaths, collection, getCollection}) {
     const [errorMsg, setErrorMsg] = useState(null);
     useEffect(() => {
@@ -13,6 +22,7 @@ function ProgressView({navigation, styles, theme, paths, getPaths, collection, g
             getCollection()
     }, []);
 
+    //initial request for location tracking. Only happens once.
     useEffect(() => {
         (async () => {
             let {status} = await Location.requestForegroundPermissionsAsync();
