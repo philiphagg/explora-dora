@@ -5,6 +5,13 @@ import {editCaption, getCollection, deletePost} from "../Redux/Redusers/collecti
 import {editUser, resetUser} from "../Redux/Redusers/user";
 import {resetFeed} from "../Redux/Redusers/feed";
 
+/**
+ *  presenter for the collection view
+ *
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function CollectionPresenter(props) {
     return (
         <CollectionView navigation={props.navigation}
@@ -22,6 +29,12 @@ export function CollectionPresenter(props) {
     );
 }
 
+/**
+ * collects dispatch to props
+ *
+ * @param state
+ * @returns {{styles, collection, user}}
+ */
 const mapStateToProps = state => {
     return {
         collection: state.collection,
@@ -30,6 +43,12 @@ const mapStateToProps = state => {
     }
 }
 
+/**
+ * collects dispatch to props
+ *
+ * @param dispatch
+ * @returns {{editCaption: (function(*=): *), deletePost: (function(*=): *), getCollection: (function(): *), resetFeed: (function(): *), editUser: (function(*=): *), resetUser: (function(): *)}}
+ */
 const mapDispatchToProps = dispatch => {
     return {
         getCollection: () => dispatch(getCollection()),

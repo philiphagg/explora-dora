@@ -7,6 +7,13 @@ import {addNodeToPath, getPaths} from "../Redux/Redusers/paths";
 import MapView1 from "../Views/MapView1";
 import {editUser, getUsers} from "../Redux/Redusers/user";
 
+
+/**
+ * responsible for handling the map and comunication with redux state
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function MapPresenter(props) {
     //{title, lat, lon, styles, user, addPost} Camera
     //navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost,getPaths,paths
@@ -39,6 +46,11 @@ export function MapPresenter(props) {
     );
 }
 
+/**
+ * collects dispatch to props
+ * @param state
+ * @returns {{paths: *, styles, theme, collection, markers: *, user}}
+ */
 const mapStateToProps = state => {
     return {
         styles: state.theme.value.style,
@@ -49,7 +61,11 @@ const mapStateToProps = state => {
         paths: state.paths,
     }
 }
-
+/**
+ * collects dispatch to props
+ * @param dispatch
+ * @returns {{getMarkers: (function(): *), getCollection: (function(): *), addPathNode: (function(*=): *), getUser: (function(): *), editUser: (function(*=): *), addPost: (function(*=): *), getPaths: (function(): *), resetCollection: (function(): *)}}
+ */
 const mapDispatchToProps = dispatch => {
     return {
         getMarkers: () => dispatch(getMarkers()),
