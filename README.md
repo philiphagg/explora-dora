@@ -122,7 +122,7 @@ All below files updates states for the model layer.
       FeedView - shows the feed of all the users latest posts
       HighscoreView - A high score list of all the users based on users collectibles 
       LoginView - A view over the login screen
-      MapView1 - File should be renamed, but is the map view
+      ExplorerView - File should be renamed, but is the map view
       MapViewNavigator - experimental file
       Navigationbar - responsible for navigating the user and routing
       ProfileView - Show the profile to the user

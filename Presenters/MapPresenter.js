@@ -4,7 +4,7 @@ import {getMarkers} from "../Redux/Redusers/markers";
 import {getCollection, resetCollection} from "../Redux/Redusers/collection";
 import {addPost} from "../Redux/Redusers/feed";
 import {addNodeToPath, getPaths} from "../Redux/Redusers/paths";
-import MapView1 from "../Views/MapView1";
+import ExplorerView from "../Views/ExplorerView";
 import {editUser, getUsers} from "../Redux/Redusers/user";
 
 
@@ -18,7 +18,7 @@ export function MapPresenter(props) {
     //{title, lat, lon, styles, user, addPost} Camera
     //navigation, route, markers, theme, getMarkers, addPathNode, styles, user, addPost,getPaths,paths
     return (
-        <MapView1
+        <ExplorerView
             navigation ={props.navigation}
             route ={props.route}
 
