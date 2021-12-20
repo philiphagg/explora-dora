@@ -37,7 +37,19 @@ While using the api for the map, we want to track the users movement. So the out
 Continuous location: {"speed":-1,"heading":-1,"longitude":17.868970969615283,"accuracy":35,"latitude":59.41208123563255,"altitudeAccuracy":14.094679832458496,"altitude":15.767148971557617,"latitudeDelta":0.01,"longitudeDelta":0.01}
 ```
 ---
-# How to install and run the app
+# How run the app without downloading repo(Android only)
+The hosted version of our app on Expo does not have full functionality but represents
+the finalized version of the UX design and exploration features. You can find it here:
+https://expo.dev/@thor555nilsson/ExploraDora
+
+Instructions:
+
+1. Download Expo Go from Google Play Store
+2. Run the app, scan the QR-code in the link above
+3. ???
+4. Have fun
+___
+# How to install and run the app locally
 Because the app is made for mobile devices, Examinator has confirmed that we don't need to host the app, on Heroku/Firebase
 <br><br>
 Make sure you have npm installed on your computer [download npm here](https://nodejs.org/en/download/)
@@ -111,7 +123,6 @@ https://rhinestone-asteroid-f6a.notion.site/Project-Proposal-Exploradora-b90c8c4
 ### Reducers
 All below files updates states for the model layer.
 
-      Camera
       collection
       feed
       markers
