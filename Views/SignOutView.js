@@ -14,8 +14,6 @@ function SignOutView({navigation, route}) {
 
     const {styles} = route.params;
 
-
-
     return (
         <View style={styles.view}>
             <View style={[styles.col, styles.divider]}>
