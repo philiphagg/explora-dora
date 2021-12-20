@@ -37,7 +37,7 @@ While using the api for the map, we want to track the users movement. So the out
 Continuous location: {"speed":-1,"heading":-1,"longitude":17.868970969615283,"accuracy":35,"latitude":59.41208123563255,"altitudeAccuracy":14.094679832458496,"altitude":15.767148971557617,"latitudeDelta":0.01,"longitudeDelta":0.01}
 ```
 ---
-# How run the app without downloading repo(Android only)
+# How to run the app without downloading repo(Android only)
 The hosted version of our app on Expo does not have full functionality but represents
 the finalized version of the UX design and exploration features. You can find it here:
 https://expo.dev/@thor555nilsson/ExploraDora
